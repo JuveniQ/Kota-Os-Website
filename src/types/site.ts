@@ -31,7 +31,8 @@ export type ScreenshotSlide = {
   headline: string;
   cta?: string;
   points: string[];
-  visualKpis: { label: string; value: string }[];
+  imageSrc: string;
+  imageAlt: string;
 };
 
 export type BenefitItem = {
@@ -112,3 +113,4 @@ export type SeoConfig = {
   noindex?: boolean;
   keywords?: string[];
 };
+

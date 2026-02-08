@@ -107,7 +107,7 @@ export const FOOTER_LINKS = {
     { label: "Features", href: "/features" },
     { label: "Screenshots", href: "/#screenshots" },
     { label: "Pricing", href: "/pricing" },
-    { label: "Changelog", href: "/updates" }
+    { label: "Updates", href: "/updates" }
   ],
   company: [
     { label: "About", href: "/contact" },
