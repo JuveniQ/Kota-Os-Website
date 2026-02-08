@@ -1,79 +1,121 @@
-import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState, type FocusEvent } from "react";
 import type { ScreenshotSlide } from "@/types/site";
 
 type ScreenshotsCarouselProps = {
   slides: ScreenshotSlide[];
 };
 
+const AUTOPLAY_DELAY_MS = 5000;
+
 export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps) {
   const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
+  const slideCount = slides.length;
   const current = slides[index];
 
   function next() {
-    setIndex((prev) => (prev + 1) % slides.length);
+    setIndex((prev) => (prev + 1) % slideCount);
   }
 
   function prev() {
-    setIndex((prev) => (prev - 1 + slides.length) % slides.length);
+    setIndex((prev) => (prev - 1 + slideCount) % slideCount);
   }
+
+  function handleBlurCapture(event: FocusEvent<HTMLDivElement>) {
+    const nextTarget = event.relatedTarget;
+    if (nextTarget instanceof Node && event.currentTarget.contains(nextTarget)) {
+      return;
+    }
+    setIsPaused(false);
+  }
+
+  useEffect(() => {
+    if (index > slideCount - 1) {
+      setIndex(0);
+    }
+  }, [index, slideCount]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") next();
       if (event.key === "ArrowLeft") prev();
     };
+
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, [slides.length]);
+  }, [slideCount]);
+
+  useEffect(() => {
+    if (slideCount <= 1 || isPaused) return;
+
+    const timer = window.setInterval(() => {
+      setIndex((prev) => (prev + 1) % slideCount);
+    }, AUTOPLAY_DELAY_MS);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused, slideCount]);
+
+  if (!current) return null;
 
   return (
-    <div className="rounded-3xl border border-brand-border bg-brand-card p-5 md:p-8">
-      <div className="grid items-center gap-8 md:grid-cols-2">
+    <div
+      className="rounded-3xl border border-brand-border bg-brand-card p-5 md:p-8"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocusCapture={() => setIsPaused(true)}
+      onBlurCapture={handleBlurCapture}
+    >
+      <div className="grid items-center gap-8 md:grid-cols-[0.9fr,1.1fr]">
         <AnimatePresence mode="wait">
-          <motion.div
+          <motion.figure
             key={current.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="mx-auto w-full max-w-[420px] rounded-2xl border border-brand-border bg-white p-4 shadow-card"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className="mx-auto w-full max-w-[320px] rounded-[28px] border border-brand-border bg-white p-3 shadow-card md:max-w-[360px]"
             aria-live="polite"
           >
-            <div className="mb-4 flex items-center justify-between">
-              <span className="rounded-full bg-brand-primary/20 px-3 py-1 text-xs font-semibold text-brand-foreground">
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <span className="rounded-full bg-brand-primary/15 px-3 py-1 text-xs font-semibold text-brand-foreground">
                 {current.headline}
               </span>
               <span className="text-xs text-brand-muted">Screen {index + 1}/5</span>
             </div>
-            <div className="grid gap-3">
-              {current.visualKpis.map((kpi) => (
-                <div
-                  key={kpi.label}
-                  className="rounded-xl border border-brand-border bg-brand-background p-3"
-                >
-                  <p className="text-xs uppercase tracking-wide text-brand-muted">{kpi.label}</p>
-                  <p className="mt-1 text-xl font-bold text-brand-foreground">{kpi.value}</p>
-                </div>
-              ))}
+
+            <div className="relative overflow-hidden rounded-[24px] border border-brand-border bg-brand-background">
+              <img
+                src={current.imageSrc}
+                alt={current.imageAlt}
+                className="mx-auto h-[520px] w-full object-contain object-top md:h-[640px]"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
-          </motion.div>
+          </motion.figure>
         </AnimatePresence>
 
         <AnimatePresence mode="wait">
           <motion.div
             key={`${current.id}-copy`}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -14 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="max-w-xl"
           >
             <h3 className="text-3xl font-bold text-brand-foreground">{current.headline}</h3>
             <ul className="mt-4 space-y-2 text-base text-brand-muted">
               {current.points.map((point) => (
-                <li key={point}>• {point}</li>
+                <li key={point} className="flex items-start gap-2">
+                  <span aria-hidden="true" className="pt-[1px] text-brand-primary">
+                    -
+                  </span>
+                  <span>{point}</span>
+                </li>
               ))}
             </ul>
             {current.cta ? (
@@ -85,7 +127,7 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
         </AnimatePresence>
       </div>
 
-      <div className="mt-6 flex items-center justify-between gap-4">
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -112,14 +154,18 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
               type="button"
               role="tab"
               aria-selected={index === slideIndex}
-              aria-label={`Go to ${slide.headline}`}
-              className={`focus-ring h-2.5 w-2.5 rounded-full transition ${
-                index === slideIndex ? "bg-brand-primary" : "bg-brand-border"
-              }`}
+              aria-label={"Go to " + slide.headline}
+              className={
+                "focus-ring h-2.5 w-2.5 rounded-full transition " +
+                (index === slideIndex ? "bg-brand-primary" : "bg-brand-border")
+              }
               onClick={() => setIndex(slideIndex)}
             />
           ))}
         </div>
+        <p className="text-xs text-brand-muted">
+          {isPaused ? "Autoplay paused" : "Auto-slide every 5s"}
+        </p>
       </div>
     </div>
   );
