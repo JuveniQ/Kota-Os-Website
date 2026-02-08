@@ -16,25 +16,25 @@ export default {
       },
       colors: {
         brand: {
-          primary: "#D4A574",
-          background: "#F8F6F3",
-          surface: "#E8E4DF",
-          card: "#FEFDFB",
-          foreground: "#1F1814",
-          muted: "#726860",
-          border: "#E0D8D0",
-          success: "#229857",
-          destructive: "#E74C3C",
-          warning: "#FFD966",
-          info: "#5DADE2",
-          accent: "#F59E0B",
+          primary: "hsl(38 92% 50%)",
+          background: "hsl(30 25% 97%)",
+          surface: "hsl(35 30% 92%)",
+          card: "hsl(0 0% 100%)",
+          foreground: "hsl(30 10% 12%)",
+          muted: "hsl(30 10% 45%)",
+          border: "hsl(30 20% 88%)",
+          success: "hsl(145 65% 42%)",
+          destructive: "hsl(0 84% 60%)",
+          warning: "hsl(45 95% 55%)",
+          info: "hsl(210 93% 72%)",
+          accent: "hsl(38 92% 50%)",
           dark: "#1A1A1A"
         }
       },
       boxShadow: {
         card: "0 4px 12px rgba(0, 0, 0, 0.08)",
         cardHover: "0 10px 24px rgba(0, 0, 0, 0.12)",
-        warm: "0 8px 24px rgba(212, 165, 116, 0.15)"
+        warm: "0 8px 24px rgba(245, 158, 11, 0.2)"
       },
       borderRadius: {
         "3xl": "1.75rem"
