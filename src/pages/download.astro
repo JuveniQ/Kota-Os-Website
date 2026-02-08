@@ -1,0 +1,146 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import StatusPill from "@/components/StatusPill";
+import FinalCta from "@/components/FinalCta.astro";
+import { DOWNLOAD_META } from "@/data/site-config";
+import { RELEASE_NOTES } from "@/data/home-content";
+import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const latest = RELEASE_NOTES[0];
+const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
+---
+
+<BaseLayout
+  title="Download Kota-OS APK | Official Installer"
+  description="Download the official Kota-OS Android APK, verify release details, and follow the secure installation guide."
+  path="/download"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Download Kota-OS APK"
+    subtitle="Install the latest official build and start your 14-day trial before activating a professional license."
+    badge="Official Android Download"
+  />
+
+  <section class="section-pad">
+    <div class="container-wide grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
+      <article class="rounded-3xl border border-brand-primary/40 bg-white p-8 shadow-warm">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <h2 class="text-3xl font-extrabold text-brand-foreground">Kota-OS v{DOWNLOAD_META.version}</h2>
+          <StatusPill tone="warning" label="Not verified by Google Play Protect" />
+        </div>
+
+        <dl class="mt-6 grid gap-4 text-sm md:grid-cols-3">
+          <div class="rounded-xl bg-brand-background p-4">
+            <dt class="text-brand-muted">Version</dt>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">{DOWNLOAD_META.version}</dd>
+          </div>
+          <div class="rounded-xl bg-brand-background p-4">
+            <dt class="text-brand-muted">Size</dt>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">{DOWNLOAD_META.size}</dd>
+          </div>
+          <div class="rounded-xl bg-brand-background p-4">
+            <dt class="text-brand-muted">Release Date</dt>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">Jan 18, 2026</dd>
+          </div>
+        </dl>
+
+        <a href={DOWNLOAD_META.apkUrl} class="btn-primary mt-6 w-full text-center">
+          Download APK (Placeholder)
+        </a>
+
+        <div class="mt-4 rounded-xl border border-brand-border bg-brand-card p-4">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">SHA-256 Checksum</p>
+          <p class="mt-1 break-all font-mono text-sm text-brand-foreground">{DOWNLOAD_META.checksumSha256}</p>
+        </div>
+
+        <p class="mt-4 text-sm leading-relaxed text-brand-muted">
+          {DOWNLOAD_META.playProtectNote}
+        </p>
+      </article>
+
+      <aside class="space-y-6">
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">Scan to Download</h3>
+          <p class="mt-2 text-sm text-brand-muted">
+            QR code will be provided with the official public release link.
+          </p>
+          <div class="mt-4 grid h-44 place-items-center rounded-xl border-2 border-dashed border-brand-border bg-brand-background">
+            <p class="text-sm font-semibold text-brand-muted">QR Placeholder</p>
+          </div>
+        </article>
+
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">Trust Signals</h3>
+          <ul class="mt-3 space-y-2 text-sm text-brand-muted">
+            <li>• Safe and secure release workflow</li>
+            <li>• {DOWNLOAD_META.androidCompatibility}</li>
+            <li>• Official support at contact@juveniq.co.za</li>
+            <li>• Not verified by Google Play Protect (current status)</li>
+          </ul>
+        </article>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader title="4-Step Installation Guide" />
+      <ol class="grid gap-4 md:grid-cols-2">
+        <li class="card-base rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 1</p>
+          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Download Official APK</h3>
+          <p class="mt-2 text-brand-muted">Use the official link from this page or support channels.</p>
+        </li>
+        <li class="card-base rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 2</p>
+          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Allow APK Installation</h3>
+          <p class="mt-2 text-brand-muted">
+            Enable installation from trusted sources in Android settings.
+          </p>
+        </li>
+        <li class="card-base rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 3</p>
+          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Complete Setup</h3>
+          <p class="mt-2 text-brand-muted">
+            Configure store details, menu items, pricing, and payment methods.
+          </p>
+        </li>
+        <li class="card-base rounded-2xl p-6">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 4</p>
+          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Activate License</h3>
+          <p class="mt-2 text-brand-muted">
+            Start with your 14-day trial and activate your voucher when ready.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-pad bg-white">
+    <div class="container-wide">
+      <SectionHeader title="Release Highlights" />
+      <article class="card-base rounded-2xl p-8">
+        <h3 class="text-2xl font-bold text-brand-foreground">v{latest.version} - {latest.summary}</h3>
+        <div class="mt-4 grid gap-5 md:grid-cols-2">
+          <div>
+            <h4 class="text-sm font-bold uppercase tracking-wide text-brand-foreground">What is New</h4>
+            <ul class="mt-2 space-y-2 text-sm text-brand-muted">
+              {latest.features.map((feature) => <li>• {feature}</li>)}
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-sm font-bold uppercase tracking-wide text-brand-foreground">Stability Fixes</h4>
+            <ul class="mt-2 space-y-2 text-sm text-brand-muted">
+              {latest.fixes.map((fix) => <li>• {fix}</li>)}
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <FinalCta title="Need the Official APK Link?" subtitle="Contact our team and we will share the approved download channel." />
+</BaseLayout>

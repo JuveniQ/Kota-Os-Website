@@ -1,0 +1,60 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import HowItWorksTimeline from "@/components/HowItWorksTimeline";
+import FinalCta from "@/components/FinalCta.astro";
+import { HOW_IT_WORKS } from "@/data/home-content";
+import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const jsonLd = [softwareApplicationSchema("/how-it-works"), organizationSchema()];
+---
+
+<BaseLayout
+  title="How Kota-OS Works | 3-Step Setup for Food Vendors"
+  description="Get started in three steps: create your account, build your menu, and start selling with offline-first POS workflows."
+  path="/how-it-works"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Three Steps to Success"
+    subtitle="A simple rollout path from account setup to active service, designed for teams that need speed and clarity."
+  />
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader
+        title="From Setup to Service in Minutes"
+        subtitle="No technical overhead and no complicated deployment process."
+      />
+      <HowItWorksTimeline steps={HOW_IT_WORKS} />
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <div class="grid gap-5 md:grid-cols-3">
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">License-Gated Security</h3>
+          <p class="mt-2 text-brand-muted">
+            Device binding and voucher activation keep your installation secure and legitimate.
+          </p>
+        </article>
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">Operational Continuity</h3>
+          <p class="mt-2 text-brand-muted">
+            Continue serving during internet outages with local-first transaction handling.
+          </p>
+        </article>
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">Actionable Reports</h3>
+          <p class="mt-2 text-brand-muted">
+            Access daily, weekly, and monthly insights to make better inventory and pricing decisions.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

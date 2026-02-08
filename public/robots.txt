@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kota-os.co.za/sitemap.xml

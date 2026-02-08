@@ -1,0 +1,81 @@
+---
+import { FOOTER_LINKS, SITE_META } from "@/data/site-config";
+---
+
+<footer class="bg-brand-dark text-zinc-200">
+  <div class="container-wide py-14">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <a href="/" class="inline-flex items-center gap-3">
+          <picture>
+            <source srcset="/logo.webp" type="image/webp" />
+            <img src="/logo.jpeg" alt="Kota-OS logo" class="h-8 w-8 rounded-lg object-cover" loading="lazy" />
+          </picture>
+          <span class="font-heading text-lg font-bold text-brand-primary">Kota-OS</span>
+        </a>
+        <p class="mt-3 text-sm text-zinc-400">Simple. Professional. Reliable.</p>
+        <div class="mt-4 flex items-center gap-3">
+          {FOOTER_LINKS.social.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              data-track-external="true"
+              data-track-source="footer"
+              class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 hover:text-brand-primary"
+              aria-label={link.label}
+            >
+              {link.label === "LinkedIn" ? (
+                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current" aria-hidden="true">
+                  <path d="M4.98 3.5a2.5 2.5 0 1 0 .02 5 2.5 2.5 0 0 0-.02-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6v6.3h-4V15c0-1.4 0-3.1-2-3.1S13 13.5 13 15v6h-4z" />
+                </svg>
+              ) : null}
+              {link.label === "Twitter" ? (
+                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current" aria-hidden="true">
+                  <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.2-8.2L1 2h6.4l4.4 5.8zM17.8 20h1.8L6.5 3.9H4.6z" />
+                </svg>
+              ) : null}
+              {link.label === "Facebook" ? (
+                <svg viewBox="0 0 24 24" class="h-4 w-4 fill-current" aria-hidden="true">
+                  <path d="M13.5 22v-8h2.7l.4-3H13.5V9.2c0-.9.3-1.5 1.7-1.5h1.8V5c-.3 0-1.4-.1-2.6-.1-2.6 0-4.4 1.6-4.4 4.5V11H7v3h3v8z" />
+                </svg>
+              ) : null}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wide text-zinc-200">Product</h3>
+        <ul class="mt-3 space-y-2">
+          {FOOTER_LINKS.product.map((link) => (
+            <li><a href={link.href} class="text-sm text-zinc-400 hover:text-brand-primary">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wide text-zinc-200">Company</h3>
+        <ul class="mt-3 space-y-2">
+          {FOOTER_LINKS.company.map((link) => (
+            <li><a href={link.href} class="text-sm text-zinc-400 hover:text-brand-primary">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-bold uppercase tracking-wide text-zinc-200">Legal</h3>
+        <ul class="mt-3 space-y-2">
+          {FOOTER_LINKS.legal.map((link) => (
+            <li><a href={link.href} class="text-sm text-zinc-400 hover:text-brand-primary">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col justify-between gap-2 border-t border-zinc-700/70 pt-5 text-xs text-zinc-400 md:flex-row">
+      <p>© 2025 Kota-OS. All rights reserved.</p>
+      <p>Version {SITE_META.version}</p>
+    </div>
+  </div>
+</footer>

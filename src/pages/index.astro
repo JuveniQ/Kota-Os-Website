@@ -1,0 +1,109 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import FinalCta from "@/components/FinalCta.astro";
+import Hero from "@/components/Hero";
+import SectionHeader from "@/components/SectionHeader.astro";
+import HowItWorksTimeline from "@/components/HowItWorksTimeline";
+import ScreenshotsCarousel from "@/components/ScreenshotsCarousel";
+import Testimonials from "@/components/Testimonials";
+import PricingCard from "@/components/PricingCard";
+import FaqAccordion from "@/components/FaqAccordion";
+import BenefitCard from "@/components/BenefitCard";
+import FeaturesGrid from "@/components/FeaturesGrid";
+import SectionReveal from "@/components/SectionReveal";
+import TrustStats from "@/components/TrustStats";
+import {
+  BENEFITS,
+  FAQ_ITEMS,
+  FEATURE_ITEMS,
+  HERO_METRICS,
+  HOW_IT_WORKS,
+  SCREENSHOT_SLIDES,
+  TESTIMONIALS,
+  TRUST_STATS
+} from "@/data/home-content";
+import { PRICING_TIER, SITE_META } from "@/data/site-config";
+import { faqPageSchema, organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSchema("/", FAQ_ITEMS)];
+---
+
+<BaseLayout
+  title={SITE_META.title}
+  description={SITE_META.description}
+  path="/"
+  jsonLd={jsonLd}
+>
+  <Hero client:load metrics={HERO_METRICS} />
+
+  <section id="features" class="section-pad">
+    <div class="container-wide">
+      <SectionHeader
+        title="Why Choose Kota-OS?"
+        subtitle="Everything you need to run a modern food business."
+      />
+      <FeaturesGrid client:visible items={FEATURE_ITEMS} />
+    </div>
+  </section>
+
+  <section id="how-it-works" class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader title="Three Steps to Success" />
+      <SectionReveal client:visible>
+        <HowItWorksTimeline steps={HOW_IT_WORKS} />
+      </SectionReveal>
+    </div>
+  </section>
+
+  <section id="screenshots" class="section-pad">
+    <div class="container-wide">
+      <SectionHeader title="See It In Action" subtitle="Operational clarity from the first tap." />
+      <ScreenshotsCarousel client:visible slides={SCREENSHOT_SLIDES} />
+    </div>
+  </section>
+
+  <section class="section-pad bg-white">
+    <div class="container-wide">
+      <SectionHeader title="Built for Your Success" />
+      <SectionReveal client:visible>
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {BENEFITS.map((benefit) => <BenefitCard benefit={benefit} />)}
+        </div>
+      </SectionReveal>
+    </div>
+  </section>
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader
+        title="Trusted by Food Vendors"
+        subtitle="Join hundreds of successful businesses using Kota-OS."
+      />
+      <div class="grid gap-10 md:grid-cols-2">
+        <TrustStats client:visible stats={TRUST_STATS} />
+        <SectionReveal client:visible delay={0.1}>
+          <Testimonials items={TESTIMONIALS} />
+        </SectionReveal>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section-pad bg-gradient-to-b from-white to-brand-surface/65">
+    <div class="container-wide">
+      <SectionHeader
+        title="Simple, Transparent Pricing"
+        subtitle="No hidden fees. No subscriptions. One-time license per device with a 14-day trial."
+      />
+      <PricingCard client:visible tier={PRICING_TIER} />
+    </div>
+  </section>
+
+  <section id="faq" class="section-pad bg-white">
+    <div class="container-wide max-w-[840px]">
+      <SectionHeader title="Frequently Asked Questions" />
+      <FaqAccordion client:visible items={FAQ_ITEMS} />
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

@@ -1,0 +1,129 @@
+import type { DonationTier, DownloadMeta, NavItem, PricingTier } from "@/types/site";
+
+export const SITE_URL = "https://kota-os.co.za";
+
+export const SITE_META = {
+  name: "Kota-OS",
+  title: "Kota-OS | Point of Sale System for Food Vendors",
+  description:
+    "Fast, offline-first POS system for township fast-food vendors. Real-time inventory, beautiful reports, one-time license.",
+  keywords: [
+    "Kota-OS",
+    "POS system",
+    "point of sale",
+    "inventory management",
+    "offline POS",
+    "food business software"
+  ],
+  version: "1.0.0"
+};
+
+export const CONTACT_INFO = {
+  email: "contact@juveniq.co.za",
+  phone: "+27 607431268",
+  location: "Gauteng, Johannesburg",
+  businessHours: "Monday to Sunday, 06:00 - 21:00",
+  supportSla: "Urgent support responses typically within 4 hours."
+};
+
+export const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Features", href: "/features" },
+  { label: "How It Works", href: "/how-it-works" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Download", href: "/download" }
+];
+
+export const PRIMARY_CTA = {
+  label: "Get License",
+  href: "/download"
+};
+
+export const SECONDARY_CTA = {
+  label: "Start Your Free Trial",
+  href: "/download"
+};
+
+export const PRICING_TIER: PricingTier = {
+  title: "Professional License",
+  badge: "Popular",
+  price: "R 399",
+  period: "One-Time Purchase",
+  description:
+    "Includes all features, unlimited transactions, optional cloud sync, and a 14-day free trial before purchase.",
+  includes: [
+    "Unlimited sales and orders",
+    "Real-time inventory tracking",
+    "Professional report generation",
+    "Cloud backup and sync (rolling out)",
+    "24/7 support",
+    "Regular updates"
+  ],
+  legalNote:
+    "License is device-bound and non-transferable. Activate with a unique voucher code."
+};
+
+export const DOWNLOAD_META: DownloadMeta = {
+  version: "1.2.0",
+  size: "24.5 MB",
+  releaseDate: "January 18, 2026",
+  apkUrl: "#apk-link-placeholder",
+  checksumSha256: "SHA-256 placeholder",
+  androidCompatibility: "Android 8.0 and above",
+  playProtectNote:
+    "This APK is not verified by Google Play Protect yet. Download only from official Kota-OS channels."
+};
+
+export const DONATION_TIERS: DonationTier[] = [
+  {
+    id: "tip",
+    title: "Tip",
+    amount: "R5",
+    description: "Buy the team a coffee and help keep support affordable."
+  },
+  {
+    id: "supporter",
+    title: "Supporter",
+    amount: "R50",
+    description: "Support weekly maintenance and small improvements."
+  },
+  {
+    id: "champion",
+    title: "Champion",
+    amount: "R150",
+    description: "Help fund new features for township businesses."
+  },
+  {
+    id: "legend",
+    title: "Legend",
+    amount: "R500+",
+    description: "Sponsor long-term roadmap work and expansion."
+  }
+];
+
+export const FOOTER_LINKS = {
+  product: [
+    { label: "Features", href: "/features" },
+    { label: "Screenshots", href: "/#screenshots" },
+    { label: "Pricing", href: "/pricing" },
+    { label: "Changelog", href: "/updates" }
+  ],
+  company: [
+    { label: "About", href: "/contact" },
+    { label: "Blog (Coming Soon)", href: "/updates" },
+    { label: "Contact", href: "/contact" },
+    { label: "Careers", href: "/contact" }
+  ],
+  legal: [
+    { label: "Privacy Policy", href: "/contact" },
+    { label: "Terms of Service", href: "/contact" },
+    { label: "License Agreement", href: "/pricing" },
+    { label: "Contact Security", href: "/contact" }
+  ],
+  social: [
+    { label: "LinkedIn", href: "https://www.linkedin.com", external: true },
+    { label: "Twitter", href: "https://x.com", external: true },
+    { label: "Facebook", href: "https://www.facebook.com", external: true }
+  ]
+};

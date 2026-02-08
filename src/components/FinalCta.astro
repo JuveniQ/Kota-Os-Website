@@ -1,0 +1,26 @@
+---
+type Props = {
+  title?: string;
+  subtitle?: string;
+};
+
+const {
+  title = "Ready to Transform Your Business?",
+  subtitle = "Join the fast-food vendors simplifying their operations with Kota-OS."
+} = Astro.props;
+---
+
+<section class="bg-primary-gradient section-pad">
+  <div class="container-wide text-center">
+    <h2 class="text-4xl font-extrabold text-white md:text-5xl">{title}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-white/85">{subtitle}</p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-4">
+      <a href="/download" class="btn rounded-2xl bg-white px-6 py-3 font-semibold text-brand-primary hover:brightness-110">
+        Get Your License
+      </a>
+      <a href="/contact" class="btn-ghost">
+        Schedule Demo
+      </a>
+    </div>
+  </div>
+</section>

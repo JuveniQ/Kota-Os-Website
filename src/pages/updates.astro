@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import ReleaseTimeline from "@/components/ReleaseTimeline";
+import FinalCta from "@/components/FinalCta.astro";
+import { RELEASE_NOTES } from "@/data/home-content";
+import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const jsonLd = [softwareApplicationSchema("/updates"), organizationSchema()];
+---
+
+<BaseLayout
+  title="Kota-OS Updates | Release Notes"
+  description="Track Kota-OS release notes, features, and bug fixes across versions 1.0.0, 1.1.0, and 1.2.0."
+  path="/updates"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Release Notes and Product Updates"
+    subtitle="Stay current with each release, including improvements to speed, reliability, reporting, and inventory controls."
+  />
+
+  <section class="section-pad">
+    <div class="container-wide max-w-[980px]">
+      <SectionHeader title="Version Timeline" />
+      <ReleaseTimeline items={RELEASE_NOTES} />
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

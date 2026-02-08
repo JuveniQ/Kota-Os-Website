@@ -1,0 +1,87 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import FinalCta from "@/components/FinalCta.astro";
+import BenefitCard from "@/components/BenefitCard";
+import FeaturesGrid from "@/components/FeaturesGrid";
+import { BENEFITS, FEATURE_ITEMS } from "@/data/home-content";
+import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const jsonLd = [softwareApplicationSchema("/features"), organizationSchema()];
+---
+
+<BaseLayout
+  title="Kota-OS Features | Sales, Inventory, Reports"
+  description="Explore the core Kota-OS platform: rapid sales flow, real-time inventory, and professional reporting for food vendors."
+  path="/features"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Why Township Businesses Choose Kota-OS"
+    subtitle="Speed-first checkout, local-first reliability, and operational visibility designed for food vendors who cannot afford downtime."
+    badge="Built for Speed"
+  />
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="card-base rounded-2xl p-6 text-center">
+          <p class="text-4xl font-extrabold text-brand-primary">3 sec</p>
+          <p class="mt-2 text-sm text-brand-muted">Average checkout time</p>
+        </article>
+        <article class="card-base rounded-2xl p-6 text-center">
+          <p class="text-4xl font-extrabold text-brand-primary">40%</p>
+          <p class="mt-2 text-sm text-brand-muted">Faster service delivery</p>
+        </article>
+        <article class="card-base rounded-2xl p-6 text-center">
+          <p class="text-4xl font-extrabold text-brand-success">Offline</p>
+          <p class="mt-2 text-sm text-brand-muted">Sales continue without internet</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader
+        title="Core Feature Stack"
+        subtitle="The complete workflow from sale to stock control to report export."
+      />
+      <FeaturesGrid client:visible items={FEATURE_ITEMS} />
+    </div>
+  </section>
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <SectionHeader title="More Operational Advantages" />
+      <div class="grid gap-5 md:grid-cols-2">
+        <article class="card-base card-hover rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-brand-foreground">Easy Settings Control</h3>
+          <p class="mt-3 text-base leading-relaxed text-brand-muted">
+            Configure payment methods, store preferences, and tax behavior in one place without
+            complex setup.
+          </p>
+        </article>
+        <article class="card-base card-hover rounded-2xl p-8">
+          <h3 class="text-2xl font-bold text-brand-foreground">Offline-Ready Architecture</h3>
+          <p class="mt-3 text-base leading-relaxed text-brand-muted">
+            Keep serving customers through unstable connectivity and sync data securely once
+            online.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad bg-white">
+    <div class="container-wide">
+      <SectionHeader title="Built for Your Success" />
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {BENEFITS.map((benefit) => <BenefitCard benefit={benefit} />)}
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>

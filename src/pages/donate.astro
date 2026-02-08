@@ -1,0 +1,57 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import DonationTierCard from "@/components/DonationTierCard";
+import { DONATION_TIERS } from "@/data/site-config";
+import { organizationSchema } from "@/lib/seo";
+
+const jsonLd = [organizationSchema()];
+---
+
+<BaseLayout
+  title="Support Kota-OS | Donate"
+  description="Support Kota-OS and help keep POS technology affordable for township fast-food businesses."
+  path="/donate"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Support the Kota-OS Mission"
+    subtitle="Your contribution helps us keep pricing fair while improving stability, support, and feature delivery for township vendors."
+    badge="Community Backed"
+  />
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <SectionHeader
+        title="Donation Tiers"
+        subtitle="Start from R5 and support continued development."
+      />
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+        {DONATION_TIERS.map((tier) => <DonationTierCard tier={tier} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <div class="rounded-3xl border border-brand-border bg-white p-8 text-center shadow-card">
+        <h2 class="text-3xl font-bold text-brand-foreground md:text-4xl">Monthly Support</h2>
+        <p class="mx-auto mt-3 max-w-2xl text-brand-muted">
+          Prefer recurring support? Contact us to set up a monthly contribution that funds roadmap
+          work and priority quality updates.
+        </p>
+        <a href="/contact" class="btn-primary mt-6">Become a Monthly Supporter</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-pad bg-white">
+    <div class="container-wide">
+      <SectionHeader title="Sponsor Wall" subtitle="Recognizing supporters helping us serve more vendors." />
+      <div class="grid min-h-[200px] place-items-center rounded-3xl border-2 border-dashed border-brand-border bg-brand-background">
+        <p class="text-brand-muted">Sponsor Wall Placeholder</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

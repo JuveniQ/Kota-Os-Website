@@ -1,0 +1,55 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import ContactForm from "@/components/ContactForm";
+import { CONTACT_INFO } from "@/data/site-config";
+import { organizationSchema } from "@/lib/seo";
+
+const jsonLd = [organizationSchema()];
+---
+
+<BaseLayout
+  title="Contact Kota-OS | Sales and Support"
+  description="Get in touch with the Kota-OS team for licensing, setup guidance, and product support."
+  path="/contact"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Contact Kota-OS"
+    subtitle="Reach our team for product questions, licensing support, or rollout planning."
+  />
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <SectionHeader title="Talk to Our Team" />
+      <div class="grid gap-6 lg:grid-cols-[0.9fr,1.1fr]">
+        <aside class="space-y-4">
+          <article class="card-base rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-brand-foreground">Email</h3>
+            <a href={`mailto:${CONTACT_INFO.email}`} class="mt-2 inline-block text-brand-primary underline">
+              {CONTACT_INFO.email}
+            </a>
+          </article>
+          <article class="card-base rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-brand-foreground">Phone</h3>
+            <a href={`tel:${CONTACT_INFO.phone}`} class="mt-2 inline-block text-brand-primary underline">
+              {CONTACT_INFO.phone}
+            </a>
+          </article>
+          <article class="card-base rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-brand-foreground">Location</h3>
+            <p class="mt-2 text-brand-muted">{CONTACT_INFO.location}</p>
+          </article>
+          <article class="card-base rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-brand-foreground">Business Hours</h3>
+            <p class="mt-2 text-brand-muted">{CONTACT_INFO.businessHours}</p>
+            <p class="mt-2 text-sm text-brand-muted">{CONTACT_INFO.supportSla}</p>
+          </article>
+        </aside>
+
+        <ContactForm client:load />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

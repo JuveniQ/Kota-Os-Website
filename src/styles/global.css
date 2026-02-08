@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #d4a574;
+  --color-background: #f8f6f3;
+  --color-surface: #e8e4df;
+  --color-card: #fefdfb;
+  --color-foreground: #1f1814;
+  --color-muted: #726860;
+  --color-border: #e0d8d0;
+  --color-success: #229857;
+  --color-destructive: #e74c3c;
+  --color-warning: #ffd966;
+  --color-info: #5dade2;
+  --color-accent: #f59e0b;
+  --color-footer: #1a1a1a;
+}
+
+* {
+  @apply border-brand-border;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply m-0 bg-brand-background font-body text-brand-foreground antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  @apply transition-colors duration-200;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  @apply font-heading;
+}
+
+img {
+  @apply max-w-full;
+}
+
+.container-wide {
+  @apply mx-auto w-full max-w-[1200px] px-4 xs:px-6 md:px-10;
+}
+
+.section-pad {
+  @apply py-[60px] md:py-[80px];
+}
+
+.card-base {
+  @apply rounded-2xl border border-brand-border bg-brand-card shadow-card transition duration-300;
+}
+
+.card-hover {
+  @apply md:hover:scale-[1.02] md:hover:shadow-cardHover;
+}
+
+.btn {
+  @apply inline-flex min-h-12 items-center justify-center rounded-2xl px-6 py-3 text-sm font-semibold transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-background;
+}
+
+.btn-primary {
+  @apply btn bg-brand-primary text-white hover:brightness-110 active:brightness-125;
+}
+
+.btn-secondary {
+  @apply btn border border-brand-primary bg-white text-brand-primary hover:bg-brand-primary/10 active:brightness-110;
+}
+
+.btn-ghost {
+  @apply btn border border-white/80 bg-transparent text-white hover:bg-white/10;
+}
+
+.skip-link {
+  @apply absolute left-2 top-2 z-[1200] -translate-y-14 rounded-lg bg-brand-foreground px-3 py-2 text-sm font-semibold text-white transition focus:translate-y-0;
+}
+
+.muted {
+  @apply text-brand-muted;
+}
+
+.bg-hero-gradient {
+  background-image: linear-gradient(130deg, #f8f6f3 0%, #ffffff 65%, #f8f6f3 100%);
+}
+
+.bg-primary-gradient {
+  background-image: linear-gradient(140deg, #d4a574 0%, #f59e0b 100%);
+}
+
+.focus-ring {
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:ring-offset-brand-background;
+}
+
+@media (max-width: 374px) {
+  .container-wide {
+    @apply px-4;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

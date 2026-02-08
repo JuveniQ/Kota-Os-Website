@@ -1,0 +1,86 @@
+---
+import "@/styles/global.css";
+import Footer from "@/components/Footer.astro";
+import Navbar from "@/components/Navbar";
+import PageTracker from "@/components/PageTracker";
+import { NAV_ITEMS, PRIMARY_CTA, SITE_META } from "@/data/site-config";
+import { canonicalUrl } from "@/lib/seo";
+
+type Props = {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  keywords?: string[];
+  jsonLd?: unknown[];
+};
+
+const {
+  title = SITE_META.title,
+  description = SITE_META.description,
+  image = "/logo.jpeg",
+  keywords = SITE_META.keywords,
+  path = Astro.url.pathname,
+  jsonLd = []
+} = Astro.props;
+
+const canonical = canonicalUrl(path);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords.join(", ")} />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_META.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={canonicalUrl(image)} />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={canonicalUrl(image)} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    {
+      jsonLd.map((schema) => (
+        <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <Navbar client:load items={NAV_ITEMS} currentPath={Astro.url.pathname} cta={PRIMARY_CTA} />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+    <PageTracker client:load title={title} />
+
+    <script is:inline>
+      document.addEventListener("click", (event) => {
+        const target = event.target;
+        if (!(target instanceof Element)) return;
+        const anchor = target.closest("a[data-track-external='true']");
+        if (!(anchor instanceof HTMLAnchorElement)) return;
+        const source = anchor.dataset.trackSource ?? "unknown";
+        if (window.gtag) {
+          window.gtag("event", "external_link_click", { url: anchor.href, source });
+        }
+        if (window.mixpanel?.track) {
+          window.mixpanel.track("external_link_click", { url: anchor.href, source });
+        }
+      });
+    </script>
+  </body>
+</html>

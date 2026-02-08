@@ -1,0 +1,48 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import PricingCard from "@/components/PricingCard";
+import FinalCta from "@/components/FinalCta.astro";
+import { PRICING_TIER } from "@/data/site-config";
+import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const jsonLd = [softwareApplicationSchema("/pricing"), organizationSchema()];
+---
+
+<BaseLayout
+  title="Kota-OS Pricing | One-Time License for Food Vendors"
+  description="Transparent pricing with a 14-day free trial and a one-time professional device license."
+  path="/pricing"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Simple, Transparent Pricing"
+    subtitle="Kota-OS is not free long-term. Start with a 14-day trial, then activate a one-time professional license."
+  />
+
+  <section class="section-pad bg-gradient-to-b from-white to-brand-surface/65">
+    <div class="container-wide">
+      <SectionHeader
+        title="One License Tier, Full Capability"
+        subtitle="No recurring subscription, no per-user charges, no per-transaction fees."
+      />
+      <PricingCard client:visible tier={PRICING_TIER} compact={true} />
+    </div>
+  </section>
+
+  <section class="section-pad bg-white">
+    <div class="container-wide max-w-[900px]">
+      <div class="rounded-2xl border border-brand-border bg-brand-card p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-brand-foreground">Pricing Clarification</h2>
+        <ul class="mt-4 space-y-2 text-base leading-relaxed text-brand-muted">
+          <li>• Kota-OS includes a 14-day free trial for evaluation.</li>
+          <li>• Continued use requires a paid, one-time device license.</li>
+          <li>• Additional pricing models for expanded deployments are being finalized.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>
