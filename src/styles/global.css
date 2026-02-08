@@ -116,3 +116,24 @@ img {
     scroll-behavior: auto !important;
   }
 }
+
+.hero-media-overlay {
+  background-image: linear-gradient(
+    98deg,
+    rgba(248, 246, 243, 0.97) 0%,
+    rgba(248, 246, 243, 0.95) 34%,
+    rgba(248, 246, 243, 0.79) 56%,
+    rgba(31, 24, 20, 0.58) 100%
+  );
+}
+
+@media (max-width: 767px) {
+  .hero-media-overlay {
+    background-image: linear-gradient(
+      180deg,
+      rgba(248, 246, 243, 0.94) 0%,
+      rgba(248, 246, 243, 0.9) 48%,
+      rgba(248, 246, 243, 0.84) 100%
+    );
+  }
+}
