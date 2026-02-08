@@ -94,72 +94,62 @@ export const SCREENSHOT_SLIDES: ScreenshotSlide[] = [
     headline: "Dashboard at a Glance",
     cta: "Explore Dashboard",
     points: [
-      "Live sales summary and service momentum",
-      "One-tap access to inventory controls",
-      "Real-time queue and order status"
+      "Today's sales card with quick performance visibility",
+      "Shortcut actions for New Sale and Inventory",
+      "Today's orders list with clear status indicators"
     ],
-    visualKpis: [
-      { label: "Orders Today", value: "142" },
-      { label: "Checkout Avg", value: "00:03" },
-      { label: "Low Stock Alerts", value: "4" }
-    ]
+    imageSrc: "/home.jpeg",
+    imageAlt:
+      "Kota-OS home dashboard showing today's sales, new sale and inventory shortcuts, and today's order cards"
   },
   {
     id: "new-sale",
     headline: "Fast Order Processing",
     cta: "Try Sale Entry",
     points: [
-      "Browse menu by category",
-      "Customize each item instantly",
-      "Run multiple carts without delays"
+      "Search and category tabs speed up item selection",
+      "Grid-based menu cards show item images and prices",
+      "Optimized for high-speed tap-to-add checkout flow"
     ],
-    visualKpis: [
-      { label: "Open Carts", value: "3" },
-      { label: "Queue Time", value: "2 min" },
-      { label: "Modifiers", value: "Live" }
-    ]
+    imageSrc: "/new_sale.jpeg",
+    imageAlt:
+      "Kota-OS New Sale screen with searchable menu categories and item cards for quick order capture"
   },
   {
-    id: "inventory",
-    headline: "Inventory Always in Sync",
+    id: "manage-items",
+    headline: "Menu Management at Scale",
     points: [
-      "Real-time stock tracking",
-      "Low-stock alerts",
-      "Restock logging"
+      "Search menu items by name or category",
+      "Edit and delete actions are available per item",
+      "Manage tab keeps menu updates organized in one place"
     ],
-    visualKpis: [
-      { label: "Tracked Items", value: "87" },
-      { label: "Low Stock", value: "6" },
-      { label: "Last Sync", value: "Now" }
-    ]
+    imageSrc: "/manage.jpeg",
+    imageAlt:
+      "Kota-OS Manage screen listing menu items with edit and delete controls"
+  },
+  {
+    id: "create-item",
+    headline: "Create Menu Items in Seconds",
+    points: [
+      "Structured form for name, price, category, and image",
+      "Ingredient selection can be attached before saving",
+      "Clear action buttons keep data entry straightforward"
+    ],
+    imageSrc: "/create-menu-item.jpeg",
+    imageAlt:
+      "Kota-OS create menu item form with fields for pricing, category, image, and ingredients"
   },
   {
     id: "reports",
     headline: "Professional Reports",
     points: [
-      "Daily, weekly, monthly report views",
-      "Payment breakdown and trends",
-      "One-click PDF export"
+      "Daily, weekly, and monthly views are available",
+      "Top-selling items and category sales are summarized",
+      "Export PDF action is accessible directly in reports"
     ],
-    visualKpis: [
-      { label: "Weekly Revenue", value: "R42,850" },
-      { label: "Top Item", value: "Cheese Kota" },
-      { label: "Export Format", value: "PDF" }
-    ]
-  },
-  {
-    id: "offline",
-    headline: "Works Anywhere, Connection Optional",
-    points: [
-      "Full functionality offline",
-      "Automatic sync when online",
-      "No internet required for sales"
-    ],
-    visualKpis: [
-      { label: "Offline Status", value: "Active" },
-      { label: "Sync Queue", value: "9" },
-      { label: "Data Loss", value: "0%" }
-    ]
+    imageSrc: "/reports.jpeg",
+    imageAlt:
+      "Kota-OS reports screen showing summary tabs, top selling items, category sales, and export PDF button"
   }
 ];
 
@@ -358,3 +348,4 @@ export const RELEASE_NOTES: ReleaseNote[] = [
     ]
   }
 ];
+
