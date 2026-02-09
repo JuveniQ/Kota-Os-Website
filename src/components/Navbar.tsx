@@ -29,7 +29,7 @@ export default function Navbar({ items, currentPath, cta }: NavbarProps) {
         <a href="/" className="focus-ring flex items-center gap-3 rounded-lg">
           <picture>
             <source srcSet="/logo.webp" type="image/webp" />
-            <img src="/logo.jpeg" alt="Kota-OS logo" className="h-10 w-10 rounded-xl object-cover" />
+            <img src="/logo.jpeg" alt="Kota-OS logo" className="h-11 w-11 rounded-xl object-cover" />
           </picture>
           <span className="font-heading text-xl font-bold text-brand-primary">Kota-OS</span>
         </a>
@@ -107,3 +107,4 @@ export default function Navbar({ items, currentPath, cta }: NavbarProps) {
     </header>
   );
 }
+
