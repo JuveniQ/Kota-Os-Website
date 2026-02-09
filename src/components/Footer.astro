@@ -9,7 +9,7 @@ import { FOOTER_LINKS, SITE_META } from "@/data/site-config";
         <a href="/" class="inline-flex items-center gap-3">
           <picture>
             <source srcset="/logo.webp" type="image/webp" />
-            <img src="/logo.jpeg" alt="Kota-OS logo" class="h-8 w-8 rounded-lg object-cover" loading="lazy" />
+            <img src="/logo.jpeg" alt="Kota-OS logo" class="h-9 w-9 rounded-lg object-cover" loading="lazy" />
           </picture>
           <span class="font-heading text-lg font-bold text-brand-primary">Kota-OS</span>
         </a>
@@ -19,7 +19,7 @@ import { FOOTER_LINKS, SITE_META } from "@/data/site-config";
             <a
               href={link.href}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               data-track-external="true"
               data-track-source="footer"
               class="focus-ring inline-flex h-8 w-8 items-center justify-center rounded-full border border-zinc-700 text-zinc-400 hover:text-brand-primary"
@@ -79,3 +79,4 @@ import { FOOTER_LINKS, SITE_META } from "@/data/site-config";
     </div>
   </div>
 </footer>
+
