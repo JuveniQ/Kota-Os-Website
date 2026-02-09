@@ -36,7 +36,7 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
 >
   <Hero client:load metrics={HERO_METRICS} />
 
-  <section id="features" class="section-pad">
+  <section id="features" class="section-pad scroll-mt-28">
     <div class="container-wide">
       <SectionHeader
         title="Why Choose Kota-OS?"
@@ -46,7 +46,7 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
     </div>
   </section>
 
-  <section id="how-it-works" class="section-pad bg-brand-surface/45">
+  <section id="how-it-works" class="section-pad scroll-mt-28 bg-brand-surface/45">
     <div class="container-wide">
       <SectionHeader title="Three Steps to Success" />
       <SectionReveal client:visible>
@@ -55,7 +55,7 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
     </div>
   </section>
 
-  <section id="screenshots" class="section-pad">
+  <section id="screenshots" class="section-pad scroll-mt-28">
     <div class="container-wide">
       <SectionHeader title="See It In Action" subtitle="Operational clarity from the first tap." />
       <ScreenshotsCarousel client:visible slides={SCREENSHOT_SLIDES} />
@@ -88,7 +88,7 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
     </div>
   </section>
 
-  <section id="pricing" class="section-pad bg-gradient-to-b from-white to-brand-surface/65">
+  <section id="pricing" class="section-pad scroll-mt-28 bg-gradient-to-b from-white to-brand-surface/65">
     <div class="container-wide">
       <SectionHeader
         title="Simple, Transparent Pricing"
@@ -98,7 +98,7 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
     </div>
   </section>
 
-  <section id="faq" class="section-pad bg-white">
+  <section id="faq" class="section-pad scroll-mt-28 bg-white">
     <div class="container-wide max-w-[840px]">
       <SectionHeader title="Frequently Asked Questions" />
       <FaqAccordion client:visible items={FAQ_ITEMS} />
