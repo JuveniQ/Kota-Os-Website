@@ -28,9 +28,9 @@ export default function HowItWorksTimeline({ steps }: HowItWorksTimelineProps) {
             <h4 className="text-sm font-semibold uppercase tracking-wide text-brand-muted">
               {step.visualTitle}
             </h4>
-            <ul className="mt-2 space-y-2 text-sm text-brand-foreground">
+            <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-brand-foreground">
               {step.visualPoints.map((point) => (
-                <li key={point}>• {point}</li>
+                <li key={point}>{point}</li>
               ))}
             </ul>
           </div>
