@@ -1,0 +1,171 @@
+# Kota-OS Marketing Website
+
+Professional multi-page marketing site for Kota-OS, a Point-of-Sale platform built for township fast-food vendors.
+
+## Overview
+
+This repository contains a static-first website built with Astro, React, and Tailwind CSS. The site is focused on conversion, product education, trust building, and license acquisition.
+
+Key messaging implemented in the product copy:
+
+- Offline-first POS workflow
+- Built for township food businesses
+- 14-day free trial, then paid one-time license
+- APK distribution notice: not verified by Google Play Protect
+
+## Tech Stack
+
+- Framework: Astro 5 (static output)
+- UI Islands: React 19
+- Styling: Tailwind CSS with custom brand tokens
+- Animation: Framer Motion (targeted sections)
+- Icons: Lucide React and SVG
+- Language: TypeScript
+- Image Processing: Sharp
+
+## Routes
+
+- / (Home)
+- /features
+- /how-it-works
+- /pricing
+- /faq
+- /download
+- /updates
+- /donate
+- /contact
+
+## Design System
+
+Primary design tokens are configured in:
+
+- tailwind.config.mjs
+- src/styles/global.css
+
+Highlights:
+
+- Primary: hsl(38 92% 50%)
+- Background: hsl(30 25% 97%)
+- Typography: Sora for headings, DM Sans for body
+- Breakpoints: 375px, 768px, 1024px+
+
+## Project Structure
+
+- src/components: Reusable UI blocks (Navbar, Hero, Footer, cards, carousel, forms)
+- src/data: Central content and configuration
+- src/layouts: Base page layout with metadata and JSON-LD injection
+- src/lib: SEO builders and analytics helpers
+- src/pages: Route files
+- src/styles: Global styles and utility classes
+- src/types: Shared TypeScript types
+- public: Static assets (logo, hero backgrounds, app screenshots)
+
+## Getting Started
+
+Prerequisites:
+
+- Node.js 20+ recommended
+- npm 10+
+
+Install dependencies:
+
+- npm install
+
+Run local development:
+
+- npm run dev
+
+Build production output:
+
+- npm run build
+
+Preview production build:
+
+- npm run preview
+
+Run Astro + type checks:
+
+- npm run check
+
+## Environment Variables
+
+Optional public variables:
+
+- PUBLIC_GA_ID
+- PUBLIC_MIXPANEL_TOKEN
+
+If unset, tracking safely no-ops.
+
+## Content Management
+
+Main editable content files:
+
+- src/data/site-config.ts
+  - Navigation links
+  - Contact details
+  - Pricing tier
+  - Download metadata
+  - Donation tiers
+  - Footer links
+- src/data/home-content.ts
+  - Hero metrics
+  - Features
+  - How-it-works steps
+  - Screenshots copy
+  - Benefits
+  - Testimonials
+  - FAQ content
+  - Release notes
+
+## SEO and Structured Data
+
+SEO behavior is centralized in:
+
+- src/layouts/BaseLayout.astro
+- src/lib/seo.ts
+
+Implemented:
+
+- Canonical URLs
+- Open Graph and Twitter meta tags
+- SoftwareApplication JSON-LD
+- Organization JSON-LD
+- FAQPage JSON-LD (where applicable)
+
+## Accessibility and UX Notes
+
+Current implementation includes:
+
+- Skip-to-content link
+- Focus-visible ring styles
+- Keyboard-accessible mobile nav, accordion, and carousel controls
+- Reduced-motion support
+- Responsive layout tuned for mobile, tablet, and desktop
+
+## Known Placeholders
+
+These are intentionally placeholders until final production values are provided:
+
+- APK URL in DOWNLOAD_META.apkUrl
+- SHA-256 value in DOWNLOAD_META.checksumSha256
+- QR placeholder on /download
+
+## Deployment
+
+The project is static and deploys cleanly to:
+
+- Vercel
+- Netlify
+- Cloudflare Pages
+
+Build output directory: dist
+
+## Contact
+
+- Email: contact@juveniq.co.za
+- Phone: +27 607431268
+- Location: Gauteng, Johannesburg
+
+## License
+
+All rights reserved unless otherwise specified by the project owner.
