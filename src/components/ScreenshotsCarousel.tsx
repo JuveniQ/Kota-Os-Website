@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useEffect, useState, type FocusEvent } from "react";
+import { useEffect, useState, type FocusEvent, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import type { ScreenshotSlide } from "@/types/site";
 
 type ScreenshotsCarouselProps = {
@@ -24,6 +24,17 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
     setIndex((prev) => (prev - 1 + slideCount) % slideCount);
   }
 
+  function handleKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      next();
+    }
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      prev();
+    }
+  }
+
   function handleBlurCapture(event: FocusEvent<HTMLDivElement>) {
     const nextTarget = event.relatedTarget;
     if (nextTarget instanceof Node && event.currentTarget.contains(nextTarget)) {
@@ -39,16 +50,6 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
   }, [index, slideCount]);
 
   useEffect(() => {
-    const handleKey = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight") next();
-      if (event.key === "ArrowLeft") prev();
-    };
-
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [slideCount]);
-
-  useEffect(() => {
     if (slideCount <= 1 || isPaused) return;
 
     const timer = window.setInterval(() => {
@@ -62,11 +63,14 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
 
   return (
     <div
-      className="rounded-3xl border border-brand-border bg-brand-card p-5 md:p-8"
+      className="focus-ring rounded-3xl border border-brand-border bg-brand-card p-5 md:p-8"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocusCapture={() => setIsPaused(true)}
       onBlurCapture={handleBlurCapture}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      aria-label="App screenshots carousel"
     >
       <div className="grid items-center gap-8 md:grid-cols-[0.9fr,1.1fr]">
         <AnimatePresence mode="wait">
@@ -91,6 +95,8 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
                 src={current.imageSrc}
                 alt={current.imageAlt}
                 className="mx-auto h-[520px] w-full object-contain object-top md:h-[640px]"
+                width={360}
+                height={640}
                 loading="lazy"
                 decoding="async"
               />
