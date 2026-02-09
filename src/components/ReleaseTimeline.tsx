@@ -27,9 +27,9 @@ export default function ReleaseTimeline({ items }: ReleaseTimelineProps) {
               <h4 className="text-sm font-bold uppercase tracking-wide text-brand-foreground">
                 Features
               </h4>
-              <ul className="mt-2 space-y-2 text-sm text-brand-muted">
+              <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-brand-muted">
                 {item.features.map((feature) => (
-                  <li key={feature}>• {feature}</li>
+                  <li key={feature}>{feature}</li>
                 ))}
               </ul>
             </div>
@@ -37,9 +37,9 @@ export default function ReleaseTimeline({ items }: ReleaseTimelineProps) {
               <h4 className="text-sm font-bold uppercase tracking-wide text-brand-foreground">
                 Fixes
               </h4>
-              <ul className="mt-2 space-y-2 text-sm text-brand-muted">
+              <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-brand-muted">
                 {item.fixes.map((fix) => (
-                  <li key={fix}>• {fix}</li>
+                  <li key={fix}>{fix}</li>
                 ))}
               </ul>
             </div>
