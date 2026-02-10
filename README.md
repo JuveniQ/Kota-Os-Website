@@ -1,5 +1,11 @@
 # Kota-OS Marketing Website
 
+[![Astro](https://img.shields.io/badge/Astro-5-FF5D01?logo=astro&logoColor=white)](https://astro.build/)
+[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Site](https://img.shields.io/badge/Website-kota--os.co.za-1F1814)](https://kota-os.co.za)
+
 Professional multi-page marketing site for Kota-OS, a Point-of-Sale platform built for township fast-food vendors.
 
 ## Overview
@@ -159,6 +165,18 @@ The project is static and deploys cleanly to:
 - Cloudflare Pages
 
 Build output directory: dist
+
+## Contributing
+
+Contributions are welcome through pull requests.
+
+1. Create a feature branch from main.
+2. Make focused changes and keep content updates in src/data where possible.
+3. Run local quality checks:
+   - npm run check
+   - npm run build
+4. For UI changes, include before/after screenshots in your PR.
+5. Open a pull request with a clear summary, testing notes, and impact scope.
 
 ## Contact
 
