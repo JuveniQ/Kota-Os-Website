@@ -15,7 +15,7 @@ export const SITE_META = {
     "offline POS",
     "food business software"
   ],
-  version: "1.0.0"
+  version: "1.0.3"
 };
 
 export const CONTACT_INFO = {
@@ -65,11 +65,11 @@ export const PRICING_TIER: PricingTier = {
 };
 
 export const DOWNLOAD_META: DownloadMeta = {
-  version: "1.2.0",
-  size: "24.5 MB",
-  releaseDate: "January 18, 2026",
-  apkUrl: "#apk-link-placeholder",
-  checksumSha256: "SHA-256 placeholder",
+  version: "1.0.3",
+  size: "134.86 MB",
+  releaseDate: "February 09, 2026",
+  apkUrl: "/assets/Kota-OS%20v1.0.3.apk",
+  checksumSha256: "B787FB6AF71AAC436AE373BA54BCE0D0DD6BA7833D076EE18F75E0FBD06EF0F2",
   androidCompatibility: "Android 8.0 and above",
   playProtectNote:
     "This APK is not verified by Google Play Protect yet. Download only from official Kota-OS channels."

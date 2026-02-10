@@ -300,52 +300,46 @@ export const QUICK_START_STEPS: string[] = [
 
 export const RELEASE_NOTES: ReleaseNote[] = [
   {
-    version: "1.2.0",
-    date: "January 18, 2026",
+    version: "1.0.3",
+    date: "February 09, 2026",
     summary:
-      "Performance-focused release improving sale flow speed and inventory reliability.",
+      "Reliability and reporting upgrade focused on offline licensing, search speed, and export consistency.",
     features: [
-      "Faster order entry interactions",
-      "Expanded report export options",
-      "Improved low-stock alert clarity"
+      "Offline-safe license checks",
+      "Clearer order status labels",
+      "Faster order search",
+      "Inventory adjustment notes",
+      "Improved report exports"
     ],
     fixes: [
-      "Resolved intermittent sync delays after reconnect",
-      "Fixed cart customization edge cases",
-      "Improved stability on lower-memory devices"
+      "CSV export line wrapping",
+      "Currency symbol display in exports",
+      "Corrected low-stock badge counts"
     ]
   },
   {
-    version: "1.1.0",
-    date: "November 03, 2025",
+    version: "1.0.2",
+    date: "February 01, 2026",
     summary:
-      "Major quality update with reporting enhancements and usability improvements.",
+      "Workflow refinement release for checkout speed and order list usability.",
     features: [
-      "New weekly and monthly report layouts",
-      "Improved ingredient adjustment workflow",
-      "Refined onboarding and license prompts"
+      "Compact order list view",
+      "Customizable default payment method",
+      "Daily summary widgets"
     ],
     fixes: [
-      "Fixed inventory history sorting bug",
-      "Corrected EFT payment summary totals",
-      "Improved startup performance"
+      "Checkout sheet gesture edge cases"
     ]
   },
   {
-    version: "1.0.0",
-    date: "August 22, 2025",
-    summary:
-      "Initial production release delivering full offline-first POS capability.",
+    version: "1.0.1",
+    date: "January 01, 2026",
+    summary: "Initial public release of Kota-OS for township fast-food vendors.",
     features: [
-      "Sales, inventory, and reporting core modules",
-      "Device-bound licensing and voucher activation",
-      "Offline operation with local data integrity"
+      "Initial public release",
+      "New Sale, Inventory, Reports, Settings"
     ],
-    fixes: [
-      "Baseline stability and release hardening",
-      "Input validation across key workflows",
-      "Improved transaction persistence reliability"
-    ]
+    fixes: []
   }
 ];
 

@@ -4,12 +4,38 @@ import PageHero from "@/components/PageHero.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
 import StatusPill from "@/components/StatusPill";
 import FinalCta from "@/components/FinalCta.astro";
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { DOWNLOAD_META } from "@/data/site-config";
 import { RELEASE_NOTES } from "@/data/home-content";
+import { getLatestApkMeta } from "@/lib/apk-meta";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
 const latest = RELEASE_NOTES[0];
 const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
+const apkMeta = getLatestApkMeta(latest?.date ?? DOWNLOAD_META.releaseDate);
+const hasRealApk = Boolean(apkMeta);
+const qrImagePath = "/assets/kota-os-download-qr-v1-0-3.png";
+const qrImageAbsolutePath = fileURLToPath(new URL("../../public/assets/kota-os-download-qr-v1-0-3.png", import.meta.url));
+const hasQrImage = existsSync(qrImageAbsolutePath);
+
+const downloadData = apkMeta
+  ? {
+      name: apkMeta.fileName,
+      version: apkMeta.version,
+      size: apkMeta.sizeLabel,
+      releaseDate: apkMeta.releaseDate,
+      apkUrl: apkMeta.downloadPath,
+      checksumSha256: apkMeta.sha256
+    }
+  : {
+      name: `Kota-OS v${DOWNLOAD_META.version}.apk`,
+      version: DOWNLOAD_META.version,
+      size: DOWNLOAD_META.size,
+      releaseDate: DOWNLOAD_META.releaseDate,
+      apkUrl: DOWNLOAD_META.apkUrl,
+      checksumSha256: DOWNLOAD_META.checksumSha256
+    };
 ---
 
 <BaseLayout
@@ -28,32 +54,41 @@ const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
     <div class="container-wide grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
       <article class="rounded-3xl border border-brand-primary/40 bg-white p-8 shadow-warm">
         <div class="flex flex-wrap items-center justify-between gap-3">
-          <h2 class="text-3xl font-extrabold text-brand-foreground">Kota-OS v{DOWNLOAD_META.version}</h2>
+          <h2 class="text-3xl font-extrabold text-brand-foreground">{downloadData.name}</h2>
           <StatusPill tone="warning" label="Not verified by Google Play Protect" />
         </div>
 
         <dl class="mt-6 grid gap-4 text-sm md:grid-cols-3">
           <div class="rounded-xl bg-brand-background p-4">
             <dt class="text-brand-muted">Version</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">{DOWNLOAD_META.version}</dd>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.version}</dd>
           </div>
           <div class="rounded-xl bg-brand-background p-4">
             <dt class="text-brand-muted">Size</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">{DOWNLOAD_META.size}</dd>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.size}</dd>
           </div>
           <div class="rounded-xl bg-brand-background p-4">
             <dt class="text-brand-muted">Release Date</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">Jan 18, 2026</dd>
+            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.releaseDate}</dd>
           </div>
         </dl>
 
-        <a href={DOWNLOAD_META.apkUrl} class="btn-primary mt-6 w-full text-center">
-          Download APK (Placeholder)
+        <a
+          href={downloadData.apkUrl}
+          class:list={["btn-primary mt-6 w-full text-center", !hasRealApk && "pointer-events-none opacity-70"]}
+        >
+          {hasRealApk ? `Download Kota-OS v${downloadData.version}` : "APK Upload Pending"}
         </a>
+
+        {!hasRealApk && (
+          <p class="mt-3 text-sm text-brand-muted">
+            The latest APK has not been uploaded yet. Please contact support for the approved download channel.
+          </p>
+        )}
 
         <div class="mt-4 rounded-xl border border-brand-border bg-brand-card p-4">
           <p class="text-xs uppercase tracking-wide text-brand-muted">SHA-256 Checksum</p>
-          <p class="mt-1 break-all font-mono text-sm text-brand-foreground">{DOWNLOAD_META.checksumSha256}</p>
+          <p class="mt-1 break-all font-mono text-sm text-brand-foreground">{downloadData.checksumSha256}</p>
         </div>
 
         <p class="mt-4 text-sm leading-relaxed text-brand-muted">
@@ -65,11 +100,28 @@ const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
         <article class="card-base rounded-2xl p-6">
           <h3 class="text-xl font-bold text-brand-foreground">Scan to Download</h3>
           <p class="mt-2 text-sm text-brand-muted">
-            QR code will be provided with the official public release link.
+            {hasQrImage
+              ? "Scan to open the official Kota-OS APK download URL instantly."
+              : "QR code will appear once the official APK release is published."}
           </p>
-          <div class="mt-4 grid h-44 place-items-center rounded-xl border-2 border-dashed border-brand-border bg-brand-background">
-            <p class="text-sm font-semibold text-brand-muted">QR Placeholder</p>
+          <div class="mt-4 grid h-48 place-items-center rounded-xl border-2 border-dashed border-brand-border bg-brand-background">
+            {hasQrImage ? (
+              <img
+                src={qrImagePath}
+                alt="QR code linking to the official Kota-OS APK download URL"
+                class="h-36 w-36 rounded-lg border border-brand-border bg-white p-2"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <p class="text-sm font-semibold text-brand-muted">QR Pending</p>
+            )}
           </div>
+          {hasQrImage && (
+            <p class="mt-3 break-all text-xs text-brand-muted">
+              QR target: https://kota-os.co.za{downloadData.apkUrl}
+            </p>
+          )}
         </article>
 
         <article class="card-base rounded-2xl p-6">
@@ -142,5 +194,5 @@ const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
     </div>
   </section>
 
-  <FinalCta title="Need the Official APK Link?" subtitle="Contact our team and we will share the approved download channel." />
+  <FinalCta title="Need installation help?" subtitle="Contact our team if you need help installing or activating Kota-OS." />
 </BaseLayout>
