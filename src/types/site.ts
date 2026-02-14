@@ -64,16 +64,6 @@ export type Testimonial = {
   stars: 5;
 };
 
-export type PricingTier = {
-  title: string;
-  badge: string;
-  price: string;
-  period: string;
-  description: string;
-  includes: string[];
-  legalNote: string;
-};
-
 export type FaqItem = {
   id: string;
   question: string;

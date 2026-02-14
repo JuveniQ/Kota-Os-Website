@@ -42,10 +42,6 @@ export function trackFeatureClick(featureId: string) {
   sendEvent("feature_card_click", { feature_id: featureId });
 }
 
-export function trackPricingCTA(source: string) {
-  sendEvent("pricing_cta_click", { source });
-}
-
 export function trackFaqToggle(faqId: string, isOpen: boolean) {
   sendEvent("faq_toggle", { faq_id: faqId, state: isOpen ? "open" : "closed" });
 }

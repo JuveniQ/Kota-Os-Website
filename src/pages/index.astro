@@ -6,7 +6,6 @@ import SectionHeader from "@/components/SectionHeader.astro";
 import HowItWorksTimeline from "@/components/HowItWorksTimeline";
 import ScreenshotsCarousel from "@/components/ScreenshotsCarousel";
 import Testimonials from "@/components/Testimonials";
-import PricingCard from "@/components/PricingCard";
 import FaqAccordion from "@/components/FaqAccordion";
 import BenefitCard from "@/components/BenefitCard";
 import FeaturesGrid from "@/components/FeaturesGrid";
@@ -22,7 +21,7 @@ import {
   TESTIMONIALS,
   TRUST_STATS
 } from "@/data/home-content";
-import { PRICING_TIER, SITE_META } from "@/data/site-config";
+import { SITE_META } from "@/data/site-config";
 import { faqPageSchema, organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
 const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSchema("/", FAQ_ITEMS)];
@@ -85,16 +84,6 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
           <Testimonials items={TESTIMONIALS} />
         </SectionReveal>
       </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="section-pad scroll-mt-28 bg-gradient-to-b from-white to-brand-surface/65">
-    <div class="container-wide">
-      <SectionHeader
-        title="Simple, Transparent Pricing"
-        subtitle="No hidden fees. No subscriptions. One-time license per device with a 14-day trial."
-      />
-      <PricingCard client:visible tier={PRICING_TIER} />
     </div>
   </section>
 

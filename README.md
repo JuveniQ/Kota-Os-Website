@@ -10,13 +10,14 @@ Professional multi-page marketing site for Kota-OS, a Point-of-Sale platform bui
 
 ## Overview
 
-This repository contains a static-first website built with Astro, React, and Tailwind CSS. The site is focused on conversion, product education, trust building, and license acquisition.
+This repository contains a static-first website built with Astro, React, and Tailwind CSS. The site is focused on conversion, product education, trust building, and trial acquisition.
 
 Key messaging implemented in the product copy:
 
 - Offline-first POS workflow
 - Built for township food businesses
-- 14-day free trial, then paid one-time license
+- 30-day free trial
+- Commercial pricing plans coming soon
 - APK distribution notice: not verified by Google Play Protect
 
 ## Tech Stack
@@ -34,7 +35,7 @@ Key messaging implemented in the product copy:
 - / (Home)
 - /features
 - /how-it-works
-- /pricing
+- /pricing (plans coming soon)
 - /faq
 - /download
 - /updates
@@ -109,7 +110,6 @@ Main editable content files:
 - src/data/site-config.ts
   - Navigation links
   - Contact details
-  - Pricing tier
   - Download metadata
   - Donation tiers
   - Footer links

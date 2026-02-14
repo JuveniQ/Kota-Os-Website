@@ -64,7 +64,7 @@ export const HOW_IT_WORKS: StepItem[] = [
     step: "1",
     title: "Create Your Account",
     description:
-      "Enter your shop name and activate your license with a simple voucher.",
+      "Enter your shop name and complete onboarding in minutes.",
     visualTitle: "Account Setup",
     visualPoints: ["Shop details", "Voucher redemption", "Device binding"]
   },
@@ -167,7 +167,7 @@ export const BENEFITS: BenefitItem[] = [
     iconColor: "success",
     title: "Enterprise Security",
     description:
-      "Device-bound licensing with rollback detection prevents tampering."
+      "Secure local-first controls with rollback detection prevent tampering."
   },
   {
     id: "quick",
@@ -190,7 +190,7 @@ export const BENEFITS: BenefitItem[] = [
     icon: "users",
     iconColor: "success",
     title: "Share Device",
-    description: "Multiple operators can run sales on the same licensed device."
+    description: "Multiple operators can run sales on the same device."
   },
   {
     id: "sync",
@@ -246,10 +246,10 @@ export const FAQ_ITEMS: FaqItem[] = [
       "No. Kota-OS works completely offline. Data can sync automatically when a connection is available."
   },
   {
-    id: "license",
-    question: "How does licensing work?",
+    id: "trial",
+    question: "How does the 30-day trial work?",
     answer:
-      "Kota-OS uses a one-time, device-bound license model. You can start with a 14-day trial, then activate with a voucher."
+      "You get full access to core Kota-OS features for 30 days. Commercial plans are being finalized and will be announced before trial completion."
   },
   {
     id: "users",
@@ -261,13 +261,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "lost-device",
     question: "What if I lose my device?",
     answer:
-      "If cloud sync is enabled, data recovery is possible. Because licenses are device-specific, a new device requires a new license."
+      "If cloud sync is enabled, data recovery is possible. We recommend enabling backup early to keep your operational data safe."
   },
   {
-    id: "fees",
-    question: "Does Kota-OS charge per transaction or per user?",
+    id: "pricing",
+    question: "Is Kota-OS free to use?",
     answer:
-      "No. There are no per-transaction or per-user fees. Kota-OS is purchased as a one-time license after trial."
+      "Kota-OS currently includes a full 30-day free trial. Commercial pricing plans are being finalized and will be published soon."
   },
   {
     id: "receipt",
@@ -295,7 +295,7 @@ export const QUICK_START_STEPS: string[] = [
   "Create your shop profile and configure your store details.",
   "Add menu items, ingredients, and pricing.",
   "Run your first sale and verify inventory deduction.",
-  "Activate your license before the 14-day trial ends."
+  "Continue using the 30-day free trial while commercial plans are being finalized."
 ];
 
 export const RELEASE_NOTES: ReleaseNote[] = [
@@ -305,7 +305,7 @@ export const RELEASE_NOTES: ReleaseNote[] = [
     summary:
       "Reliability and reporting upgrade focused on offline licensing, search speed, and export consistency.",
     features: [
-      "Offline-safe license checks",
+      "Offline-safe access checks",
       "Clearer order status labels",
       "Faster order search",
       "Inventory adjustment notes",

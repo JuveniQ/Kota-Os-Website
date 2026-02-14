@@ -1,4 +1,4 @@
-import type { DonationTier, DownloadMeta, NavItem, PricingTier } from "@/types/site";
+import type { DonationTier, DownloadMeta, NavItem } from "@/types/site";
 
 export const SITE_URL = "https://kota-os.co.za";
 
@@ -6,7 +6,7 @@ export const SITE_META = {
   name: "Kota-OS",
   title: "Kota-OS | Point of Sale System for Food Vendors",
   description:
-    "Fast, offline-first POS system for township fast-food vendors. Real-time inventory, beautiful reports, one-time license.",
+    "Fast, offline-first POS system for township fast-food vendors. Real-time inventory, beautiful reports, and a full 30-day free trial.",
   keywords: [
     "Kota-OS",
     "POS system",
@@ -30,38 +30,18 @@ export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Features", href: "/features" },
   { label: "How It Works", href: "/how-it-works" },
-  { label: "Pricing", href: "/pricing" },
   { label: "FAQ", href: "/faq" },
   { label: "Download", href: "/download" }
 ];
 
 export const PRIMARY_CTA = {
-  label: "Get License",
+  label: "Start 30-Day Trial",
   href: "/download"
 };
 
 export const SECONDARY_CTA = {
-  label: "Start Your Free Trial",
+  label: "Start 30-Day Free Trial",
   href: "/download"
-};
-
-export const PRICING_TIER: PricingTier = {
-  title: "Professional License",
-  badge: "Popular",
-  price: "R 399",
-  period: "One-Time Purchase",
-  description:
-    "Includes all features, unlimited transactions, optional cloud sync, and a 14-day free trial before purchase.",
-  includes: [
-    "Unlimited sales and orders",
-    "Real-time inventory tracking",
-    "Professional report generation",
-    "Cloud backup and sync (rolling out)",
-    "24/7 support",
-    "Regular updates"
-  ],
-  legalNote:
-    "License is device-bound and non-transferable. Activate with a unique voucher code."
 };
 
 export const DOWNLOAD_META: DownloadMeta = {
@@ -106,7 +86,6 @@ export const FOOTER_LINKS = {
   product: [
     { label: "Features", href: "/features" },
     { label: "Screenshots", href: "/#screenshots" },
-    { label: "Pricing", href: "/pricing" },
     { label: "Updates", href: "/updates" }
   ],
   company: [
@@ -118,7 +97,7 @@ export const FOOTER_LINKS = {
   legal: [
     { label: "Privacy Policy", href: "/contact" },
     { label: "Terms of Service", href: "/contact" },
-    { label: "License Agreement", href: "/pricing" },
+    { label: "User Agreement", href: "/contact" },
     { label: "Contact Security", href: "/contact" }
   ],
   social: [

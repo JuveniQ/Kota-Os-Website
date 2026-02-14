@@ -48,7 +48,7 @@ export default function Hero({ metrics }: HeroProps) {
       <div className="container-wide relative z-10 flex min-h-[calc(100vh-7rem)] items-center py-12">
         <div className="max-w-3xl">
           <span className="mb-5 inline-flex animate-float items-center rounded-full border border-brand-primary/35 bg-white/75 px-4 py-2 text-sm font-semibold text-brand-foreground backdrop-blur-sm">
-            14-Day Free Trial
+            30-Day Free Trial
           </span>
 
           <h1 className="text-4xl font-extrabold leading-tight text-brand-primary xs:text-5xl md:text-[56px]">
@@ -59,8 +59,8 @@ export default function Hero({ metrics }: HeroProps) {
           </p>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-foreground">
             Kota-OS helps you run quicker checkouts, tighter inventory, and clearer reports
-            on one reliable platform. Sell confidently with local-first performance and upgrade
-            to a secure license when your trial ends.
+            on one reliable platform. Sell confidently with local-first performance while
+            commercial plans are being finalized.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">

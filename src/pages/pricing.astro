@@ -2,47 +2,55 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
-import PricingCard from "@/components/PricingCard";
 import FinalCta from "@/components/FinalCta.astro";
-import { PRICING_TIER } from "@/data/site-config";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
 const jsonLd = [softwareApplicationSchema("/pricing"), organizationSchema()];
 ---
 
 <BaseLayout
-  title="Kota-OS Pricing | One-Time License for Food Vendors"
-  description="Transparent pricing with a 14-day free trial and a one-time professional device license."
+  title="Kota-OS Pricing | Plans Coming Soon"
+  description="Kota-OS currently offers a full 30-day free trial while commercial pricing plans are being finalized."
   path="/pricing"
   jsonLd={jsonLd}
 >
   <PageHero
-    title="Simple, Transparent Pricing"
-    subtitle="Kota-OS is not free long-term. Start with a 14-day trial, then activate a one-time professional license."
+    title="Pricing Plans Are Being Finalized"
+    subtitle="Kota-OS is currently available with a full 30-day free trial while commercial plans are being finalized."
   />
 
   <section class="section-pad bg-gradient-to-b from-white to-brand-surface/65">
     <div class="container-wide">
-      <SectionHeader
-        title="One License Tier, Full Capability"
-        subtitle="No recurring subscription, no per-user charges, no per-transaction fees."
-      />
-      <PricingCard client:visible tier={PRICING_TIER} compact={true} />
-    </div>
-  </section>
-
-  <section class="section-pad bg-white">
-    <div class="container-wide max-w-[900px]">
-      <div class="rounded-2xl border border-brand-border bg-brand-card p-6 md:p-8">
-        <h2 class="text-2xl font-bold text-brand-foreground">Pricing Clarification</h2>
-        <ul class="mt-4 list-disc space-y-2 pl-5 text-base leading-relaxed text-brand-muted">
-          <li>Kota-OS includes a 14-day free trial for evaluation.</li>
-          <li>Continued use requires a paid, one-time device license.</li>
-          <li>Additional pricing models for expanded deployments are being finalized.</li>
-        </ul>
+      <SectionHeader title="Current Access" subtitle="Use Kota-OS today while we finalize long-term commercial plans." />
+      <div class="mx-auto grid w-full max-w-[920px] gap-5 md:grid-cols-2">
+        <article class="card-base rounded-2xl bg-white p-7">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Available Now</p>
+          <h3 class="mt-2 text-2xl font-bold text-brand-foreground">30-Day Free Trial</h3>
+          <p class="mt-3 text-base leading-relaxed text-brand-muted">
+            Full platform access is available during the trial period, including sales, inventory,
+            reports, and offline operations.
+          </p>
+        </article>
+        <article class="card-base rounded-2xl bg-white p-7">
+          <p class="text-xs uppercase tracking-wide text-brand-muted">Coming Soon</p>
+          <h3 class="mt-2 text-2xl font-bold text-brand-foreground">Commercial Plans</h3>
+          <p class="mt-3 text-base leading-relaxed text-brand-muted">
+            We are finalizing monetization options to keep Kota-OS practical and sustainable for
+            township food businesses.
+          </p>
+        </article>
+      </div>
+      <div class="mx-auto mt-8 w-full max-w-[920px] rounded-2xl border border-brand-border bg-white p-6">
+        <p class="text-sm leading-relaxed text-brand-muted">
+          Start using Kota-OS with the 30-day trial today. We will publish commercial pricing updates
+          before the trial window closes.
+        </p>
+        <a href="/download" class="btn-primary mt-4 inline-flex">
+          Download and Start 30-Day Trial
+        </a>
       </div>
     </div>
   </section>
 
-  <FinalCta />
+  <FinalCta title="Ready to get started?" subtitle="Download Kota-OS and begin your full 30-day free trial today." />
 </BaseLayout>

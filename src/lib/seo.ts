@@ -18,12 +18,6 @@ export function softwareApplicationSchema(path: string) {
     name: "Kota-OS",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Android",
-    offers: {
-      "@type": "Offer",
-      price: "399",
-      priceCurrency: "ZAR",
-      description: "One-time professional device license after 14-day trial"
-    },
     description: SITE_META.description,
     url: canonicalUrl(path),
     aggregateRating: {
