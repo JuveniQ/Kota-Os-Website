@@ -26,6 +26,11 @@ export const CONTACT_INFO = {
   supportSla: "Urgent support responses typically within 4 hours."
 };
 
+export const LEGAL_INFO = {
+  responsibleParty: "JuveniQ (trading as Kota-OS)",
+  companyRegistrationNumber: "K2025/699085/07"
+};
+
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Features", href: "/features" },
@@ -95,10 +100,10 @@ export const FOOTER_LINKS = {
     { label: "Careers", href: "/contact" }
   ],
   legal: [
-    { label: "Privacy Policy", href: "/contact" },
-    { label: "Terms of Service", href: "/contact" },
-    { label: "User Agreement", href: "/contact" },
-    { label: "Contact Security", href: "/contact" }
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-of-service" },
+    { label: "User Agreement", href: "/terms-of-service#user-agreement" },
+    { label: "Contact Security", href: "/security" }
   ],
   social: [
     { label: "LinkedIn", href: "https://www.linkedin.com", external: true },

@@ -1,0 +1,77 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { CONTACT_INFO, LEGAL_INFO } from "@/data/site-config";
+import { organizationSchema } from "@/lib/seo";
+
+const jsonLd = [organizationSchema()];
+---
+
+<BaseLayout
+  title="Terms of Service | Kota-OS"
+  description="Review the terms that govern use of the Kota-OS website, trial access, and support channels."
+  path="/terms-of-service"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Terms of Service"
+    subtitle="These terms govern use of the Kota-OS website and the current trial access period."
+    badge="Legal Terms"
+  />
+
+  <section class="section-pad">
+    <div class="container-wide max-w-4xl space-y-6">
+      <article class="card-base rounded-2xl p-6">
+        <p class="text-sm text-brand-muted">Effective Date: February 14, 2026</p>
+        <p class="mt-1 text-sm text-brand-muted">Last Updated: February 14, 2026</p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Service Scope</h2>
+        <p class="mt-3 text-brand-muted">
+          Kota-OS is a POS platform for food vendors. By using this website, downloading software,
+          or contacting our team, you agree to these terms.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Beta and Trial Clause</h2>
+        <p class="mt-3 text-brand-muted">
+          Kota-OS currently offers a 30-day trial. This trial is temporary access and does not
+          guarantee continued free usage after trial completion.
+        </p>
+        <p class="mt-3 text-brand-muted">
+          Commercial pricing and monetization terms are still being finalized and may apply in
+          future. Future plans will be communicated before activation.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Acceptable Use</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>No unauthorized access, tampering, or reverse engineering</li>
+          <li>No fraudulent, unlawful, or abusive use of the service</li>
+          <li>No actions that disrupt service stability or security</li>
+        </ul>
+      </article>
+
+      <article id="user-agreement" class="card-base rounded-2xl p-6 scroll-mt-28">
+        <h2 class="text-2xl font-bold text-brand-foreground">User Agreement</h2>
+        <p class="mt-3 text-brand-muted">
+          Your use of Kota-OS requires compliance with these terms, lawful conduct, and cooperation
+          with reasonable security and support procedures.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Legal Contact</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Responsible Party: {LEGAL_INFO.responsibleParty}</li>
+          <li>Company Registration Number: {LEGAL_INFO.companyRegistrationNumber}</li>
+          <li>Email: {CONTACT_INFO.email}</li>
+          <li>Phone: {CONTACT_INFO.phone}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
