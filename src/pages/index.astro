@@ -9,7 +9,6 @@ import Testimonials from "@/components/Testimonials";
 import FaqAccordion from "@/components/FaqAccordion";
 import BenefitCard from "@/components/BenefitCard";
 import FeaturesGrid from "@/components/FeaturesGrid";
-import SectionReveal from "@/components/SectionReveal";
 import TrustStats from "@/components/TrustStats";
 import {
   BENEFITS,
@@ -41,34 +40,30 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
         title="Why Choose Kota-OS?"
         subtitle="Everything you need to run a modern food business."
       />
-      <FeaturesGrid client:visible items={FEATURE_ITEMS} />
+      <FeaturesGrid items={FEATURE_ITEMS} />
     </div>
   </section>
 
   <section id="how-it-works" class="section-pad scroll-mt-28 bg-brand-surface/45">
     <div class="container-wide">
       <SectionHeader title="Three Steps to Success" />
-      <SectionReveal client:visible>
-        <HowItWorksTimeline steps={HOW_IT_WORKS} />
-      </SectionReveal>
+      <HowItWorksTimeline steps={HOW_IT_WORKS} />
     </div>
   </section>
 
   <section id="screenshots" class="section-pad scroll-mt-28">
     <div class="container-wide">
       <SectionHeader title="See It In Action" subtitle="Operational clarity from the first tap." />
-      <ScreenshotsCarousel client:visible slides={SCREENSHOT_SLIDES} />
+      <ScreenshotsCarousel client:load slides={SCREENSHOT_SLIDES} />
     </div>
   </section>
 
   <section class="section-pad bg-white">
     <div class="container-wide">
       <SectionHeader title="Built for Your Success" />
-      <SectionReveal client:visible>
-        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {BENEFITS.map((benefit) => <BenefitCard benefit={benefit} />)}
-        </div>
-      </SectionReveal>
+      <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {BENEFITS.map((benefit) => <BenefitCard benefit={benefit} />)}
+      </div>
     </div>
   </section>
 
@@ -79,10 +74,8 @@ const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSch
         subtitle="Join hundreds of successful businesses using Kota-OS."
       />
       <div class="grid gap-10 md:grid-cols-2">
-        <TrustStats client:visible stats={TRUST_STATS} />
-        <SectionReveal client:visible delay={0.1}>
-          <Testimonials items={TESTIMONIALS} />
-        </SectionReveal>
+        <TrustStats stats={TRUST_STATS} />
+        <Testimonials items={TESTIMONIALS} />
       </div>
     </div>
   </section>

@@ -38,10 +38,6 @@ export function trackHeroCTA(label: string) {
   sendEvent("hero_cta_click", { label });
 }
 
-export function trackFeatureClick(featureId: string) {
-  sendEvent("feature_card_click", { feature_id: featureId });
-}
-
 export function trackFaqToggle(faqId: string, isOpen: boolean) {
   sendEvent("faq_toggle", { faq_id: faqId, state: isOpen ? "open" : "closed" });
 }
