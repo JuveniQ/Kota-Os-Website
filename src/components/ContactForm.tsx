@@ -6,21 +6,33 @@ type FormValues = {
   email: string;
   subject: string;
   message: string;
+  website: string;
 };
 
 const initialValues: FormValues = {
   name: "",
   email: "",
   subject: "",
-  message: ""
+  message: "",
+  website: ""
 };
+
+const BOT_MIN_FILL_MS = 2500;
 
 export default function ContactForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
+  const [startedAt] = useState(() => Date.now());
 
   function onChange<K extends keyof FormValues>(key: K, value: string) {
     setValues((prev) => ({ ...prev, [key]: value }));
+  }
+
+  function looksLikeBot() {
+    if (values.website.trim().length > 0) return true;
+    if (Date.now() - startedAt < BOT_MIN_FILL_MS) return true;
+    return false;
   }
 
   function validate() {
@@ -35,6 +47,14 @@ export default function ContactForm() {
 
   function onSubmit(event: React.SyntheticEvent<HTMLFormElement>) {
     event.preventDefault();
+    setError("");
+    setNotice("");
+
+    if (looksLikeBot()) {
+      setNotice("Thanks. Your message has been received.");
+      return;
+    }
+
     const validation = validate();
     setError(validation);
     if (validation) return;
@@ -48,7 +68,20 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-4 rounded-2xl border border-brand-border bg-white p-6 shadow-card">
+    <form onSubmit={onSubmit} className="relative space-y-4 rounded-2xl border border-brand-border bg-white p-6 shadow-card">
+      <div className="absolute -left-[9999px] top-auto h-px w-px overflow-hidden opacity-0" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={values.website}
+          onChange={(event) => onChange("website", event.target.value)}
+        />
+      </div>
+
       <div>
         <label htmlFor="name" className="mb-1 block text-sm font-semibold text-brand-foreground">
           Name
@@ -112,6 +145,7 @@ export default function ContactForm() {
       </div>
 
       {error ? <p className="text-sm text-brand-destructive">{error}</p> : null}
+      {notice ? <p className="text-sm text-brand-success">{notice}</p> : null}
 
       <button type="submit" className="btn-primary w-full">
         Send Message

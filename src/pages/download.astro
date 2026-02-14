@@ -36,6 +36,7 @@ const downloadData = apkMeta
       apkUrl: DOWNLOAD_META.apkUrl,
       checksumSha256: DOWNLOAD_META.checksumSha256
     };
+const qrTargetUrl = `https://kotaos.juveniq.co.za${downloadData.apkUrl}`;
 ---
 
 <BaseLayout
@@ -119,7 +120,7 @@ const downloadData = apkMeta
           </div>
           {hasQrImage && (
             <p class="mt-3 break-all text-xs text-brand-muted">
-              QR target: https://kota-os.co.za{downloadData.apkUrl}
+              QR target: {qrTargetUrl}
             </p>
           )}
         </article>
@@ -132,6 +133,45 @@ const downloadData = apkMeta
             <li>Official support at contact@juveniq.co.za</li>
             <li>Not verified by Google Play Protect (current status)</li>
           </ul>
+        </article>
+
+        <article class="card-base rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-brand-foreground">Security &amp; Trust</h3>
+          <p class="mt-2 text-sm text-brand-muted">
+            Because Kota-OS is distributed directly and not through Google Play, Android may show a
+            Play Protect warning. This does not automatically mean the APK is malicious. Verify the
+            file hash before installation.
+          </p>
+
+          <div class="mt-4 rounded-xl border border-brand-border bg-brand-background p-4">
+            <p class="text-xs uppercase tracking-wide text-brand-muted">Official SHA-256</p>
+            <p class="mt-1 break-all font-mono text-sm text-brand-foreground">{downloadData.checksumSha256}</p>
+          </div>
+
+          <div class="mt-4 space-y-3 text-sm">
+            <div class="rounded-xl border border-brand-border bg-white p-3">
+              <p class="font-semibold text-brand-foreground">Windows (PowerShell)</p>
+              <code class="mt-1 block break-all text-xs text-brand-muted">
+                {`Get-FileHash ".\\${downloadData.name}" -Algorithm SHA256`}
+              </code>
+            </div>
+            <div class="rounded-xl border border-brand-border bg-white p-3">
+              <p class="font-semibold text-brand-foreground">macOS</p>
+              <code class="mt-1 block break-all text-xs text-brand-muted">
+                {`shasum -a 256 "${downloadData.name}"`}
+              </code>
+            </div>
+            <div class="rounded-xl border border-brand-border bg-white p-3">
+              <p class="font-semibold text-brand-foreground">Linux</p>
+              <code class="mt-1 block break-all text-xs text-brand-muted">
+                {`sha256sum "${downloadData.name}"`}
+              </code>
+            </div>
+          </div>
+
+          <p class="mt-4 text-xs text-brand-muted">
+            Install only if the computed hash matches exactly.
+          </p>
         </article>
       </aside>
     </div>
