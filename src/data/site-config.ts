@@ -33,6 +33,7 @@ export const LEGAL_INFO = {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Features", href: "/features" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "FAQ", href: "/faq" },
@@ -94,7 +95,7 @@ export const FOOTER_LINKS = {
     { label: "Updates", href: "/updates" }
   ],
   company: [
-    { label: "About", href: "/contact" },
+    { label: "About", href: "/about" },
     { label: "Blog (Coming Soon)", href: "/updates" },
     { label: "Contact", href: "/contact" },
     { label: "Careers", href: "/contact" }
