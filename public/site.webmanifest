@@ -1,0 +1,19 @@
+{
+  "name": "Kota-OS",
+  "short_name": "Kota-OS",
+  "icons": [
+    {
+      "src": "/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#F59E0B",
+  "background_color": "#F8F6F3",
+  "display": "standalone"
+}

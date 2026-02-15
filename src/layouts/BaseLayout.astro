@@ -37,10 +37,13 @@ const canonical = canonicalUrl(path);
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords.join(", ")} />
     <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#F59E0B" />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
-    <link rel="shortcut icon" href="/logo.jpeg" />
-    <link rel="apple-touch-icon" href="/logo.jpeg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE_META.name} />
