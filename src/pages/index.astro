@@ -21,9 +21,14 @@ import {
   TRUST_STATS
 } from "@/data/home-content";
 import { SITE_META } from "@/data/site-config";
-import { faqPageSchema, organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+import { faqPageSchema, localBusinessSchema, organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
-const jsonLd = [softwareApplicationSchema("/"), organizationSchema(), faqPageSchema("/", FAQ_ITEMS)];
+const jsonLd = [
+  softwareApplicationSchema("/"),
+  localBusinessSchema("/"),
+  organizationSchema(),
+  faqPageSchema("/", FAQ_ITEMS)
+];
 ---
 
 <BaseLayout

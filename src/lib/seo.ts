@@ -15,11 +15,22 @@ export function softwareApplicationSchema(path: string) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
+    "@id": `${SITE_URL}/#software`,
     name: "Kota-OS",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Android",
     description: SITE_META.description,
     url: canonicalUrl(path),
+    downloadUrl: `${SITE_URL}/download`,
+    offers: {
+      "@type": "Offer",
+      name: "30-Day Free Trial",
+      price: "0",
+      priceCurrency: "ZAR",
+      availability: "https://schema.org/InStock",
+      url: `${SITE_URL}/download`,
+      description: "Full platform trial access for 30 days. Commercial plans are being finalized."
+    },
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
@@ -41,6 +52,37 @@ export function organizationSchema() {
       addressLocality: CONTACT_INFO.location,
       addressCountry: "ZA"
     }
+  };
+}
+
+export function localBusinessSchema(path = "/") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#business`,
+    name: "Kota-OS (JuveniQ)",
+    url: canonicalUrl(path),
+    email: CONTACT_INFO.email,
+    telephone: CONTACT_INFO.phone,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Johannesburg",
+      addressRegion: "Gauteng",
+      addressCountry: "ZA"
+    },
+    areaServed: [
+      "Soweto",
+      "Tembisa",
+      "Alexandra",
+      "Mamelodi",
+      "Khayelitsha",
+      "Gugulethu",
+      "Mitchells Plain",
+      "Umlazi",
+      "KwaMashu",
+      "Mdantsane"
+    ],
+    openingHours: "Mo-Su 06:00-21:00"
   };
 }
 

@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
 function cloudflareSecurityHeaders() {
@@ -24,8 +25,8 @@ function cloudflareSecurityHeaders() {
 }
 
 export default defineConfig({
-  site: "https://kota-os.co.za",
-  integrations: [react(), tailwind(), cloudflareSecurityHeaders()],
+  site: "https://kotaos.juveniq.co.za",
+  integrations: [react(), tailwind(), sitemap(), cloudflareSecurityHeaders()],
   output: "static",
   prefetch: true
 });

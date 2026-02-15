@@ -1,6 +1,6 @@
 import type { DonationTier, DownloadMeta, NavItem } from "@/types/site";
 
-export const SITE_URL = "https://kota-os.co.za";
+export const SITE_URL = "https://kotaos.juveniq.co.za";
 
 export const SITE_META = {
   name: "Kota-OS",

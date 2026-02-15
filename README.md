@@ -1,10 +1,10 @@
 # Kota-OS Marketing Website
 
 [![Astro](https://img.shields.io/badge/Astro-5-FF5D01?logo=astro&logoColor=white)](https://astro.build/)
-[![React](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white)](https://react.dev/)
+[![React](https://img.shields.io/badge/React-18-149ECA?logo=react&logoColor=white)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Site](https://img.shields.io/badge/Website-kota--os.co.za-1F1814)](https://kota-os.co.za)
+[![Site](https://img.shields.io/badge/Website-kotaos.juveniq.co.za-1F1814)](https://kotaos.juveniq.co.za)
 
 Professional multi-page marketing site for Kota-OS, a Point-of-Sale platform built for township fast-food vendors.
 
@@ -23,9 +23,9 @@ Key messaging implemented in the product copy:
 ## Tech Stack
 
 - Framework: Astro 5 (static output)
-- UI Islands: React 19
+- UI Islands: React 18
 - Styling: Tailwind CSS with custom brand tokens
-- Animation: Framer Motion (targeted sections)
+- Animation: CSS transitions with lightweight interactive islands
 - Icons: Lucide React and SVG
 - Language: TypeScript
 - Image Processing: Sharp
