@@ -1,10 +1,17 @@
+import { hasAnalyticsConsent } from "@/lib/consent";
+
 type JsonRecord = Record<string, string | number | boolean | null | undefined>;
+type MixpanelClient = {
+  init?: (token: string, config?: Record<string, unknown>) => void;
+  track?: (name: string, props?: JsonRecord) => void;
+  opt_out_tracking?: () => void;
+};
 
 declare global {
   interface Window {
     dataLayer?: unknown[];
     gtag?: (...args: unknown[]) => void;
-    mixpanel?: { track: (name: string, props?: JsonRecord) => void };
+    mixpanel?: MixpanelClient;
   }
 }
 
@@ -17,6 +24,7 @@ function isBrowser() {
 
 function sendEvent(name: string, props?: JsonRecord) {
   if (!isBrowser()) return;
+  if (!hasAnalyticsConsent()) return;
 
   if (GA_ID && typeof window.gtag === "function") {
     window.gtag("event", name, props ?? {});

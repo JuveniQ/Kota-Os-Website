@@ -22,15 +22,24 @@ const jsonLd = [organizationSchema()];
   <section class="section-pad">
     <div class="container-wide max-w-4xl space-y-6">
       <article class="card-base rounded-2xl p-6">
-        <p class="text-sm text-brand-muted">Effective Date: February 14, 2026</p>
-        <p class="mt-1 text-sm text-brand-muted">Last Updated: February 14, 2026</p>
+        <p class="text-sm text-brand-muted">Effective Date: February 15, 2026</p>
+        <p class="mt-1 text-sm text-brand-muted">Last Updated: February 15, 2026</p>
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">Responsible Party</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">Interpretation and Scope</h2>
+        <p class="mt-3 text-brand-muted">
+          This Privacy Policy applies to personal information processed through the Kota-OS
+          marketing website, contact channels, and trial onboarding workflows. It does not replace
+          any in-product policy that may apply within the Kota-OS application.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Responsible Party Details</h2>
         <p class="mt-3 text-brand-muted">
           Kota-OS is operated by {LEGAL_INFO.responsibleParty}. For POPIA purposes, JuveniQ is the
-          Responsible Party for personal information collected through this marketing website.
+          Responsible Party for personal information processed through this website.
         </p>
         <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
           <li>Responsible Party: {LEGAL_INFO.responsibleParty}</li>
@@ -42,36 +51,117 @@ const jsonLd = [organizationSchema()];
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">What We Collect and Why</h2>
-        <p class="mt-3 text-brand-muted">
-          We collect names, email addresses, phone numbers, and enquiry details to support trial
-          setup and customer support operations.
-        </p>
+        <h2 class="text-2xl font-bold text-brand-foreground">Information We Collect</h2>
         <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
-          <li>Responding to contact and support requests</li>
-          <li>Preparing and assisting 30-day trial onboarding</li>
-          <li>Operational and service-quality communications</li>
-          <li>Security monitoring and abuse prevention</li>
+          <li>Identity information, such as your name</li>
+          <li>Contact information, such as email address and phone number</li>
+          <li>Communication content submitted through the contact form</li>
+          <li>Technical usage information when analytics is enabled by consent</li>
         </ul>
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">Data Subject Requests</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">Lawful Basis and Purpose Limitation</h2>
         <p class="mt-3 text-brand-muted">
-          You may request access, correction, or deletion of your personal information.
-        </p>
-        <p class="mt-3 text-brand-muted">
-          To submit a request, email <a href={`mailto:${CONTACT_INFO.email}`} class="text-brand-primary underline">{CONTACT_INFO.email}</a> with
-          the subject line <span class="font-semibold text-brand-foreground">POPIA Data Request</span>. Include enough detail for us
-          to identify your records and verify your identity.
+          We process personal information for lawful, specific, and explicitly defined purposes,
+          including responding to support requests, assisting trial onboarding, maintaining service
+          security, and improving content quality where consent has been provided.
         </p>
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">Retention and Security</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">How We Use Personal Information</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Responding to enquiries and support requests</li>
+          <li>Supporting 30-day trial setup and communications</li>
+          <li>Monitoring abuse, fraud, or suspicious activity</li>
+          <li>Improving website usability and product messaging</li>
+        </ul>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Sharing and Operators</h2>
         <p class="mt-3 text-brand-muted">
-          We keep personal information only as long as needed for the purposes above and legal
-          requirements. We apply reasonable technical and organizational safeguards to protect data.
+          We may use service providers (operators) for infrastructure, analytics, and support
+          tooling. Operators process data only under instruction and contractual confidentiality
+          obligations.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Cross-Border Processing</h2>
+        <p class="mt-3 text-brand-muted">
+          Some technology providers may process data outside South Africa. Where cross-border
+          processing occurs, we take reasonable steps to ensure adequate safeguards and lawful
+          transfer conditions.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Retention and Deletion</h2>
+        <p class="mt-3 text-brand-muted">
+          We retain personal information only for as long as necessary for the stated purposes,
+          legal obligations, dispute handling, and security requirements. Data is deleted or
+          de-identified when no longer required.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Security Safeguards</h2>
+        <p class="mt-3 text-brand-muted">
+          We use reasonable technical and organizational measures to protect personal information
+          against unauthorized access, disclosure, loss, misuse, and alteration.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Your POPIA Rights</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Request access to personal information we hold about you</li>
+          <li>Request correction of inaccurate or incomplete records</li>
+          <li>Request deletion where lawful grounds apply</li>
+          <li>Object to certain processing activities where permitted by law</li>
+        </ul>
+        <p class="mt-3 text-brand-muted">
+          To submit a request, email
+          <a href={`mailto:${CONTACT_INFO.email}`} class="mx-1 text-brand-primary underline">
+            {CONTACT_INFO.email}
+          </a>
+          with the subject line
+          <span class="mx-1 font-semibold text-brand-foreground">POPIA Data Request</span>
+          and sufficient details to verify identity.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Cookies and Consent</h2>
+        <p class="mt-3 text-brand-muted">
+          We use necessary cookies for core functionality and optional analytics cookies only where
+          consent is granted. See our
+          <a href="/cookie-policy" class="mx-1 text-brand-primary underline">Cookie Policy</a>
+          for full details and controls.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Complaints and Regulator</h2>
+        <p class="mt-3 text-brand-muted">
+          If you believe your personal information has been processed unlawfully, you may lodge a
+          complaint with the Information Regulator (South Africa).
+        </p>
+        <p class="mt-3 text-brand-muted">
+          Website:
+          <a href="https://inforegulator.org.za/" target="_blank" rel="noreferrer" class="ml-1 text-brand-primary underline">
+            inforegulator.org.za
+          </a>
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Policy Updates</h2>
+        <p class="mt-3 text-brand-muted">
+          We may update this policy from time to time. The latest version and effective date will
+          always be published on this page.
         </p>
       </article>
     </div>

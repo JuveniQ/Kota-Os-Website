@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar";
 import PageTracker from "@/components/PageTracker";
+import CookieBanner from "@/components/CookieBanner";
 import { NAV_ITEMS, PRIMARY_CTA, SITE_META } from "@/data/site-config";
 import { canonicalUrl } from "@/lib/seo";
 
@@ -65,10 +66,14 @@ const canonical = canonicalUrl(path);
       <slot />
     </main>
     <Footer />
+    <CookieBanner client:load />
     <PageTracker client:load title={title} />
 
-    <script is:inline>
+    <script>
+      import { hasAnalyticsConsent } from "@/lib/consent";
+
       document.addEventListener("click", (event) => {
+        if (!hasAnalyticsConsent()) return;
         const target = event.target;
         if (!(target instanceof Element)) return;
         const anchor = target.closest("a[data-track-external='true']");

@@ -22,7 +22,11 @@ const jsonLd = [organizationSchema()];
   <section class="section-pad">
     <div class="container-wide max-w-4xl space-y-6">
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">How to Report</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">Responsible Disclosure Process</h2>
+        <p class="mt-3 text-brand-muted">
+          If you discover a security issue, please report it privately. Include a clear summary,
+          affected endpoint or flow, reproduction steps, and risk assessment.
+        </p>
         <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
           <li>Email: {CONTACT_INFO.email}</li>
           <li>Use subject line: Security Report - Kota-OS</li>
@@ -31,21 +35,57 @@ const jsonLd = [organizationSchema()];
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">Disclosure Expectations</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">Safe Harbor Expectations</h2>
         <p class="mt-3 text-brand-muted">
-          Please do not publicly disclose vulnerabilities before we have a reasonable opportunity to
-          investigate and remediate.
+          We support good-faith security research. If you act responsibly, avoid privacy violations,
+          and refrain from service disruption, we will treat your report as authorized security
+          testing within this policy scope.
         </p>
       </article>
 
       <article class="card-base rounded-2xl p-6">
-        <h2 class="text-2xl font-bold text-brand-foreground">Company Disclosure</h2>
+        <h2 class="text-2xl font-bold text-brand-foreground">Out-of-Scope and Prohibited Testing</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>No denial-of-service or brute-force attacks</li>
+          <li>No social engineering, phishing, or physical intrusion attempts</li>
+          <li>No unauthorized access to third-party systems</li>
+          <li>No data exfiltration beyond what is necessary to demonstrate the issue</li>
+        </ul>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Response Targets</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Acknowledgement target: within 1 business day</li>
+          <li>Triage target: within 3 business days</li>
+          <li>Resolution timing depends on severity and complexity</li>
+          <li>Critical vulnerabilities are prioritized immediately</li>
+        </ul>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Severity and Remediation Flow</h2>
+        <p class="mt-3 text-brand-muted">
+          Reported issues are evaluated by impact, exploitability, and affected data scope.
+          Confirmed vulnerabilities enter prioritized remediation workflows with verification before
+          closure.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Legal and Company Disclosure</h2>
         <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
           <li>Responsible Party: {LEGAL_INFO.responsibleParty}</li>
           <li>Company Registration Number: {LEGAL_INFO.companyRegistrationNumber}</li>
           <li>Phone: {CONTACT_INFO.phone}</li>
           <li>Location: {CONTACT_INFO.location}</li>
         </ul>
+        <p class="mt-3 text-brand-muted">
+          For privacy rights and data handling details, refer to our
+          <a href="/privacy-policy" class="mx-1 text-brand-primary underline">Privacy Policy</a>
+          and
+          <a href="/terms-of-service" class="mx-1 text-brand-primary underline">Terms of Service</a>.
+        </p>
       </article>
     </div>
   </section>

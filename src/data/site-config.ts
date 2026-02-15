@@ -101,6 +101,7 @@ export const FOOTER_LINKS = {
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Cookie Policy", href: "/cookie-policy" },
     { label: "Terms of Service", href: "/terms-of-service" },
     { label: "User Agreement", href: "/terms-of-service#user-agreement" },
     { label: "Contact Security", href: "/security" }

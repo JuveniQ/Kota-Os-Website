@@ -1,0 +1,110 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import { CONTACT_INFO, LEGAL_INFO } from "@/data/site-config";
+import { organizationSchema } from "@/lib/seo";
+
+const jsonLd = [organizationSchema()];
+---
+
+<BaseLayout
+  title="Cookie Policy | Kota-OS"
+  description="Understand how Kota-OS uses necessary and analytics cookies, and how to manage your cookie preferences."
+  path="/cookie-policy"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    title="Cookie Policy"
+    subtitle="This page explains how cookies are used on the Kota-OS website and how you can control your preferences."
+    badge="Privacy Controls"
+  />
+
+  <section class="section-pad">
+    <div class="container-wide max-w-4xl space-y-6">
+      <article class="card-base rounded-2xl p-6">
+        <p class="text-sm text-brand-muted">Effective Date: February 15, 2026</p>
+        <p class="mt-1 text-sm text-brand-muted">Last Updated: February 15, 2026</p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">What Are Cookies?</h2>
+        <p class="mt-3 text-brand-muted">
+          Cookies are small text files stored on your device when you visit a website. They help
+          websites remember your settings, keep services secure, and understand how pages are used.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Cookie Categories We Use</h2>
+        <div class="mt-4 space-y-4">
+          <div class="rounded-xl border border-brand-border bg-brand-background/60 p-4">
+            <h3 class="font-semibold text-brand-foreground">Necessary Cookies (Always Active)</h3>
+            <p class="mt-2 text-sm text-brand-muted">
+              These cookies are required for core website functionality, including storing your
+              cookie consent preferences and enabling basic security controls.
+            </p>
+          </div>
+          <div class="rounded-xl border border-brand-border p-4">
+            <h3 class="font-semibold text-brand-foreground">Analytics Cookies (Optional)</h3>
+            <p class="mt-2 text-sm text-brand-muted">
+              These cookies help us measure usage patterns and improve the quality of our pages and
+              support content. They are only used when you explicitly accept analytics cookies.
+            </p>
+          </div>
+        </div>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Why We Use Cookies</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Remembering your cookie preferences</li>
+          <li>Maintaining basic session and security behavior</li>
+          <li>Understanding page performance and navigation flow</li>
+          <li>Improving product communication and educational content</li>
+        </ul>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Third-Party Analytics Services</h2>
+        <p class="mt-3 text-brand-muted">
+          If analytics cookies are enabled, we may use services such as Google Analytics 4 and
+          Mixpanel to collect aggregated usage data. These providers may process data according to
+          their own privacy policies.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Cookie Retention</h2>
+        <p class="mt-3 text-brand-muted">
+          Cookie retention periods vary by cookie type. Preference cookies may remain for longer to
+          preserve your choices, while analytics cookies can expire earlier depending on provider
+          settings.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">How to Manage or Withdraw Consent</h2>
+        <p class="mt-3 text-brand-muted">
+          You can update your cookie preferences at any time by using the
+          <span class="mx-1 font-semibold text-brand-foreground">Cookie Preferences</span>
+          control in the footer.
+        </p>
+        <p class="mt-3 text-brand-muted">
+          You can also manage cookies through your browser settings. Disabling certain cookies may
+          affect how some website features behave.
+        </p>
+      </article>
+
+      <article class="card-base rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-brand-foreground">Contact and Company Details</h2>
+        <ul class="mt-4 list-disc space-y-2 pl-5 text-sm text-brand-muted">
+          <li>Responsible Party: {LEGAL_INFO.responsibleParty}</li>
+          <li>Company Registration Number: {LEGAL_INFO.companyRegistrationNumber}</li>
+          <li>Email: {CONTACT_INFO.email}</li>
+          <li>Phone: {CONTACT_INFO.phone}</li>
+          <li>Location: {CONTACT_INFO.location}</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

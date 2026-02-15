@@ -104,3 +104,18 @@ export type SeoConfig = {
   keywords?: string[];
 };
 
+export type CookieConsentCategory = "necessary" | "analytics";
+
+export type CookieConsentSource =
+  | "accept_all"
+  | "reject_non_essential"
+  | "customize";
+
+export type CookieConsentState = {
+  version: number;
+  updatedAt: string;
+  necessary: true;
+  analytics: boolean;
+  source: CookieConsentSource;
+};
+
