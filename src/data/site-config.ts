@@ -100,7 +100,7 @@ export const FOOTER_LINKS = {
     { label: "About", href: "/about" },
     { label: "Blog (Coming Soon)", href: "/updates" },
     { label: "Contact", href: "/contact" },
-    { label: "Careers", href: "/contact" }
+    { label: "Careers", href: "/careers" }
   ],
   legal: [
     { label: "Privacy Policy", href: "/privacy-policy" },

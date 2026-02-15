@@ -1,0 +1,86 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PageHero from "@/components/PageHero.astro";
+import SectionHeader from "@/components/SectionHeader.astro";
+import FinalCta from "@/components/FinalCta.astro";
+import { CONTACT_INFO } from "@/data/site-config";
+import { organizationSchema } from "@/lib/seo";
+
+const jsonLd = [organizationSchema()];
+
+const VALUES = [
+  {
+    title: "Practical Impact",
+    description:
+      "We build tools that solve real day-to-day operating challenges for township food vendors."
+  },
+  {
+    title: "Reliability First",
+    description:
+      "We prioritize stable, offline-capable workflows that teams can trust during busy trading hours."
+  },
+  {
+    title: "Customer-Centered Execution",
+    description:
+      "We listen closely to vendor feedback and ship improvements that make operations faster and clearer."
+  }
+];
+---
+
+<BaseLayout
+  title="Careers at Kota-OS | Join JuveniQ"
+  description="Explore careers at Kota-OS by JuveniQ. We currently have no open roles, but you can stay connected for upcoming opportunities."
+  path="/careers"
+  jsonLd={jsonLd}
+>
+  <PageHero
+    badge="Careers"
+    title="Join the Team Behind Kota-OS"
+    subtitle="We are building practical software for township businesses. There are no open positions at the moment, but new opportunities will be shared here."
+  />
+
+  <section class="section-pad">
+    <div class="container-wide">
+      <SectionHeader
+        title="Current Openings"
+        subtitle="We are not actively hiring right now."
+      />
+      <article class="card-base rounded-2xl p-6 md:p-8">
+        <h3 class="text-xl font-bold text-brand-foreground">No Roles Available Today</h3>
+        <p class="mt-3 text-brand-muted">
+          Our team is currently focused on product delivery. Please check this page regularly for
+          new openings. When roles become available, we will publish clear job requirements,
+          location details, and application instructions.
+        </p>
+        <p class="mt-3 text-brand-muted">
+          For career interest, you can email
+          <a href={`mailto:${CONTACT_INFO.email}`} class="mx-1 font-semibold text-brand-primary underline">
+            {CONTACT_INFO.email}
+          </a>
+          with your CV and the subject line <span class="font-semibold text-brand-foreground">Career Interest</span>.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide">
+      <SectionHeader
+        title="What We Value"
+        subtitle="The qualities we prioritize as we grow our team."
+      />
+      <div class="grid gap-5 md:grid-cols-3">
+        {
+          VALUES.map((value) => (
+            <article class="card-base card-hover rounded-2xl p-6">
+              <h3 class="text-xl font-bold text-brand-foreground">{value.title}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-brand-muted">{value.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <FinalCta />
+</BaseLayout>
