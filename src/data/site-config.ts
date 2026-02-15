@@ -20,6 +20,8 @@ export const SITE_META = {
 
 export const CONTACT_INFO = {
   email: "contact@juveniq.co.za",
+  primaryPhone: "+27 607431268",
+  secondaryPhone: "+27 783322419",
   phone: "+27 607431268",
   location: "Gauteng, Johannesburg",
   businessHours: "Monday to Sunday, 06:00 - 21:00",

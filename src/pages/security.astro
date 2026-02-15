@@ -77,7 +77,8 @@ const jsonLd = [organizationSchema()];
         <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
           <li>Responsible Party: {LEGAL_INFO.responsibleParty}</li>
           <li>Company Registration Number: {LEGAL_INFO.companyRegistrationNumber}</li>
-          <li>Phone: {CONTACT_INFO.phone}</li>
+          <li>Phone: {CONTACT_INFO.primaryPhone}</li>
+          <li>Phone (Backup): {CONTACT_INFO.secondaryPhone}</li>
           <li>Location: {CONTACT_INFO.location}</li>
         </ul>
         <p class="mt-3 text-brand-muted">

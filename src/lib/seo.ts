@@ -46,7 +46,7 @@ export function organizationSchema() {
     name: "Kota-OS",
     url: SITE_URL,
     email: CONTACT_INFO.email,
-    telephone: CONTACT_INFO.phone,
+    telephone: [CONTACT_INFO.primaryPhone, CONTACT_INFO.secondaryPhone],
     address: {
       "@type": "PostalAddress",
       addressLocality: CONTACT_INFO.location,
@@ -63,7 +63,7 @@ export function localBusinessSchema(path = "/") {
     name: "Kota-OS (JuveniQ)",
     url: canonicalUrl(path),
     email: CONTACT_INFO.email,
-    telephone: CONTACT_INFO.phone,
+    telephone: [CONTACT_INFO.primaryPhone, CONTACT_INFO.secondaryPhone],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Johannesburg",

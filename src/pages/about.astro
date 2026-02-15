@@ -142,9 +142,12 @@ const TRUST_BLOCKS = [
           </div>
           <div>
             <dt class="font-semibold text-brand-muted">Phone</dt>
-            <dd class="mt-1">
-              <a class="text-brand-primary underline" href={`tel:${CONTACT_INFO.phone}`}>
-                {CONTACT_INFO.phone}
+            <dd class="mt-1 space-y-1">
+              <a class="block text-brand-primary underline" href={`tel:${CONTACT_INFO.primaryPhone}`}>
+                {CONTACT_INFO.primaryPhone}
+              </a>
+              <a class="block text-brand-primary underline" href={`tel:${CONTACT_INFO.secondaryPhone}`}>
+                {CONTACT_INFO.secondaryPhone}
               </a>
             </dd>
           </div>

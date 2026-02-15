@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import Navbar from "@/components/Navbar";
 import PageTracker from "@/components/PageTracker";
 import CookieBanner from "@/components/CookieBanner";
+import WhatsAppFloatingCTA from "@/components/WhatsAppFloatingCTA";
 import { NAV_ITEMS, PRIMARY_CTA, SITE_META } from "@/data/site-config";
 import { canonicalUrl } from "@/lib/seo";
 
@@ -72,6 +73,7 @@ const canonical = canonicalUrl(path);
       <slot />
     </main>
     <Footer />
+    <WhatsAppFloatingCTA client:load />
     <CookieBanner client:load />
     <PageTracker client:load title={title} />
 
