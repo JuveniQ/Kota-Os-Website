@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "downloadBaseUrl": "https://downloads.kotaos.juveniq.co.za/",
-  "latest": null,
-  "versions": []
+  "downloadBaseUrl": "https://kotaos.juveniq.co.za/downloads/",
+  "latest": "1.0.4",
+  "versions": ["1.0.4"]
 }

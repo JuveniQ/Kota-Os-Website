@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
 
 export type Installer = {
@@ -6,7 +7,7 @@ export type Installer = {
   sizeBytes: number;
   sizeLabel: string;
   sha256: string;
-  signingCertSha256: string;
+  signingCertSha256?: string;
   url: string;
 };
 
@@ -22,6 +23,7 @@ export type Version = {
 export type ReleaseCatalog = { latest: Version | null; versions: Version[] };
 
 const ROOT = new URL("../../public/downloads/", import.meta.url);
+const DOWNLOAD_BASE_URL = "https://kotaos.juveniq.co.za/downloads/";
 const SHA256 = /^[a-f\d]{64}$/i;
 const VERSION = /^\d+\.\d+\.\d+$/;
 const FILE_NAME = /^kota-os-website-(?:arm64-v8a|armeabi-v7a)\.apk$/;
@@ -47,7 +49,15 @@ function readJson(path: URL): unknown {
   return JSON.parse(readFileSync(path, "utf8"));
 }
 
-function parseVersion(value: unknown, version: string, baseUrl: URL): Version {
+function inspectApk(path: URL): { sizeBytes: number; sha256: string } {
+  const bytes = readFileSync(path);
+  return {
+    sizeBytes: bytes.byteLength,
+    sha256: createHash("sha256").update(bytes).digest("hex").toUpperCase(),
+  };
+}
+
+function parseVersion(value: unknown, version: string, baseUrl: URL, root: URL): Version {
   record(value, `v${version}/changelog.json`);
   if (value.version !== version) throw new Error(`Changelog version mismatch for ${version}`);
   string(value.date, `${version} date`);
@@ -60,6 +70,7 @@ function parseVersion(value: unknown, version: string, baseUrl: URL): Version {
   strings(value.features, `${version} features`);
   strings(value.fixes, `${version} fixes`);
   if (!Array.isArray(value.artifacts)) throw new Error(`Invalid ${version} artifacts`);
+
   const seen = new Set<string>();
   const artifacts: Installer[] = value.artifacts.map((raw: unknown) => {
     record(raw, `${version} installer`);
@@ -67,49 +78,69 @@ function parseVersion(value: unknown, version: string, baseUrl: URL): Version {
       throw new Error(`Invalid or duplicate ${version} ABI`);
     }
     seen.add(raw.abi as string);
+
     if (typeof raw.fileName !== "string" || !FILE_NAME.test(raw.fileName) ||
-      raw.fileName !== `kota-os-website-${raw.abi}.apk` ||
-      !Number.isSafeInteger(raw.sizeBytes) || (raw.sizeBytes as number) <= 0 ||
-      typeof raw.sha256 !== "string" || !SHA256.test(raw.sha256) ||
-      typeof raw.signingCertSha256 !== "string" || !SHA256.test(raw.signingCertSha256)) {
+      raw.fileName !== `kota-os-website-${raw.abi}.apk`) {
       throw new Error(`Invalid ${version} installer metadata`);
     }
+
+    if (raw.signingCertSha256 !== undefined &&
+      (typeof raw.signingCertSha256 !== "string" || !SHA256.test(raw.signingCertSha256))) {
+      throw new Error(`Invalid ${version} signing certificate fingerprint`);
+    }
+
+    const fileUrl = new URL(`v${version}/${raw.fileName}`, root);
+    let inspected: { sizeBytes: number; sha256: string };
+    try {
+      inspected = inspectApk(fileUrl);
+    } catch {
+      throw new Error(`Missing or unreadable APK for ${version}: ${raw.fileName}`);
+    }
+
     return {
       abi: raw.abi as Installer["abi"],
       fileName: raw.fileName,
-      sizeBytes: raw.sizeBytes as number,
-      sizeLabel: ((raw.sizeBytes as number) / 1048576).toFixed(1) + " MB",
-      sha256: raw.sha256.toUpperCase(),
-      signingCertSha256: raw.signingCertSha256.toUpperCase(),
-      url: new URL(`v${version}/${raw.fileName}`, baseUrl).href
+      sizeBytes: inspected.sizeBytes,
+      sizeLabel: (inspected.sizeBytes / 1048576).toFixed(1) + " MB",
+      sha256: inspected.sha256,
+      signingCertSha256: typeof raw.signingCertSha256 === "string"
+        ? raw.signingCertSha256.toUpperCase()
+        : undefined,
+      url: new URL(`v${version}/${raw.fileName}`, baseUrl).href,
     };
   });
-  if (new Set(artifacts.map((artifact) => artifact.signingCertSha256)).size > 1) {
+
+  const publishedCerts = artifacts
+    .map((artifact) => artifact.signingCertSha256)
+    .filter((value): value is string => Boolean(value));
+  if (new Set(publishedCerts).size > 1) {
     throw new Error(`Mixed signing certificates for ${version}`);
   }
+
   return {
     version,
     date: value.date,
     summary: value.summary,
     features: value.features,
     fixes: value.fixes,
-    artifacts
+    artifacts,
   };
 }
 
 export function loadReleaseCatalog(root: URL = ROOT): ReleaseCatalog {
   const index = readJson(new URL("index.json", root));
   record(index, "download index");
-  if (index.schemaVersion !== 1 || index.downloadBaseUrl !== "https://downloads.kotaos.juveniq.co.za/" ||
+  if (index.schemaVersion !== 1 || index.downloadBaseUrl !== DOWNLOAD_BASE_URL ||
     !Array.isArray(index.versions) || !index.versions.every((version) =>
       typeof version === "string" && VERSION.test(version)) ||
     new Set(index.versions).size !== index.versions.length ||
     (index.latest !== null && (typeof index.latest !== "string" || !VERSION.test(index.latest)))) {
     throw new Error("Invalid download index");
   }
+
   const baseUrl = new URL(index.downloadBaseUrl);
   const versions = (index.versions as string[]).map((version) =>
-    parseVersion(readJson(new URL(`v${version}/changelog.json`, root)), version, baseUrl));
+    parseVersion(readJson(new URL(`v${version}/changelog.json`, root)), version, baseUrl, root));
   const compare = (a: string, b: string) => {
     const aa = a.split(".").map(Number);
     const bb = b.split(".").map(Number);
@@ -119,11 +150,13 @@ export function loadReleaseCatalog(root: URL = ROOT): ReleaseCatalog {
   if (versions.some((current, i) => i > 0 && compare(current.version, versions[i - 1].version) >= 0)) {
     throw new Error("Download versions must be newest first");
   }
+
   const latest = versions.find((release) => release.version === index.latest) ?? null;
   if (index.latest !== null && (!latest || latest !== versions[0] ||
     latest.artifacts.length !== ABIS.length ||
     ABIS.some((abi) => !latest.artifacts.some((artifact) => artifact.abi === abi)))) {
-    throw new Error("Latest release requires both verified ARM APK listings");
+    throw new Error("Latest release requires both ARM APK files");
   }
+
   return { latest, versions };
 }

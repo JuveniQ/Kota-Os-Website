@@ -1,0 +1,31 @@
+{
+  "version": "1.0.4",
+  "date": "2026-09-27",
+  "summary": "First Kota-OS website pilot release for South African food businesses, with offline operations, direct Paystack billing, business backup and device-specific Android installers.",
+  "features": [
+    "Run sales, menu, ingredient inventory and reporting operations with offline-first support.",
+    "Start with a 14-day trial and manage subscription access through Paystack on the website edition.",
+    "Export and restore business backups for device recovery.",
+    "Register verified business devices with account-level device controls.",
+    "Delete a Kota-OS account and associated cloud data directly from the app.",
+    "Receive app update information through the Kota-OS version service.",
+    "Improved layouts for compact phones, rotated devices and larger Android screens.",
+    "Separate ARM64 and ARMv7 Android installers for improved device compatibility and smaller downloads."
+  ],
+  "fixes": [
+    "Removed the unavailable WhatsApp verification fallback from onboarding.",
+    "Improved rotated-phone layout handling.",
+    "Improved account recovery and deletion flows.",
+    "Separated website and store distribution update channels."
+  ],
+  "artifacts": [
+    {
+      "abi": "arm64-v8a",
+      "fileName": "kota-os-website-arm64-v8a.apk"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "fileName": "kota-os-website-armeabi-v7a.apk"
+    }
+  ]
+}

@@ -12,13 +12,13 @@ const { latest, versions } = loadReleaseCatalog();
 
 <BaseLayout
   title="Download Kota-OS for Android | Official Installer"
-  description="Choose the official Kota-OS Android installer for your phone, check its file information and follow the installation steps."
+  description="Download the official Kota-OS Android app. Choose a version and Kota-OS will automatically select the right installer for your phone."
   path="/download"
   jsonLd={[softwareApplicationSchema("/download"), organizationSchema()]}
 >
   <PageHero
     title="Download Kota-OS"
-    subtitle="Food-business operations for Android. Find the website edition for your phone and check its details before installing."
+    subtitle="Choose a version, tap download, and we will automatically select the right Android installer for your phone."
     badge="Android website edition"
   />
 
@@ -30,18 +30,18 @@ const { latest, versions } = loadReleaseCatalog();
             <picture><source srcset="/logo.webp" type="image/webp" /><img src="/logo.jpeg" alt="" width="80" height="80" /></picture>
           </span>
           <div>
-            <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Official Android APK</p>
+            <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Official Android download</p>
             <h2 class="mt-1 text-3xl font-extrabold text-brand-foreground">Kota-OS {latest ? `v${latest.version}` : "for Android"}</h2>
             <p class="mt-1 text-sm text-brand-muted">Website edition · {latest ? `Released ${latest.date}` : "Release details pending"}</p>
           </div>
         </div>
 
         {latest ? (
-          <DownloadSelector client:load version={latest.version} date={latest.date} installers={latest.artifacts} />
+          <DownloadSelector client:load versions={versions} latestVersion={latest.version} />
         ) : (
           <div class="mt-6 rounded-2xl border border-brand-border bg-brand-background p-5">
-            <p class="font-semibold text-brand-foreground">Installers coming soon</p>
-            <p class="mt-2 text-sm leading-relaxed text-brand-muted">The signed Android files have not been published yet. This page will show the correct file, its size and its signature after both phone variants have been verified.</p>
+            <p class="font-semibold text-brand-foreground">Installer coming soon</p>
+            <p class="mt-2 text-sm leading-relaxed text-brand-muted">The signed Android release has not been published yet. Once verified, this page will provide one simple download button.</p>
             <a href={`mailto:${CONTACT_INFO.email}?subject=Kota-OS%20Android%20release`} class="mt-3 inline-flex text-sm font-semibold text-brand-primary underline">Ask about availability</a>
           </div>
         )}
@@ -50,8 +50,8 @@ const { latest, versions } = loadReleaseCatalog();
       <aside class="card-base rounded-3xl p-6 sm:p-8">
         <h2 class="text-xl font-bold text-brand-foreground">Before you install</h2>
         <ul class="mt-5 list-disc space-y-3 pl-5 text-sm leading-relaxed text-brand-muted">
-          <li>Use the match shown for your phone. If the browser cannot identify your processor, check the device specifications or ask support before choosing a file.</li>
-          <li>Compare the downloaded file size and SHA-256 with the selected APK's details.</li>
+          <li>Tap the main download button. Kota-OS checks your phone and chooses the installer automatically.</li>
+          <li>If your browser cannot identify the device type, the standard Android installer is used.</li>
           <li>Android may ask you to allow installs from your browser or file manager. Allow only the source you used, then turn that permission off afterward.</li>
           <li>Keep Play Protect on. Stop and contact support if Android reports a security concern.</li>
           <li>Sales, menus and stock stay on this device. Account access on up to three devices does not sync shop records. Save a business backup outside the phone after each service.</li>
@@ -65,20 +65,19 @@ const { latest, versions } = loadReleaseCatalog();
     <div class="container-wide max-w-5xl">
       <h2 class="text-3xl font-extrabold text-brand-foreground">Install and get started</h2>
       <ol class="mt-6 grid gap-4 md:grid-cols-2">
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">1. Find your file</strong><p class="mt-2 text-sm text-brand-muted">Tap “Find my Android download.” If the browser cannot detect the processor, choose the architecture from your phone's specifications.</p></li>
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Download and verify</strong><p class="mt-2 text-sm text-brand-muted">Review the selected APK's file name, size and SHA-256. If the downloaded file differs, delete it and contact support.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">1. Choose a version</strong><p class="mt-2 text-sm text-brand-muted">The newest release is selected automatically, but you can use the version dropdown if you need an older published release.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Download</strong><p class="mt-2 text-sm text-brand-muted">Tap the download button. Kota-OS checks your Android device first and starts the matching download automatically.</p></li>
         <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">3. Install</strong><p class="mt-2 text-sm text-brand-muted">Open the APK in Downloads. Approve your browser or file manager as an installation source only when Android asks, then remove that permission when finished.</p></li>
         <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">4. Back up</strong><p class="mt-2 text-sm text-brand-muted">Sign in, set up a menu and start selling. After service, use Settings → Business backup and keep the saved JSON somewhere outside your phone.</p></li>
       </ol>
       {latest && (
-        <div class="mt-6 rounded-2xl border border-brand-border bg-white p-5 text-sm text-brand-muted">
-          <h3 class="font-bold text-brand-foreground">Check the APK you selected</h3>
+        <details class="mt-6 rounded-2xl border border-brand-border bg-white p-5 text-sm text-brand-muted">
+          <summary class="cursor-pointer font-bold text-brand-foreground">How to verify a downloaded APK</summary>
+          <p class="mt-3">The download card shows the exact size and SHA-256 after your installer is selected.</p>
           <p class="mt-2">Windows PowerShell: <code>Get-FileHash "filename.apk" -Algorithm SHA256</code></p>
           <p class="mt-1">macOS: <code>shasum -a 256 "filename.apk"</code></p>
           <p class="mt-1">Linux: <code>sha256sum "filename.apk"</code></p>
-          <p class="mt-2">With Android SDK: <code>apksigner verify --print-certs "filename.apk"</code></p>
-          <p class="mt-2">Replace <code>filename.apk</code> with the file name shown above and compare the output with the selected APK's hashes.</p>
-        </div>
+        </details>
       )}
     </div>
   </section>
