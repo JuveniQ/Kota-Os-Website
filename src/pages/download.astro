@@ -7,7 +7,18 @@ import { getDirectRelease } from "@/data/direct-release";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
-const release = getDirectRelease();
+const publicDownloadEnabled = import.meta.env.PUBLIC_KOTA_OPEN_DOWNLOADS === "true";
+// Astro can emit server build modules into the publish directory. Never put an
+// invite-only APK URL in that build, even when the download button is hidden.
+const releaseVariables = [
+  import.meta.env.PUBLIC_KOTA_APK_URL, import.meta.env.PUBLIC_KOTA_APK_VERSION,
+  import.meta.env.PUBLIC_KOTA_APK_SIZE_BYTES, import.meta.env.PUBLIC_KOTA_APK_SHA256,
+  import.meta.env.PUBLIC_KOTA_APK_SIGNING_CERT_SHA256, import.meta.env.PUBLIC_KOTA_APK_RELEASE_DATE
+];
+if (!publicDownloadEnabled && releaseVariables.some(Boolean)) {
+  throw new Error("Keep all PUBLIC_KOTA_APK_* variables unset in request-only pilot mode");
+}
+const release = publicDownloadEnabled ? getDirectRelease() : null;
 const whatsappUrl = createWhatsAppUrl(
   CONTACT_INFO.primaryPhone,
   "Hi Kota-OS, I run a food business in Gauteng and would like to join the guided pilot."
@@ -52,25 +63,25 @@ const whatsappUrl = createWhatsAppUrl(
             <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Pilot access</p>
             <h2 class="mt-2 text-3xl font-extrabold text-brand-foreground">Request a guided setup</h2>
             <p class="mt-3 text-brand-muted">
-              The next verified website installer is being prepared. Contact our team to register interest and get an approved installation link when your pilot place is confirmed.
+              We are onboarding Gauteng shops directly. Contact our team to join the pilot; approved shops receive the verified website-build link and guided setup. A general public download opens only after pilot checks.
             </p>
             <a href={whatsappUrl} class="btn-primary mt-6 inline-flex" target="_blank"
               rel="noopener noreferrer" data-track-external="true" data-track-source="pilot-request">
               Request pilot access on WhatsApp
             </a>
-            <p class="mt-4 text-sm text-brand-muted">You can also write to <a class="text-brand-primary underline" href="mailto:contact@juveniq.co.za">contact@juveniq.co.za</a>.</p>
+            <p class="mt-4 text-sm text-brand-muted">You can also write to <a class="text-brand-primary underline" href="mailto:support@juveniq.co.za">support@juveniq.co.za</a>.</p>
           </>
         )}
       </article>
       <aside class="card-base rounded-2xl p-6">
         <h2 class="text-xl font-bold text-brand-foreground">Where to get it</h2>
         <ul class="mt-4 space-y-4 text-sm text-brand-muted">
-          <li><strong class="text-brand-foreground">Website:</strong> pilot requests open; verified installer details appear here after release checks.</li>
+          <li><strong class="text-brand-foreground">Website:</strong> guided Android pilot for contacted shops; approved participants receive the signed installer link from support.</li>
           <li><strong class="text-brand-foreground">Samsung Galaxy Store:</strong> being prepared; store billing and test purchases must pass review.</li>
           <li><strong class="text-brand-foreground">Huawei AppGallery and Aptoide:</strong> planned after each store's billing and publishing requirements are validated.</li>
           <li><strong class="text-brand-foreground">APKPure:</strong> publisher and update controls are being evaluated.</li>
         </ul>
-        <p class="mt-5 text-sm text-brand-muted">Account access is shared across channels after you sign in. Purchase options depend on the store where you installed the app.</p>
+        <p class="mt-5 text-sm text-brand-muted">For this pilot, use one operating device per shop. Other linked devices do not receive its sales, menu or stock automatically.</p>
       </aside>
     </div>
   </section>
@@ -82,7 +93,8 @@ const whatsappUrl = createWhatsAppUrl(
         <li>Open the approved link from this page and check the version, file size and SHA-256.</li>
         <li>Android may ask you to allow installation from the app you used to download the APK. Allow it for that app only if you recognize this release.</li>
         <li>Keep Play Protect enabled. If your device reports a security concern, stop installation and contact support.</li>
-        <li>Sign in with your verified account, set up your menu and record a first sale. The 14-day trial starts at registration.</li>
+        <li>Sign in with your verified account on one shop device, set up your menu and record a first sale. The 14-day trial starts at registration.</li>
+        <li>After each service, open Settings → Business backup, save the JSON outside the phone and check that the file exists.</li>
       </ol>
       <p class="mt-5 text-sm text-brand-muted">An Android security prompt for direct installs is expected. We cannot remove that system protection; store installs provide a smoother installation path.</p>
       {release && (

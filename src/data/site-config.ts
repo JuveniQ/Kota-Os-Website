@@ -24,7 +24,7 @@ export const CONTACT_INFO = {
   phone: "+27 607431268",
   location: "Gauteng, Johannesburg",
   businessHours: "Monday to Sunday, 06:00 - 21:00",
-  supportSla: "Urgent support responses typically within 4 hours."
+  supportSla: "Pilot onboarding by appointment; arrange a support window before your first service."
 };
 
 export const LEGAL_INFO = {

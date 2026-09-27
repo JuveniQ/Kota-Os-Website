@@ -187,8 +187,8 @@ export const BENEFITS: BenefitItem[] = [
     id: "multi-user",
     icon: "users",
     iconColor: "success",
-    title: "Share Device",
-    description: "Multiple operators can run sales on the same device."
+    title: "One Shop Device",
+    description: "Run the pilot from one operating device while we observe real service."
   },
   {
     id: "sync",
@@ -216,7 +216,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "users",
     question: "Can multiple users operate on one device?",
     answer:
-      "Yes. Multiple users can operate one installation, while data remains shared at store level."
+      "The pilot uses the owner's signed-in session on one shop device. Separate staff permissions are not available yet; keep settings and reset actions under the owner's supervision."
   },
   {
     id: "lost-device",
@@ -233,7 +233,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "devices",
     question: "How many devices can I use?",
-    answer: "One verified account can link up to three active devices. If you need more, request another device from support in the app."
+    answer: "One verified account can link up to three active devices, but shop data does not sync between them. Use one operating device during the pilot. If you need another account slot, request it from support in the app."
   },
   {
     id: "receipt",
@@ -245,13 +245,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "cloud",
     question: "Is cloud backup available?",
     answer:
-      "Cloud backup and multi-device sync are rolling out soon. Current releases prioritize secure local-first operations."
+      "No. Export a business backup from Settings after each service and save it outside the device. A backup replaces records on restore; it does not merge sales across devices."
   },
   {
     id: "support-community",
     question: "What support is available?",
     answer:
-      "Contact our support team by email or WhatsApp for installation and account help."
+      "Contact support@juveniq.co.za or use the WhatsApp link on our pilot page for installation, backup and account help."
   }
 ];
 

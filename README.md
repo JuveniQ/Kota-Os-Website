@@ -23,6 +23,8 @@ The app repository contains the channel build profiles and the signed release ve
 
 ## Other environment
 
+`PUBLIC_KOTA_OPEN_DOWNLOADS` defaults to off. Keep it and **all six `PUBLIC_KOTA_APK_*` variables unset** for the contacted-shop pilot. The site stays in request mode and approved shops receive their signed APK link, APK hash and signing certificate directly from support. A request-only build fails if APK release variables are set: Astro build output can otherwise expose the URL even without a download button. Set `PUBLIC_KOTA_OPEN_DOWNLOADS=true` with a complete release manifest only after approving public downloads.
+
 `PUBLIC_GA_ID` and `PUBLIC_MIXPANEL_TOKEN` are optional; tracking safely no-ops when unset.
 
 ## Legal
