@@ -58,7 +58,7 @@ export default function Hero({ metrics }: HeroProps) {
             Built for food businesses serving customers in Gauteng.
           </p>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-foreground">
-            Track each sale, deduct recipe ingredients, spot low stock and review your day, even when the connection drops.
+            Track each sale, deduct recipe ingredients, record waste, spot low stock and review your day, even when the connection drops.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">

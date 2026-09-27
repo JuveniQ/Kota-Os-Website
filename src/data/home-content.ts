@@ -34,10 +34,10 @@ export const FEATURE_ITEMS: FeatureItem[] = [
     iconColor: "success",
     title: "Real-Time Inventory Management",
     description:
-      "Track stock levels, set reorder alerts, and avoid running out of critical items.",
+      "Map recipe ingredients to sales, record wastage and spot low stock before the next rush.",
     points: [
-      "Automatic deductions on each sale",
-      "Low-stock warnings",
+      "Recipe-level deductions on each sale",
+      "Waste and low-stock visibility",
       "Detailed transaction logging"
     ]
   },
@@ -163,9 +163,9 @@ export const BENEFITS: BenefitItem[] = [
     id: "secure",
     icon: "lock",
     iconColor: "success",
-    title: "Enterprise Security",
+    title: "Account Protection",
     description:
-      "Secure local-first controls with rollback detection prevent tampering."
+      "Verified sign-in and device limits protect access to your shop."
   },
   {
     id: "quick",
@@ -194,8 +194,8 @@ export const BENEFITS: BenefitItem[] = [
     id: "sync",
     icon: "sync",
     iconColor: "warning",
-    title: "Cloud Backup",
-    description: "Optional sync supports backup and multi-branch operations."
+    title: "Work Through Outages",
+    description: "Keep recording sales locally and export a backup regularly."
   }
 ];
 
@@ -204,7 +204,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "offline",
     question: "Do I need internet to use Kota-OS?",
     answer:
-      "No. Kota-OS works completely offline. Data can sync automatically when a connection is available."
+      "Core sales and stock workflows keep working offline after setup. Registration, billing and any cloud transfer need a connection."
   },
   {
     id: "trial",
@@ -222,7 +222,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "lost-device",
     question: "What if I lose my device?",
     answer:
-      "If cloud sync is enabled, data recovery is possible. We recommend enabling backup early to keep your operational data safe."
+      "Export a backup regularly. Replacing a lost device cannot recover unsynced local records without a saved backup."
   },
   {
     id: "pricing",
