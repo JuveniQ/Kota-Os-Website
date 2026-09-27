@@ -18,7 +18,7 @@ export const SITE_META = {
 };
 
 export const CONTACT_INFO = {
-  email: "contact@juveniq.co.za",
+  email: "support@juveniq.co.za",
   primaryPhone: "+27 607431268",
   secondaryPhone: "+27 783322419",
   phone: "+27 607431268",
