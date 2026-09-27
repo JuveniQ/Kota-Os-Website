@@ -96,7 +96,7 @@ export default function DownloadSelector({ versions, latestVersion }: Props) {
         </div>
 
         <p className="mt-3 text-sm leading-relaxed text-brand-muted">
-          We automatically choose the installer that matches your Android phone. If your browser does not report the device type, Kota-OS uses the standard 64-bit Android installer.
+          We automatically choose the installer that matches your Android phone. If your browser does not report the device type, Kota-OS uses the standard Android installer.
         </p>
       </div>
 
