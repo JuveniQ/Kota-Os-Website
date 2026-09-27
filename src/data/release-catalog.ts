@@ -22,6 +22,7 @@ export type Version = {
 export type ReleaseCatalog = { latest: Version | null; versions: Version[] };
 
 const ROOT = new URL("../../public/downloads/", import.meta.url);
+const DOWNLOAD_BASE_URL = "https://kotaos.juveniq.co.za/downloads/";
 const SHA256 = /^[a-f\d]{64}$/i;
 const VERSION = /^\d+\.\d+\.\d+$/;
 const FILE_NAME = /^kota-os-website-(?:arm64-v8a|armeabi-v7a)\.apk$/;
@@ -100,7 +101,7 @@ function parseVersion(value: unknown, version: string, baseUrl: URL): Version {
 export function loadReleaseCatalog(root: URL = ROOT): ReleaseCatalog {
   const index = readJson(new URL("index.json", root));
   record(index, "download index");
-  if (index.schemaVersion !== 1 || index.downloadBaseUrl !== "https://downloads.kotaos.juveniq.co.za/" ||
+  if (index.schemaVersion !== 1 || index.downloadBaseUrl !== DOWNLOAD_BASE_URL ||
     !Array.isArray(index.versions) || !index.versions.every((version) =>
       typeof version === "string" && VERSION.test(version)) ||
     new Set(index.versions).size !== index.versions.length ||
