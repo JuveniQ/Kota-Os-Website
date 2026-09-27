@@ -48,19 +48,17 @@ export default function Hero({ metrics }: HeroProps) {
       <div className="container-wide relative z-10 flex min-h-[calc(100vh-7rem)] items-center py-12">
         <div className="max-w-3xl">
           <span className="mb-5 inline-flex animate-float items-center rounded-full border border-brand-primary/35 bg-white/75 px-4 py-2 text-sm font-semibold text-brand-foreground backdrop-blur-sm">
-            30-Day Free Trial
+            14-Day Free Trial
           </span>
 
           <h1 className="text-4xl font-extrabold leading-tight text-brand-primary xs:text-5xl md:text-[56px]">
-            Your Complete Point-of-Sale System
+            Food operations that work offline
           </h1>
           <p className="mt-4 text-xl leading-relaxed text-brand-muted md:text-2xl">
-            Built for Township Fast-Food Vendors. Fast. Offline. Professional.
+            Built for food businesses serving customers in Gauteng.
           </p>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-brand-foreground">
-            Kota-OS helps you run quicker checkouts, tighter inventory, and clearer reports
-            on one reliable platform. Sell confidently with local-first performance while
-            commercial plans are being finalized.
+            Track each sale, deduct recipe ingredients, spot low stock and review your day, even when the connection drops.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
@@ -69,7 +67,7 @@ export default function Hero({ metrics }: HeroProps) {
               className="btn-primary"
               onClick={() => trackHeroCTA("start_free_trial")}
             >
-              Start Your Free Trial
+              Join the Pilot
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </a>
             <a

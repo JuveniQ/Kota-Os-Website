@@ -5,20 +5,16 @@ import Hero from "@/components/Hero";
 import SectionHeader from "@/components/SectionHeader.astro";
 import HowItWorksTimeline from "@/components/HowItWorksTimeline";
 import ScreenshotsCarousel from "@/components/ScreenshotsCarousel";
-import Testimonials from "@/components/Testimonials";
 import FaqAccordion from "@/components/FaqAccordion";
 import BenefitCard from "@/components/BenefitCard";
 import FeaturesGrid from "@/components/FeaturesGrid";
-import TrustStats from "@/components/TrustStats";
 import {
   BENEFITS,
   FAQ_ITEMS,
   FEATURE_ITEMS,
   HERO_METRICS,
   HOW_IT_WORKS,
-  SCREENSHOT_SLIDES,
-  TESTIMONIALS,
-  TRUST_STATS
+  SCREENSHOT_SLIDES
 } from "@/data/home-content";
 import { SITE_META } from "@/data/site-config";
 import { faqPageSchema, localBusinessSchema, organizationSchema, softwareApplicationSchema } from "@/lib/seo";
@@ -42,8 +38,8 @@ const jsonLd = [
   <section id="features" class="section-pad scroll-mt-28">
     <div class="container-wide">
       <SectionHeader
-        title="Why Choose Kota-OS?"
-        subtitle="Everything you need to run a modern food business."
+        title="Food-business operations, even offline"
+        subtitle="Keep selling, track the ingredients used in each recipe, spot low stock and see how your shop is doing."
       />
       <FeaturesGrid items={FEATURE_ITEMS} />
     </div>
@@ -68,19 +64,6 @@ const jsonLd = [
       <SectionHeader title="Built for Your Success" />
       <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {BENEFITS.map((benefit) => <BenefitCard benefit={benefit} />)}
-      </div>
-    </div>
-  </section>
-
-  <section class="section-pad bg-brand-surface/45">
-    <div class="container-wide">
-      <SectionHeader
-        title="Trusted by Food Vendors"
-        subtitle="Join hundreds of successful businesses using Kota-OS."
-      />
-      <div class="grid gap-10 md:grid-cols-2">
-        <TrustStats stats={TRUST_STATS} />
-        <Testimonials items={TESTIMONIALS} />
       </div>
     </div>
   </section>

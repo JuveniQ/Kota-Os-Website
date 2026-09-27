@@ -1,4 +1,6 @@
-[[redirects]]
-from = "/*"
-to = "/index.html"
-status = 200
+# Astro generates real static routes. Missing APK paths must return 404,
+# rather than silently serving index.html with a misleading 200 response.
+[[headers]]
+for = "/*"
+[headers.values]
+X-Content-Type-Options = "nosniff"

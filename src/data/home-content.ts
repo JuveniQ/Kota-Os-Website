@@ -6,14 +6,12 @@ import type {
   ReleaseNote,
   ScreenshotSlide,
   StepItem,
-  Testimonial,
-  TrustStat
 } from "@/types/site";
 
 export const HERO_METRICS: HeroMetric[] = [
-  { label: "Active Users", value: "1,000+" },
-  { label: "Transactions Tracked", value: "50,000+" },
-  { label: "Average Checkout Speed", value: "3 sec" }
+  { label: "Sales", value: "Offline" },
+  { label: "Stock", value: "Recipe-level" },
+  { label: "Alerts", value: "Low stock" }
 ];
 
 export const FEATURE_ITEMS: FeatureItem[] = [
@@ -201,43 +199,6 @@ export const BENEFITS: BenefitItem[] = [
   }
 ];
 
-export const TRUST_STATS: TrustStat[] = [
-  { id: "users", value: "1,000+", label: "Active Users", tone: "primary" },
-  {
-    id: "transactions",
-    value: "50,000+",
-    label: "Transactions Tracked",
-    tone: "primary"
-  },
-  { id: "uptime", value: "99.9%", label: "Uptime", tone: "success" },
-  { id: "support", value: "24/7", label: "Support", tone: "primary" }
-];
-
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: "thembi",
-    quote:
-      "Kota-OS cut my order processing time in half. Simple and reliable.",
-    author: "Thembi M.",
-    role: "Food Vendor",
-    stars: 5
-  },
-  {
-    id: "sipho",
-    quote: "Real-time inventory saved me thousands in wasted stock.",
-    author: "Sipho K.",
-    role: "Restaurant Owner",
-    stars: 5
-  },
-  {
-    id: "zama",
-    quote: "The offline functionality is a game-changer in my area.",
-    author: "Zama L.",
-    role: "Fast Food Store",
-    stars: 5
-  }
-];
-
 export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "offline",
@@ -247,9 +208,9 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     id: "trial",
-    question: "How does the 30-day trial work?",
+    question: "How does the 14-day trial work?",
     answer:
-      "You get full access to core Kota-OS features for 30 days. Commercial plans are being finalized and will be announced before trial completion."
+      "Your 14-day trial starts at account registration. Plans are shown in the app before purchase; the available payment method depends on your installation channel."
   },
   {
     id: "users",
@@ -267,7 +228,12 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "pricing",
     question: "Is Kota-OS free to use?",
     answer:
-      "Kota-OS currently includes a full 30-day free trial. Commercial pricing plans are being finalized and will be published soon."
+      "The app has a 14-day trial. After that, continued premium access requires a plan; see the options shown in your app before making a purchase."
+  },
+  {
+    id: "devices",
+    question: "How many devices can I use?",
+    answer: "One verified account can link up to three active devices. If you need more, request another device from support in the app."
   },
   {
     id: "receipt",
@@ -285,17 +251,17 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "support-community",
     question: "What support is available?",
     answer:
-      "We provide 24/7 email support. We are also building an anonymous community article hub so vendors can help each other."
+      "Contact our support team by email or WhatsApp for installation and account help."
   }
 ];
 
 export const QUICK_START_STEPS: string[] = [
-  "Download the official APK from the Kota-OS Download page.",
+  "Request access through the Kota-OS Gauteng pilot page.",
   "Install the app and grant required permissions.",
   "Create your shop profile and configure your store details.",
   "Add menu items, ingredients, and pricing.",
   "Run your first sale and verify inventory deduction.",
-  "Continue using the 30-day free trial while commercial plans are being finalized."
+  "Use the 14-day trial and review the plans available in your app."
 ];
 
 export const RELEASE_NOTES: ReleaseNote[] = [

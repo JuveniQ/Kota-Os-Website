@@ -3,7 +3,7 @@ import { MessageCircle, X } from "lucide-react";
 import { CONTACT_INFO } from "@/data/site-config";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
-const QUICK_CONNECT_MESSAGE = "Hi Kota-OS, I need help setting up my 30-day trial.";
+const QUICK_CONNECT_MESSAGE = "Hi Kota-OS, I need help setting up my 14-day trial.";
 
 export default function WhatsAppFloatingCTA() {
   const [open, setOpen] = useState(false);

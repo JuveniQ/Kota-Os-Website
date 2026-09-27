@@ -27,7 +27,7 @@ export default function LeadCaptureModal() {
 
   const messageTemplate = useMemo(() => {
     return (
-      "Hi Kota-OS, I want the Township Fast-Food Profit Calculator and help setting up my 30-day trial. " +
+      "Hi Kota-OS, I want the Township Fast-Food Profit Calculator and help setting up my 14-day trial. " +
       `Name: ${values.name || "N/A"}, Phone: ${values.phone}, Daily orders: ${values.dailyOrders}.`
     );
   }, [values.dailyOrders, values.name, values.phone]);
@@ -117,7 +117,7 @@ export default function LeadCaptureModal() {
                   Get your 2-minute estimate
                 </h3>
                 <p className="mt-2 text-sm text-brand-muted">
-                  Share a few details and we will help you start your 30-day trial with a setup checklist.
+                  Share a few details and we will help you start your 14-day trial with a setup checklist.
                 </p>
               </div>
               <button
