@@ -1,6 +1,6 @@
 # Kota-OS product website
 
-Astro product site for Kota-OS. The Android download page uses a versioned release catalog and presents **one selected APK** with its own file size and verification details.
+Astro product site for Kota-OS. The Android download page uses a versioned release catalog and presents one selected APK with file information derived from the actual release file.
 
 ## Local checks
 
@@ -14,13 +14,11 @@ npm run build
 
 Inspect `dist/download/index.html` and `dist/downloads/` before deployment.
 
-The release catalog remains disabled while `public/downloads/index.json` has `latest: null`. This lets release files be staged and tested without exposing them from the public download page.
-
 ## Versioned Android downloads
 
-For the website pilot, the signed APKs are hosted by the Kota-OS website itself under `/downloads/`. There is no separate download server.
+For the website pilot, signed APKs are hosted by the Kota-OS website itself under `/downloads/`. There is no separate download server.
 
-The expected source tree for v1.0.4 is:
+The release tree is:
 
 ```text
 public/downloads/
@@ -31,7 +29,7 @@ public/downloads/
     kota-os-website-armeabi-v7a.apk
 ```
 
-After deployment these files are available at:
+After deployment:
 
 ```text
 https://kotaos.juveniq.co.za/downloads/v1.0.4/changelog.json
@@ -39,9 +37,11 @@ https://kotaos.juveniq.co.za/downloads/v1.0.4/kota-os-website-arm64-v8a.apk
 https://kotaos.juveniq.co.za/downloads/v1.0.4/kota-os-website-armeabi-v7a.apk
 ```
 
+## Release metadata
+
 `index.json` contains `schemaVersion: 1`, the fixed site-hosted `downloadBaseUrl`, a `latest` version or `null`, and `versions` in newest-first order.
 
-Each version has a matching changelog with `version`, `date` (`YYYY-MM-DD`), `summary`, `features`, `fixes`, and exactly two `artifacts` entries:
+Each version has a matching changelog containing descriptive release information and the two installer identities:
 
 ```json
 {
@@ -53,23 +53,25 @@ Each version has a matching changelog with `version`, `date` (`YYYY-MM-DD`), `su
   "artifacts": [
     {
       "abi": "arm64-v8a",
-      "fileName": "kota-os-website-arm64-v8a.apk",
-      "sizeBytes": 12345678,
-      "sha256": "replace-with-actual-64-character-file-hash",
-      "signingCertSha256": "replace-with-actual-64-character-cert-hash"
+      "fileName": "kota-os-website-arm64-v8a.apk"
     },
     {
       "abi": "armeabi-v7a",
-      "fileName": "kota-os-website-armeabi-v7a.apk",
-      "sizeBytes": 12345678,
-      "sha256": "replace-with-actual-64-character-file-hash",
-      "signingCertSha256": "replace-with-the-same-64-character-cert-hash"
+      "fileName": "kota-os-website-armeabi-v7a.apk"
     }
   ]
 }
 ```
 
-The example above is intentionally invalid until the actual sizes and hashes replace the placeholders. The website rejects a latest release without **both** complete ARM installer entries. There is no universal website APK.
+Do not manually maintain APK size or SHA-256 in the changelog. During the Astro build, `src/data/release-catalog.ts` opens the actual APK files under `public/downloads/vX.Y.Z/` and derives:
+
+- exact file size in bytes;
+- human-readable MB size;
+- SHA-256 of the actual APK bytes.
+
+The download page therefore always renders metadata for the file that will actually be deployed.
+
+A `signingCertSha256` field may optionally be added to an artifact after verifying the APK with Android signing tooling. When present it must be a 64-character SHA-256 fingerprint and will be displayed on the download page. It is not derived by the website build because APK signing-certificate inspection requires Android signing tooling rather than ordinary file hashing.
 
 ## Build and publish
 
@@ -78,14 +80,14 @@ The example above is intentionally invalid until the actual sizes and hashes rep
    ```bash
    node scripts/prepare-web-apks.mjs <Gradle-release-output-dir> <staging-vX.Y.Z-dir> <expected-signing-cert-sha256>
    ```
-   The script verifies both signatures, package `za.co.juveniq.kotaos`, ABI and version identity, rejects missing/extra APKs, and writes `verified-artifacts.json`.
-3. Test both staged APKs on representative Android devices. Verify installation, the prior-version update path, local-record retention, Paystack checkout, offline operation, and backup/restore before activating the release.
-4. Add the verified APKs and matching `changelog.json` to `public/downloads/vX.Y.Z/`.
-5. Keep `latest: null` while deploying and directly test the resulting `https://kotaos.juveniq.co.za/downloads/vX.Y.Z/...` URLs. Download the deployed APKs again and compare their file sizes and SHA-256 hashes with `verified-artifacts.json`.
-6. Add the version to the `versions` array in `public/downloads/index.json`. Keep releases newest-first.
-7. Only after the deployed files have been verified, set `latest` to the new version, run `npm run check` and `npm run build`, and deploy again.
+   This verifies the APK signatures, package `za.co.juveniq.kotaos`, ABI and version identity.
+3. Test both staged APKs on representative Android devices. Verify installation, update behaviour, local-record retention, Paystack checkout, offline operation, and backup/restore.
+4. Add the two verified APKs and the matching `changelog.json` to `public/downloads/vX.Y.Z/`.
+5. Run `npm run check` and `npm run build`. The build fails if an APK listed by the release catalog is missing or unreadable.
+6. Deploy and directly test the resulting `https://kotaos.juveniq.co.za/downloads/vX.Y.Z/...` URLs.
+7. Download the deployed APKs again and compare their SHA-256 values with the release build verification output.
 
-For v1.0.4 the final index will be:
+For v1.0.4 the active index is:
 
 ```json
 {
@@ -96,13 +98,11 @@ For v1.0.4 the final index will be:
 }
 ```
 
-Treat changing `latest` as the release switch. Do not activate it until both APK files and the changelog are present and independently verified.
-
-The Android browser installation-source prompt remains under Android's control. Keep Play Protect enabled. The download selector uses explicit browser architecture hints when available and otherwise asks the visitor to choose ARM64 or ARMv7 manually rather than guessing.
+The Android browser installation-source prompt remains under Android's control. Keep Play Protect enabled. The download selector uses browser architecture hints when available and otherwise asks the visitor to choose ARM64 or ARMv7 rather than guessing.
 
 ## Future storage migration
 
-Hosting the pilot installers with the website keeps the first release simple. If APK size, repository size, bandwidth or deployment limits become inconvenient later, move the binaries to object storage or another download host and update the single `DOWNLOAD_BASE_URL` constant in `src/data/release-catalog.ts` together with `public/downloads/index.json`.
+Hosting the pilot installers with the website keeps the first release simple. If APK size, repository size, bandwidth or deployment limits become inconvenient later, move the binaries to object storage or another download host and update `DOWNLOAD_BASE_URL` in `src/data/release-catalog.ts` together with `public/downloads/index.json`.
 
 ## Legal
 
