@@ -21,20 +21,13 @@ export function softwareApplicationSchema(path: string) {
     operatingSystem: "Android",
     description: SITE_META.description,
     url: canonicalUrl(path),
-    downloadUrl: `${SITE_URL}/download`,
     offers: {
       "@type": "Offer",
-      name: "30-Day Free Trial",
+      name: "14-Day Trial",
       price: "0",
       priceCurrency: "ZAR",
-      availability: "https://schema.org/InStock",
       url: `${SITE_URL}/download`,
-      description: "Full platform trial access for 30 days. Commercial plans are being finalized."
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "257"
+      description: "14-day trial begins at registration; pilot access is guided."
     }
   };
 }
@@ -70,19 +63,7 @@ export function localBusinessSchema(path = "/") {
       addressRegion: "Gauteng",
       addressCountry: "ZA"
     },
-    areaServed: [
-      "Soweto",
-      "Tembisa",
-      "Alexandra",
-      "Mamelodi",
-      "Khayelitsha",
-      "Gugulethu",
-      "Mitchells Plain",
-      "Umlazi",
-      "KwaMashu",
-      "Mdantsane"
-    ],
-    openingHours: "Mo-Su 06:00-21:00"
+    areaServed: "Gauteng"
   };
 }
 

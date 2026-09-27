@@ -85,16 +85,6 @@ export type DonationTier = {
   description: string;
 };
 
-export type DownloadMeta = {
-  version: string;
-  size: string;
-  releaseDate: string;
-  apkUrl: string;
-  checksumSha256: string;
-  androidCompatibility: string;
-  playProtectNote: string;
-};
-
 export type SeoConfig = {
   title: string;
   description: string;

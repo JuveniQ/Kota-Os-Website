@@ -1,301 +1,112 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
-import SectionHeader from "@/components/SectionHeader.astro";
-import StatusPill from "@/components/StatusPill";
 import FinalCta from "@/components/FinalCta.astro";
-import { existsSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { CONTACT_INFO, DOWNLOAD_META } from "@/data/site-config";
-import { RELEASE_NOTES } from "@/data/home-content";
-import { getLatestApkMeta } from "@/lib/apk-meta";
+import { CONTACT_INFO } from "@/data/site-config";
+import { getDirectRelease } from "@/data/direct-release";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
-const latest = RELEASE_NOTES[0];
-const jsonLd = [softwareApplicationSchema("/download"), organizationSchema()];
-const apkMeta = getLatestApkMeta(latest?.date ?? DOWNLOAD_META.releaseDate);
-const hasRealApk = Boolean(apkMeta);
-const qrImagePath = "/assets/kota-os-download-qr-v1-0-3.png";
-const qrImageAbsolutePath = fileURLToPath(new URL("../../public/assets/kota-os-download-qr-v1-0-3.png", import.meta.url));
-const hasQrImage = existsSync(qrImageAbsolutePath);
-
-const downloadData = apkMeta
-  ? {
-      name: apkMeta.fileName,
-      version: apkMeta.version,
-      size: apkMeta.sizeLabel,
-      releaseDate: apkMeta.releaseDate,
-      apkUrl: apkMeta.downloadPath,
-      checksumSha256: apkMeta.sha256
-    }
-  : {
-      name: `Kota-OS v${DOWNLOAD_META.version}.apk`,
-      version: DOWNLOAD_META.version,
-      size: DOWNLOAD_META.size,
-      releaseDate: DOWNLOAD_META.releaseDate,
-      apkUrl: DOWNLOAD_META.apkUrl,
-      checksumSha256: DOWNLOAD_META.checksumSha256
-    };
-const qrTargetUrl = `https://kotaos.juveniq.co.za${downloadData.apkUrl}`;
-const trustBadges = [
-  "Official Source: kotaos.juveniq.co.za",
-  "SHA-256 Published for Every Release",
-  "JuveniQ Security Scan Completed",
-  "Manual Install Required (Not on Play Store Yet)"
+const publicDownloadEnabled = import.meta.env.PUBLIC_KOTA_OPEN_DOWNLOADS === "true";
+// Astro can emit server build modules into the publish directory. Never put an
+// invite-only APK URL in that build, even when the download button is hidden.
+const releaseVariables = [
+  import.meta.env.PUBLIC_KOTA_APK_URL, import.meta.env.PUBLIC_KOTA_APK_VERSION,
+  import.meta.env.PUBLIC_KOTA_APK_SIZE_BYTES, import.meta.env.PUBLIC_KOTA_APK_SHA256,
+  import.meta.env.PUBLIC_KOTA_APK_SIGNING_CERT_SHA256, import.meta.env.PUBLIC_KOTA_APK_RELEASE_DATE
 ];
-const whatsappQuickConnectMessage = "Hi Kota-OS, I need help setting up my 30-day trial.";
-const whatsappQuickConnectUrl = createWhatsAppUrl(
+if (!publicDownloadEnabled && releaseVariables.some(Boolean)) {
+  throw new Error("Keep all PUBLIC_KOTA_APK_* variables unset in request-only pilot mode");
+}
+const release = publicDownloadEnabled ? getDirectRelease() : null;
+const whatsappUrl = createWhatsAppUrl(
   CONTACT_INFO.primaryPhone,
-  whatsappQuickConnectMessage
+  "Hi Kota-OS, I run a food business in Gauteng and would like to join the guided pilot."
 );
 ---
 
 <BaseLayout
-  title="Download Kota-OS APK | Official Installer"
-  description="Download the official Kota-OS Android APK, verify release details, and follow the secure installation guide."
+  title="Kota-OS Android | Gauteng Pilot"
+  description="Request a place in the Kota-OS Gauteng food-business pilot. Verified Android release details appear here when a signed installer is ready."
   path="/download"
-  jsonLd={jsonLd}
+  jsonLd={[softwareApplicationSchema("/download"), organizationSchema()]}
 >
   <PageHero
-    title="Download Kota-OS APK"
-    subtitle="Install the latest official build and start your full 30-day free trial while commercial plans are being finalized."
-    badge="Official Android Download"
+    title="Get Kota-OS"
+    subtitle="Join the guided Gauteng pilot. We are onboarding food businesses in small groups so we can support each shop through real trading."
+    badge="Gauteng pilot"
   />
 
   <section class="section-pad">
-    <div class="container-wide grid gap-6 lg:grid-cols-[1.1fr,0.9fr]">
-      <article class="rounded-3xl border border-brand-primary/40 bg-white p-8 shadow-warm">
-        <div class="flex flex-wrap items-center justify-between gap-3">
-          <h2 class="text-3xl font-extrabold text-brand-foreground">{downloadData.name}</h2>
-          <StatusPill tone="warning" label="Not verified by Google Play Protect" />
-        </div>
-
-        <dl class="mt-6 grid gap-4 text-sm md:grid-cols-3">
-          <div class="rounded-xl bg-brand-background p-4">
-            <dt class="text-brand-muted">Version</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.version}</dd>
-          </div>
-          <div class="rounded-xl bg-brand-background p-4">
-            <dt class="text-brand-muted">Size</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.size}</dd>
-          </div>
-          <div class="rounded-xl bg-brand-background p-4">
-            <dt class="text-brand-muted">Release Date</dt>
-            <dd class="mt-1 text-xl font-bold text-brand-foreground">{downloadData.releaseDate}</dd>
-          </div>
-        </dl>
-
-        <a
-          href={downloadData.apkUrl}
-          class:list={["btn-primary mt-6 w-full text-center", !hasRealApk && "pointer-events-none opacity-70"]}
-        >
-          {hasRealApk ? `Download Kota-OS v${downloadData.version}` : "APK Upload Pending"}
-        </a>
-        <div class="mt-4 flex flex-wrap gap-2">
-          {trustBadges.map((badge) => (
-            <span class="rounded-full border border-brand-border bg-brand-background px-3 py-1 text-xs font-semibold text-brand-foreground">
-              {badge}
-            </span>
-          ))}
-        </div>
-        <p class="mt-3 text-xs leading-relaxed text-brand-muted">
-          Play Protect may warn because this app is distributed directly. Verify checksum and download only from the
-          official Kota-OS domain.
-        </p>
-
-        {!hasRealApk && (
-          <p class="mt-3 text-sm text-brand-muted">
-            The latest APK has not been uploaded yet. Please contact support for the approved download channel.
-          </p>
-        )}
-
-        <div class="mt-4 rounded-xl border border-brand-border bg-brand-card p-4">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">SHA-256 Checksum</p>
-          <p class="mt-1 break-all font-mono text-sm text-brand-foreground">{downloadData.checksumSha256}</p>
-        </div>
-
-        <p class="mt-4 text-sm leading-relaxed text-brand-muted">
-          {DOWNLOAD_META.playProtectNote}
-        </p>
-      </article>
-
-      <aside class="space-y-6">
-        <article class="card-base rounded-2xl p-6">
-          <h3 class="text-xl font-bold text-brand-foreground">Scan to Download</h3>
-          <p class="mt-2 text-sm text-brand-muted">
-            {hasQrImage
-              ? "Scan to open the official Kota-OS APK download URL instantly."
-              : "QR code will appear once the official APK release is published."}
-          </p>
-          <div class="mt-4 grid h-48 place-items-center rounded-xl border-2 border-dashed border-brand-border bg-brand-background">
-            {hasQrImage ? (
-              <img
-                src={qrImagePath}
-                alt="QR code linking to the official Kota-OS APK download URL"
-                class="h-36 w-36 rounded-lg border border-brand-border bg-white p-2"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <p class="text-sm font-semibold text-brand-muted">QR Pending</p>
-            )}
-          </div>
-          {hasQrImage && (
-            <p class="mt-3 break-all text-xs text-brand-muted">
-              QR target: {qrTargetUrl}
+    <div class="container-wide grid gap-6 lg:grid-cols-[1.2fr,0.8fr]">
+      <article class="card-base rounded-2xl p-8">
+        {release ? (
+          <>
+            <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Official website build</p>
+            <h2 class="mt-2 text-3xl font-extrabold text-brand-foreground">Kota-OS v{release.version}</h2>
+            <p class="mt-3 text-brand-muted">
+              Android APK · {release.sizeLabel} · Released {release.releaseDate}
             </p>
-          )}
-        </article>
-
-        <article class="card-base rounded-2xl p-6">
-          <h3 class="text-xl font-bold text-brand-foreground">Trust Signals</h3>
-          <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-brand-muted">
-            <li>Safe and secure release workflow</li>
-            <li>{DOWNLOAD_META.androidCompatibility}</li>
-            <li>Official support at contact@juveniq.co.za</li>
-            <li>Not verified by Google Play Protect (current status)</li>
-          </ul>
-        </article>
-
-        <article class="card-base rounded-2xl p-6">
-          <h3 class="text-xl font-bold text-brand-foreground">Security &amp; Trust</h3>
-          <p class="mt-2 text-sm text-brand-muted">
-            Because Kota-OS is distributed directly and not through Google Play, Android may show a
-            Play Protect warning. This does not automatically mean the APK is malicious. Verify the
-            file hash before installation using the checksum shown in the main download card.
-          </p>
-
-          <div class="mt-4 space-y-3 text-sm">
-            <div class="rounded-xl border border-brand-border bg-white p-3">
-              <p class="font-semibold text-brand-foreground">Windows (PowerShell)</p>
-              <code class="mt-1 block break-all text-xs text-brand-muted">
-                {`Get-FileHash ".\\${downloadData.name}" -Algorithm SHA256`}
-              </code>
-            </div>
-            <div class="rounded-xl border border-brand-border bg-white p-3">
-              <p class="font-semibold text-brand-foreground">macOS</p>
-              <code class="mt-1 block break-all text-xs text-brand-muted">
-                {`shasum -a 256 "${downloadData.name}"`}
-              </code>
-            </div>
-            <div class="rounded-xl border border-brand-border bg-white p-3">
-              <p class="font-semibold text-brand-foreground">Linux</p>
-              <code class="mt-1 block break-all text-xs text-brand-muted">
-                {`sha256sum "${downloadData.name}"`}
-              </code>
-            </div>
-          </div>
-
-          <p class="mt-4 text-xs text-brand-muted">
-            Install only if the computed hash matches exactly.
-          </p>
-        </article>
+            <a href={release.url} class="btn-primary mt-6 inline-flex" rel="noopener noreferrer"
+              data-track-external="true" data-track-source="official-website-apk">
+              Download signed Android APK
+            </a>
+            <p class="mt-4 text-sm text-brand-muted">Download only from this page. Verify the file hash and signing certificate against the values below before installing.</p>
+            <dl class="mt-6 space-y-4 text-sm">
+              <div><dt class="font-bold text-brand-foreground">File</dt><dd class="mt-1 break-all text-brand-muted">{release.fileName}</dd></div>
+              <div><dt class="font-bold text-brand-foreground">SHA-256 file hash</dt><dd class="mt-1 break-all font-mono text-xs text-brand-muted">{release.sha256}</dd></div>
+              <div><dt class="font-bold text-brand-foreground">Signing certificate SHA-256</dt><dd class="mt-1 break-all font-mono text-xs text-brand-muted">{release.signingCertSha256}</dd></div>
+            </dl>
+          </>
+        ) : (
+          <>
+            <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Pilot access</p>
+            <h2 class="mt-2 text-3xl font-extrabold text-brand-foreground">Request a guided setup</h2>
+            <p class="mt-3 text-brand-muted">
+              We are onboarding Gauteng shops directly. Contact our team to join the pilot; approved shops receive the verified website-build link and guided setup. A general public download opens only after pilot checks.
+            </p>
+            <a href={whatsappUrl} class="btn-primary mt-6 inline-flex" target="_blank"
+              rel="noopener noreferrer" data-track-external="true" data-track-source="pilot-request">
+              Request pilot access on WhatsApp
+            </a>
+            <p class="mt-4 text-sm text-brand-muted">You can also write to <a class="text-brand-primary underline" href="mailto:support@juveniq.co.za">support@juveniq.co.za</a>.</p>
+          </>
+        )}
+      </article>
+      <aside class="card-base rounded-2xl p-6">
+        <h2 class="text-xl font-bold text-brand-foreground">Where to get it</h2>
+        <ul class="mt-4 space-y-4 text-sm text-brand-muted">
+          <li><strong class="text-brand-foreground">Website:</strong> guided Android pilot for contacted shops; approved participants receive the signed installer link from support.</li>
+          <li><strong class="text-brand-foreground">Samsung Galaxy Store:</strong> being prepared; store billing and test purchases must pass review.</li>
+          <li><strong class="text-brand-foreground">Huawei AppGallery and Aptoide:</strong> planned after each store's billing and publishing requirements are validated.</li>
+          <li><strong class="text-brand-foreground">APKPure:</strong> publisher and update controls are being evaluated.</li>
+        </ul>
+        <p class="mt-5 text-sm text-brand-muted">For this pilot, use one operating device per shop. Other linked devices do not receive its sales, menu or stock automatically.</p>
       </aside>
     </div>
   </section>
 
   <section class="section-pad bg-white">
-    <div class="container-wide">
-      <SectionHeader
-        title="After Download: 3 Steps to Start Fast"
-        subtitle="Reduce setup delays and launch your 30-day trial with confidence."
-      />
-      <ol class="grid gap-4 md:grid-cols-3">
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 1</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Install Safely</h3>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-brand-muted">
-            <li>Download only from the official page</li>
-            <li>Enable install from trusted source</li>
-          </ul>
-        </li>
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 2</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Open and Set Up Store</h3>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-brand-muted">
-            <li>Add shop details and first menu items</li>
-            <li>Complete core setup in minutes</li>
-          </ul>
-        </li>
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 3</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Activate Guided Trial Start</h3>
-          <ul class="mt-3 list-disc space-y-1 pl-5 text-sm text-brand-muted">
-            <li>Use one-tap WhatsApp setup support</li>
-            <li>Send a prefilled message for faster help</li>
-          </ul>
-          <a
-            href={whatsappQuickConnectUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-track-external="true"
-            data-track-source="download-onboarding"
-            class="btn-primary mt-4 w-full justify-center"
-          >
-            Get WhatsApp Setup Help
-          </a>
-        </li>
+    <div class="container-wide max-w-4xl">
+      <h2 class="text-3xl font-extrabold text-brand-foreground">Installing a direct APK</h2>
+      <ol class="mt-5 list-decimal space-y-3 pl-5 text-brand-muted">
+        <li>Open the approved link from this page and check the version, file size and SHA-256.</li>
+        <li>Android may ask you to allow installation from the app you used to download the APK. Allow it for that app only if you recognize this release.</li>
+        <li>Keep Play Protect enabled. If your device reports a security concern, stop installation and contact support.</li>
+        <li>Sign in with your verified account on one shop device, set up your menu and record a first sale. The 14-day trial starts at registration.</li>
+        <li>After each service, open Settings → Business backup, save the JSON outside the phone and check that the file exists.</li>
       </ol>
-    </div>
-  </section>
-
-  <section class="section-pad bg-brand-surface/45">
-    <div class="container-wide">
-      <SectionHeader title="4-Step Installation Guide" />
-      <ol class="grid gap-4 md:grid-cols-2">
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 1</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Download Official APK</h3>
-          <p class="mt-2 text-brand-muted">Use the official link from this page or support channels.</p>
-        </li>
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 2</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Allow APK Installation</h3>
-          <p class="mt-2 text-brand-muted">
-            Enable installation from trusted sources in Android settings.
-          </p>
-        </li>
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 3</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Complete Setup</h3>
-          <p class="mt-2 text-brand-muted">
-            Configure store details, menu items, pricing, and payment methods.
-          </p>
-        </li>
-        <li class="card-base rounded-2xl p-6">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Step 4</p>
-          <h3 class="mt-2 text-xl font-bold text-brand-foreground">Start 30-Day Trial</h3>
-          <p class="mt-2 text-brand-muted">
-            Use all core features during your 30-day free trial while commercial plans are being finalized.
-          </p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="section-pad bg-white">
-    <div class="container-wide">
-      <SectionHeader title="Release Highlights" />
-      <article class="card-base rounded-2xl p-8">
-        <h3 class="text-2xl font-bold text-brand-foreground">v{latest.version} - {latest.summary}</h3>
-        <div class="mt-4 grid gap-5 md:grid-cols-2">
-          <div>
-            <h4 class="text-sm font-bold uppercase tracking-wide text-brand-foreground">What is New</h4>
-            <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-brand-muted">
-              {latest.features.map((feature) => <li>{feature}</li>)}
-            </ul>
-          </div>
-          <div>
-            <h4 class="text-sm font-bold uppercase tracking-wide text-brand-foreground">Stability Fixes</h4>
-            <ul class="mt-2 list-disc space-y-2 pl-5 text-sm text-brand-muted">
-              {latest.fixes.map((fix) => <li>{fix}</li>)}
-            </ul>
-          </div>
+      <p class="mt-5 text-sm text-brand-muted">An Android security prompt for direct installs is expected. We cannot remove that system protection; store installs provide a smoother installation path.</p>
+      {release && (
+        <div class="mt-6 rounded-xl border border-brand-border bg-brand-background p-4 text-sm text-brand-muted">
+          <h3 class="font-bold text-brand-foreground">Check the downloaded file</h3>
+          <p class="mt-2">On Windows: <code>Get-FileHash "{release.fileName}" -Algorithm SHA256</code></p>
+          <p>On macOS: <code>shasum -a 256 "{release.fileName}"</code></p>
+          <p>On Linux: <code>sha256sum "{release.fileName}"</code></p>
+          <p>Signing certificate (Android SDK): <code>apksigner verify --print-certs "{release.fileName}"</code></p>
         </div>
-      </article>
+      )}
     </div>
   </section>
-
-  <FinalCta title="Need installation help?" subtitle="Contact our team if you need help installing or activating Kota-OS." />
+  <FinalCta title="Join the Gauteng pilot" subtitle="Tell us about your food business and we will help you get started." />
 </BaseLayout>

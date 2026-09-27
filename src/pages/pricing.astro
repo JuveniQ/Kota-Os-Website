@@ -1,56 +1,31 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
-import SectionHeader from "@/components/SectionHeader.astro";
 import FinalCta from "@/components/FinalCta.astro";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
-
-const jsonLd = [softwareApplicationSchema("/pricing"), organizationSchema()];
 ---
 
 <BaseLayout
-  title="Kota-OS Trial Access | 30-Day Free Trial, Plans Coming Soon"
-  description="Start with a full 30-day free trial while Kota-OS finalizes commercial plans. Test sales and inventory workflows with confidence."
+  title="Kota-OS Pricing | 14-Day Trial"
+  description="Kota-OS starts with a 14-day trial. See your available plan and payment method in your installation channel before purchasing."
   path="/pricing"
-  jsonLd={jsonLd}
+  jsonLd={[softwareApplicationSchema("/pricing"), organizationSchema()]}
 >
   <PageHero
-    title="Pricing Plans Are Being Finalized"
-    subtitle="Kota-OS is currently available with a full 30-day free trial while commercial plans are being finalized."
+    title="Start with 14 days to try Kota-OS"
+    subtitle="Run real sales, map recipe ingredients and check reports during your trial. We will show your available plan and price before any purchase."
+    badge="Gauteng pilot"
   />
-
-  <section class="section-pad bg-gradient-to-b from-white to-brand-surface/65">
-    <div class="container-wide">
-      <SectionHeader title="Current Access" subtitle="Use Kota-OS today while we finalize long-term commercial plans." />
-      <div class="mx-auto grid w-full max-w-[920px] gap-5 md:grid-cols-2">
-        <article class="card-base rounded-2xl bg-white p-7">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Available Now</p>
-          <h3 class="mt-2 text-2xl font-bold text-brand-foreground">30-Day Free Trial</h3>
-          <p class="mt-3 text-base leading-relaxed text-brand-muted">
-            Full platform access is available during the trial period, including sales, inventory,
-            reports, and offline operations.
-          </p>
-        </article>
-        <article class="card-base rounded-2xl bg-white p-7">
-          <p class="text-xs uppercase tracking-wide text-brand-muted">Coming Soon</p>
-          <h3 class="mt-2 text-2xl font-bold text-brand-foreground">Commercial Plans</h3>
-          <p class="mt-3 text-base leading-relaxed text-brand-muted">
-            We are finalizing monetization options to keep Kota-OS practical and sustainable for
-            township food businesses.
-          </p>
-        </article>
-      </div>
-      <div class="mx-auto mt-8 w-full max-w-[920px] rounded-2xl border border-brand-border bg-white p-6">
-        <p class="text-sm leading-relaxed text-brand-muted">
-          Start using Kota-OS with the 30-day trial today. We will publish commercial pricing updates
-          before the trial window closes.
-        </p>
-        <a href="/download" class="btn-primary mt-4 inline-flex">
-          Download and Start 30-Day Trial
-        </a>
-      </div>
+  <section class="section-pad bg-white">
+    <div class="container-wide max-w-4xl">
+      <article class="card-base rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-brand-foreground">A plan for how you install</h2>
+        <p class="mt-4 text-brand-muted">Download is free. The trial starts at account registration and lasts 14 days. After the trial, premium access requires a subscription unless another entitlement applies to your account.</p>
+        <p class="mt-4 text-brand-muted">Our first pilot is an assisted website installation. Its direct checkout will be enabled after payment tests. If you join before then, we will explain your trial end date and purchase options during onboarding. Google Play, App Store and Galaxy Store purchase flows will be tested before those editions launch.</p>
+        <p class="mt-4 text-brand-muted">One account may link up to three active devices and use a verified subscription across supported editions. Sales, menu and stock remain on each device; operate your pilot shop on one device and save backups after service. Contact support if you need another account slot.</p>
+        <a href="/download" class="btn-primary mt-6 inline-flex">Request pilot access</a>
+      </article>
     </div>
   </section>
-
-  <FinalCta title="Ready to get started?" subtitle="Download Kota-OS and begin your full 30-day free trial today." />
+  <FinalCta title="See Kota-OS in a real service" subtitle="Tell us about your food business and request a guided pilot place." />
 </BaseLayout>
