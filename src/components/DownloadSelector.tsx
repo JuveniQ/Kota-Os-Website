@@ -54,7 +54,9 @@ export default function DownloadSelector({ version, date, installers }: Props) {
             <div><dt className="font-semibold text-brand-foreground">APK file</dt><dd className="mt-1 break-all text-brand-muted">{installer.fileName}</dd></div>
             <div><dt className="font-semibold text-brand-foreground">File size</dt><dd className="mt-1 text-brand-muted">{installer.sizeLabel} ({installer.sizeBytes.toLocaleString("en-ZA")} bytes)</dd></div>
             <div className="sm:col-span-2"><dt className="font-semibold text-brand-foreground">APK SHA-256</dt><dd className="mt-1 break-all font-mono text-xs text-brand-muted">{installer.sha256}</dd></div>
-            <div className="sm:col-span-2"><dt className="font-semibold text-brand-foreground">Signing certificate SHA-256</dt><dd className="mt-1 break-all font-mono text-xs text-brand-muted">{installer.signingCertSha256}</dd></div>
+            {installer.signingCertSha256 && (
+              <div className="sm:col-span-2"><dt className="font-semibold text-brand-foreground">Signing certificate SHA-256</dt><dd className="mt-1 break-all font-mono text-xs text-brand-muted">{installer.signingCertSha256}</dd></div>
+            )}
           </dl>
           <a href={installer.url} className="btn-primary mt-6 inline-flex min-h-12 items-center"
             rel="noopener noreferrer" data-track-external="true" data-track-source={`website-apk-${installer.abi}`}>
