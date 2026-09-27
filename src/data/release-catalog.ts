@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 
 export type Installer = {
-  abi: "universal" | "arm64-v8a" | "armeabi-v7a";
+  abi: "arm64-v8a" | "armeabi-v7a";
   fileName: string;
   sizeBytes: number;
   sizeLabel: string;
@@ -24,8 +24,8 @@ export type ReleaseCatalog = { latest: Version | null; versions: Version[] };
 const ROOT = new URL("../../public/downloads/", import.meta.url);
 const SHA256 = /^[a-f\d]{64}$/i;
 const VERSION = /^\d+\.\d+\.\d+$/;
-const FILE_NAME = /^kota-os-website-(?:universal|arm64-v8a|armeabi-v7a)\.apk$/;
-const ABIS = ["universal", "arm64-v8a", "armeabi-v7a"] as const;
+const FILE_NAME = /^kota-os-website-(?:arm64-v8a|armeabi-v7a)\.apk$/;
+const ABIS = ["arm64-v8a", "armeabi-v7a"] as const;
 
 function record(value: unknown, name: string): asserts value is Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -120,9 +120,10 @@ export function loadReleaseCatalog(root: URL = ROOT): ReleaseCatalog {
     throw new Error("Download versions must be newest first");
   }
   const latest = versions.find((release) => release.version === index.latest) ?? null;
-  if (index.latest !== null && (!latest || latest !== versions[0] || !latest.artifacts.length ||
-    !latest.artifacts.some((artifact) => artifact.abi === "universal"))) {
-    throw new Error("Latest release requires a universal, verified APK listing");
+  if (index.latest !== null && (!latest || latest !== versions[0] ||
+    latest.artifacts.length !== ABIS.length ||
+    ABIS.some((abi) => !latest.artifacts.some((artifact) => artifact.abi === abi)))) {
+    throw new Error("Latest release requires both verified ARM APK listings");
   }
   return { latest, versions };
 }

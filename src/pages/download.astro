@@ -2,25 +2,23 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
 import FinalCta from "@/components/FinalCta.astro";
+import DownloadSelector from "@/components/DownloadSelector";
 import { CONTACT_INFO } from "@/data/site-config";
 import { loadReleaseCatalog } from "@/data/release-catalog";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
 const { latest, versions } = loadReleaseCatalog();
-const universal = latest?.artifacts.find((artifact) => artifact.abi === "universal");
-const smaller = latest?.artifacts.filter((artifact) => artifact.abi !== "universal") ?? [];
-const abiNames = { "arm64-v8a": "64-bit ARM", "armeabi-v7a": "32-bit ARM" };
 ---
 
 <BaseLayout
   title="Download Kota-OS for Android | Official Installer"
-  description="Get the official Kota-OS Android installer, read installation instructions, verify the APK and browse version changes."
+  description="Choose the official Kota-OS Android installer for your phone, check its file information and follow the installation steps."
   path="/download"
   jsonLd={[softwareApplicationSchema("/download"), organizationSchema()]}
 >
   <PageHero
     title="Download Kota-OS"
-    subtitle="Food-business operations for Android. Get the official website edition, check the installer details and follow the steps below."
+    subtitle="Food-business operations for Android. Find the website edition for your phone and check its details before installing."
     badge="Android website edition"
   />
 
@@ -38,24 +36,12 @@ const abiNames = { "arm64-v8a": "64-bit ARM", "armeabi-v7a": "32-bit ARM" };
           </div>
         </div>
 
-        {universal ? (
-          <>
-            <p class="mt-6 text-brand-muted">Choose the standard installer if you are unsure which Android processor your phone uses.</p>
-            <a href={universal.url} class="btn-primary mt-6 inline-flex min-h-12 items-center"
-              rel="noopener noreferrer" data-track-external="true" data-track-source="website-apk-universal">
-              Download for Android · {universal.sizeLabel}
-            </a>
-            <dl class="mt-7 grid gap-4 text-sm sm:grid-cols-2">
-              <div><dt class="font-semibold text-brand-foreground">File name</dt><dd class="mt-1 break-all text-brand-muted">{universal.fileName}</dd></div>
-              <div><dt class="font-semibold text-brand-foreground">File size</dt><dd class="mt-1 text-brand-muted">{universal.sizeLabel} ({universal.sizeBytes.toLocaleString("en-ZA")} bytes)</dd></div>
-              <div class="sm:col-span-2"><dt class="font-semibold text-brand-foreground">APK SHA-256</dt><dd class="mt-1 break-all font-mono text-xs text-brand-muted">{universal.sha256}</dd></div>
-              <div class="sm:col-span-2"><dt class="font-semibold text-brand-foreground">Signing certificate SHA-256</dt><dd class="mt-1 break-all font-mono text-xs text-brand-muted">{universal.signingCertSha256}</dd></div>
-            </dl>
-          </>
+        {latest ? (
+          <DownloadSelector client:load version={latest.version} date={latest.date} installers={latest.artifacts} />
         ) : (
           <div class="mt-6 rounded-2xl border border-brand-border bg-brand-background p-5">
-            <p class="font-semibold text-brand-foreground">Installer coming soon</p>
-            <p class="mt-2 text-sm leading-relaxed text-brand-muted">The verified website APK has not been published yet. Version, size, hash and the download button will appear here together when the signed file is ready.</p>
+            <p class="font-semibold text-brand-foreground">Installers coming soon</p>
+            <p class="mt-2 text-sm leading-relaxed text-brand-muted">The signed Android files have not been published yet. This page will show the correct file, its size and its signature after both phone variants have been verified.</p>
             <a href={`mailto:${CONTACT_INFO.email}?subject=Kota-OS%20Android%20release`} class="mt-3 inline-flex text-sm font-semibold text-brand-primary underline">Ask about availability</a>
           </div>
         )}
@@ -64,8 +50,9 @@ const abiNames = { "arm64-v8a": "64-bit ARM", "armeabi-v7a": "32-bit ARM" };
       <aside class="card-base rounded-3xl p-6 sm:p-8">
         <h2 class="text-xl font-bold text-brand-foreground">Before you install</h2>
         <ul class="mt-5 list-disc space-y-3 pl-5 text-sm leading-relaxed text-brand-muted">
-          <li>Use this page and check the file size and SHA-256 shown here against your downloaded file.</li>
-          <li>Android may ask you to allow installs from your browser or file manager. Only allow the source you used, and turn that permission off afterward.</li>
+          <li>Use the match shown for your phone. If the browser cannot identify your processor, check the device specifications or ask support before choosing a file.</li>
+          <li>Compare the downloaded file size and SHA-256 with the selected APK's details.</li>
+          <li>Android may ask you to allow installs from your browser or file manager. Allow only the source you used, then turn that permission off afterward.</li>
           <li>Keep Play Protect on. Stop and contact support if Android reports a security concern.</li>
           <li>Sales, menus and stock stay on this device. Account access on up to three devices does not sync shop records. Save a business backup outside the phone after each service.</li>
         </ul>
@@ -74,69 +61,49 @@ const abiNames = { "arm64-v8a": "64-bit ARM", "armeabi-v7a": "32-bit ARM" };
     </div>
   </section>
 
-  {smaller.length > 0 && (
+  <section class="section-pad bg-brand-surface/45">
+    <div class="container-wide max-w-5xl">
+      <h2 class="text-3xl font-extrabold text-brand-foreground">Install and get started</h2>
+      <ol class="mt-6 grid gap-4 md:grid-cols-2">
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">1. Find your file</strong><p class="mt-2 text-sm text-brand-muted">Tap “Find my Android download.” If the browser cannot detect the processor, choose the architecture from your phone's specifications.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Download and verify</strong><p class="mt-2 text-sm text-brand-muted">Review the selected APK's file name, size and SHA-256. If the downloaded file differs, delete it and contact support.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">3. Install</strong><p class="mt-2 text-sm text-brand-muted">Open the APK in Downloads. Approve your browser or file manager as an installation source only when Android asks, then remove that permission when finished.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">4. Back up</strong><p class="mt-2 text-sm text-brand-muted">Sign in, set up a menu and start selling. After service, use Settings → Business backup and keep the saved JSON somewhere outside your phone.</p></li>
+      </ol>
+      {latest && (
+        <div class="mt-6 rounded-2xl border border-brand-border bg-white p-5 text-sm text-brand-muted">
+          <h3 class="font-bold text-brand-foreground">Check the APK you selected</h3>
+          <p class="mt-2">Windows PowerShell: <code>Get-FileHash "filename.apk" -Algorithm SHA256</code></p>
+          <p class="mt-1">macOS: <code>shasum -a 256 "filename.apk"</code></p>
+          <p class="mt-1">Linux: <code>sha256sum "filename.apk"</code></p>
+          <p class="mt-2">With Android SDK: <code>apksigner verify --print-certs "filename.apk"</code></p>
+          <p class="mt-2">Replace <code>filename.apk</code> with the file name shown above and compare the output with the selected APK's hashes.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {versions.length > 0 && (
     <section class="section-pad bg-white">
       <div class="container-wide max-w-5xl">
-        <h2 class="text-3xl font-extrabold text-brand-foreground">Smaller Android installers</h2>
-        <p class="mt-3 text-brand-muted">These files contain native libraries for a specific processor. Choose one only if you know your device architecture; the standard installer above works across supported Android processors.</p>
+        <div class="flex flex-wrap items-end justify-between gap-4">
+          <div><h2 class="text-3xl font-extrabold text-brand-foreground">Version history</h2><p class="mt-2 text-brand-muted">Published features and fixes.</p></div>
+          <a href="/updates" class="text-sm font-semibold text-brand-primary underline">All release notes</a>
+        </div>
         <div class="mt-6 grid gap-4 md:grid-cols-2">
-          {smaller.map((artifact) => (
+          {versions.map((release) => (
             <article class="card-base rounded-2xl p-5">
-              <h3 class="text-xl font-bold text-brand-foreground">{abiNames[artifact.abi as keyof typeof abiNames]}</h3>
-              <p class="mt-2 text-sm text-brand-muted">{artifact.fileName} · {artifact.sizeLabel} ({artifact.sizeBytes.toLocaleString("en-ZA")} bytes)</p>
-              <a href={artifact.url} class="btn-secondary mt-4 inline-flex" rel="noopener noreferrer"
-                data-track-external="true" data-track-source={`website-apk-${artifact.abi}`}>
-                Download {abiNames[artifact.abi as keyof typeof abiNames]}
-              </a>
-              <p class="mt-4 break-all text-xs text-brand-muted"><strong>APK SHA-256:</strong> <span class="font-mono">{artifact.sha256}</span></p>
-              <p class="mt-2 break-all text-xs text-brand-muted"><strong>Signing certificate SHA-256:</strong> <span class="font-mono">{artifact.signingCertSha256}</span></p>
+              <p class="text-xs font-bold uppercase tracking-wide text-brand-primary">v{release.version} · {release.date}</p>
+              <h3 class="mt-2 text-lg font-bold text-brand-foreground">{release.summary}</h3>
+              <p class="mt-3 text-sm text-brand-muted">Features: {release.features.join(", ") || "—"}</p>
+              <p class="mt-2 text-sm text-brand-muted">Fixes: {release.fixes.join(", ") || "—"}</p>
+              <a class="mt-3 inline-block text-sm font-semibold text-brand-primary underline" href={`/downloads/v${release.version}/changelog.json`}>View changelog JSON</a>
             </article>
           ))}
         </div>
       </div>
     </section>
   )}
-
-  <section class="section-pad bg-brand-surface/45">
-    <div class="container-wide max-w-5xl">
-      <h2 class="text-3xl font-extrabold text-brand-foreground">Install and get started</h2>
-      <ol class="mt-6 grid gap-4 md:grid-cols-2">
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">1. Download</strong><p class="mt-2 text-sm text-brand-muted">Save the official APK from this page. Check that the file name and size match the listing.</p></li>
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Verify</strong><p class="mt-2 text-sm text-brand-muted">Compare the file SHA-256 before opening it. If it differs, delete the file and contact support.</p></li>
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">3. Install</strong><p class="mt-2 text-sm text-brand-muted">Open the APK in Downloads. Approve your browser or file manager as an installation source only when Android asks, then remove that permission when finished.</p></li>
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">4. Back up</strong><p class="mt-2 text-sm text-brand-muted">Sign in, set up a menu and start selling. After service, use Settings → Business backup and keep the saved JSON somewhere outside your phone.</p></li>
-      </ol>
-      {universal && (
-        <div class="mt-6 rounded-2xl border border-brand-border bg-white p-5 text-sm text-brand-muted">
-          <h3 class="font-bold text-brand-foreground">Verify the standard APK</h3>
-          <p class="mt-2">Windows PowerShell: <code class="break-all">Get-FileHash "{universal.fileName}" -Algorithm SHA256</code></p>
-          <p class="mt-1">macOS: <code class="break-all">shasum -a 256 "{universal.fileName}"</code></p>
-          <p class="mt-1">Linux: <code class="break-all">sha256sum "{universal.fileName}"</code></p>
-          <p class="mt-2">With Android SDK: <code class="break-all">apksigner verify --print-certs "{universal.fileName}"</code></p>
-        </div>
-      )}
-    </div>
-  </section>
-
-  <section class="section-pad bg-white">
-    <div class="container-wide max-w-5xl">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div><h2 class="text-3xl font-extrabold text-brand-foreground">Version history</h2><p class="mt-2 text-brand-muted">Features and fixes from earlier versions.</p></div>
-        <a href="/updates" class="text-sm font-semibold text-brand-primary underline">All release notes</a>
-      </div>
-      <div class="mt-6 grid gap-4 md:grid-cols-2">
-        {versions.map((release) => (
-          <article class="card-base rounded-2xl p-5">
-            <p class="text-xs font-bold uppercase tracking-wide text-brand-primary">v{release.version} · {release.date}</p>
-            <h3 class="mt-2 text-lg font-bold text-brand-foreground">{release.summary}</h3>
-            <p class="mt-3 text-sm text-brand-muted">Features: {release.features.join(", ") || "—"}</p>
-            <p class="mt-2 text-sm text-brand-muted">Fixes: {release.fixes.join(", ") || "—"}</p>
-            <a class="mt-3 inline-block text-sm font-semibold text-brand-primary underline" href={`/downloads/v${release.version}/changelog.json`}>View changelog JSON</a>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <FinalCta title="Ready for a smoother service?" subtitle="See how Kota-OS helps you record sales, ingredients and stock even through an outage." />
 </BaseLayout>

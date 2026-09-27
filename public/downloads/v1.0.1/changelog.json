@@ -1,8 +1,0 @@
-{
-  "version": "1.0.1",
-  "date": "2026-01-01",
-  "summary": "Initial Kota-OS release for township fast-food vendors.",
-  "features": ["New Sale, Inventory, Reports, Settings"],
-  "fixes": [],
-  "artifacts": []
-}

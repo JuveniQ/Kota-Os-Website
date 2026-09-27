@@ -1,8 +1,0 @@
-{
-  "version": "1.0.3",
-  "date": "2026-02-09",
-  "summary": "Reliability and reporting upgrade focused on offline licensing, search speed, and export consistency.",
-  "features": ["Offline-safe access checks", "Clearer order status labels", "Faster order search", "Inventory adjustment notes", "Improved report exports"],
-  "fixes": ["CSV export line wrapping", "Currency symbol display in exports", "Corrected low-stock badge counts"],
-  "artifacts": []
-}
