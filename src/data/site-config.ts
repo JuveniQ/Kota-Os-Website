@@ -24,7 +24,7 @@ export const CONTACT_INFO = {
   phone: "+27 607431268",
   location: "Gauteng, Johannesburg",
   businessHours: "Monday to Sunday, 06:00 - 21:00",
-  supportSla: "Pilot onboarding by appointment; arrange a support window before your first service."
+  supportSla: "Contact support for installation, billing and backup help."
 };
 
 export const LEGAL_INFO = {
@@ -42,12 +42,12 @@ export const NAV_ITEMS: NavItem[] = [
 ];
 
 export const PRIMARY_CTA = {
-  label: "Join Gauteng Pilot",
+  label: "Download for Android",
   href: "/download"
 };
 
 export const SECONDARY_CTA = {
-  label: "Join Gauteng Pilot",
+  label: "Download for Android",
   href: "/download"
 };
 

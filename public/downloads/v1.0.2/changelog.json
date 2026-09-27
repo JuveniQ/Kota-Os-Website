@@ -1,0 +1,8 @@
+{
+  "version": "1.0.2",
+  "date": "2026-02-01",
+  "summary": "Workflow refinement release for checkout speed and order list usability.",
+  "features": ["Compact order list view", "Customizable default payment method", "Daily summary widgets"],
+  "fixes": ["Checkout sheet gesture edge cases"],
+  "artifacts": []
+}
