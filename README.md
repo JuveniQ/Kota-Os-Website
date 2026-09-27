@@ -1,62 +1,65 @@
 # Kota-OS product website
 
-Astro product site for Kota-OS. The Android download page, navigation and release history read from one versioned catalog.
+Astro product site for Kota-OS. The Android page uses a versioned release catalog and presents **one selected APK** with its own file size and verification details.
 
 ## Local checks
 
-Run `npm ci`, `npm run check` and `npm run build`. Check `dist/download/index.html` and the generated `dist/downloads/` JSON before deploying.
+Run `npm ci`, `npm run check` and `npm run build`. Inspect `dist/download/index.html` and `dist/downloads/` before deployment. The existing changelogs were removed; `public/downloads/index.json` has `latest: null` and an empty `versions` list until a signed release exists.
 
-## Versioned download layout
+## Versioned Android downloads
 
-The site publishes **metadata only** under `public/downloads/`. Actual signed APKs belong on the dedicated HTTPS download host; placing them in `public/` would include the full installer in every site deployment.
+The website bundles metadata only. Signed APKs live on a dedicated HTTPS download host so site deploys do not include large binaries:
 
 ```text
 website/public/downloads/
-  index.json                    latest version and ordered version list
-  v1.0.4/changelog.json         date, features, fixes, verified artifact metadata
+  index.json
+  v1.0.4/changelog.json
 
 downloads.kotaos.juveniq.co.za/
-  index.json                    optional mirror with short cache lifetime
-  v1.0.4/changelog.json         same published changelog JSON
-  v1.0.4/kota-os-website-universal.apk
-  v1.0.4/kota-os-website-arm64-v8a.apk       optional, only if built and tested
-  v1.0.4/kota-os-website-armeabi-v7a.apk    optional, only if built and tested
+  v1.0.4/changelog.json
+  v1.0.4/kota-os-website-arm64-v8a.apk
+  v1.0.4/kota-os-website-armeabi-v7a.apk
 ```
 
-The index has `schemaVersion: 1`, `downloadBaseUrl: "https://downloads.kotaos.juveniq.co.za/"`, `versions: ["1.0.4", ...]` (newest first), and `latest: "1.0.4"` only when an installer is live. Every listed version has a matching `public/downloads/vX.Y.Z/changelog.json` with these fields:
+`index.json` contains `schemaVersion: 1`, the fixed `downloadBaseUrl`, a `latest` version or `null`, and `versions` in newest-first order. Each version has a matching changelog with `version`, `date` (`YYYY-MM-DD`), `summary`, `features`, `fixes`, and two `artifacts` entries:
 
 ```json
 {
   "version": "1.0.4",
   "date": "2026-09-27",
-  "summary": "Describe verified release changes here.",
+  "summary": "Describe the shipped release.",
   "features": ["Describe a shipped feature"],
   "fixes": ["Describe a verified fix"],
   "artifacts": [
     {
-      "abi": "universal",
-      "fileName": "kota-os-website-universal.apk",
+      "abi": "arm64-v8a",
+      "fileName": "kota-os-website-arm64-v8a.apk",
       "sizeBytes": 12345678,
-      "sha256": "64 actual hexadecimal characters from the uploaded APK",
-      "signingCertSha256": "64 actual hexadecimal characters from apksigner"
+      "sha256": "replace-with-actual-64-character-file-hash",
+      "signingCertSha256": "replace-with-actual-64-character-cert-hash"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "fileName": "kota-os-website-armeabi-v7a.apk",
+      "sizeBytes": 12345678,
+      "sha256": "replace-with-actual-64-character-file-hash",
+      "signingCertSha256": "replace-with-the-same-64-character-cert-hash"
     }
   ]
 }
 ```
 
-That is a **format example**, not publishable metadata. The build rejects invalid metadata and will only show a download button when `latest` has a universal installer. The existing v1.0.1–v1.0.3 changelogs were migrated from the website's existing release timeline, with no APK URLs; they are history, not current download offers. The old v1.0.3 installer was removed because it is not the verified website edition.
+This is a format example, intentionally invalid until actual file sizes and hashes replace the placeholders. The build rejects a latest release without **both** complete ARM installer entries. There is no universal website APK. Do not list a file based solely on its expected EAS output name.
 
-## Publish a website APK
+## Build and publish
 
-1. In the app repo, build the **website** edition (Paystack channel), not a Play or Galaxy binary. Increase Android versionCode, confirm app package `za.co.juveniq.kotaos` and compatible signing identity, and test registration, direct checkout, updates and backup/restore on physical devices.
-2. Run the app repo's `node scripts/verify-direct-release.mjs path/to/release.apk <expected-signing-cert-sha256>` with Android SDK `apksigner` available. Record size, SHA-256 and certificate from this exact file. Check installation over the previous version with its data retained.
-3. Upload the immutable signed file to `https://downloads.kotaos.juveniq.co.za/vX.Y.Z/kota-os-website-universal.apk`. Keep the matching `changelog.json` alongside it, identical to the website copy. Serve HTTPS, `application/vnd.android.package-archive`, `Content-Disposition: attachment`, correct `Content-Length` and byte-range/resume support. Use long immutable caching for the versioned folder; never replace an object at the same path.
-4. Download the CDN object independently and compare its bytes, size, SHA-256 and certificate to the tested build. Test the website link and installation on a phone. Publish per-ABI **standalone** APKs only after confirming each is individually installable, signed with the same identity and compatible with updates. App Bundle split APK components are not standalone installers.
-5. Add the version folder and changelog metadata to this site, set `latest` in `index.json` last, run `npm run check && npm run build`, deploy, and test the live links. Mirror `index.json` to the download host with a short cache lifetime if clients also need a CDN catalog. Update the website channel's app update record only after the installer is verified. Keep a fallback universal APK available.
+1. In the app repo run the `web` EAS profile. It extends the website/Paystack edition and enables native Gradle ABI splits for ARM64 and ARMv7, with the universal APK disabled. The result can be an artifact archive containing both APKs. Extract it and confirm the actual file names. The Play and other store profiles are independent.
+2. Run `node scripts/prepare-web-apks.mjs <Gradle-release-output-dir> <staging-vX.Y.Z-dir> <expected-signing-cert-sha256>` from the app repo with Android SDK `apksigner` and `aapt` installed. It verifies both signatures, package `za.co.juveniq.kotaos`, ABI and version identity, checks there is no universal APK, then stages the renamed files and writes `verified-artifacts.json`.
+3. Check the staged APKs install on representative 64-bit and 32-bit Android devices and update the prior website edition while retaining local records. Compare real file sizes with the prior release; ABI splits may reduce native-library size, but cannot guarantee a specific total size. Test Paystack checkout and backup/restore before release.
+4. Upload the exact staged files to immutable `vX.Y.Z/` paths on the download host with HTTPS, APK content type, `Content-Disposition: attachment`, correct length and byte-range support. Independently download each file and compare hashes, sizes and certificate fingerprints to the staged files. Put the matching changelog JSON in the version folder on both the host and site.
+5. Add the version to `index.json` and set `latest` last, build, deploy and test links and install flows on phones. The download selector uses an explicit ARM architecture/bitness browser hint when available. Browsers cannot reliably expose Android's complete supported ABI list; when hints are unavailable, the page asks visitors to choose based on their device specifications or contact support. It never guesses based on model or generic Android user agent.
 
-An install from a browser can still trigger Android's installer-source permission. The website explains the prompt and recommends leaving Play Protect enabled. A store listing provides a different installation path; it does not change the website APK's requirements.
-
-Remove any old `PUBLIC_KOTA_OPEN_DOWNLOADS` and `PUBLIC_KOTA_APK_*` build variables: this catalog replaces them. Optional `PUBLIC_GA_ID` and `PUBLIC_MIXPANEL_TOKEN` are unrelated to releases.
+The Android browser installation-source prompt remains under Android's control; keep Play Protect enabled. Existing `PUBLIC_KOTA_APK_*` and `PUBLIC_KOTA_OPEN_DOWNLOADS` variables are obsolete. Optional analytics tokens remain separate from release publishing.
 
 ## Legal
 
