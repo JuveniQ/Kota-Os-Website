@@ -60,6 +60,27 @@ img {
   @apply rounded-2xl border border-brand-border bg-brand-card shadow-card transition duration-300;
 }
 
+/* The source brand image has generous orange padding; present the emblem at icon scale. */
+.app-icon {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  background: #fdaa48;
+}
+
+.app-icon picture,
+.app-icon img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.app-icon img {
+  object-fit: cover;
+  transform: scale(1.85);
+}
+
 .card-hover {
   @apply md:hover:scale-[1.02] md:hover:shadow-cardHover;
 }

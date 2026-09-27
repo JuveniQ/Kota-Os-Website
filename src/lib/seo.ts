@@ -27,7 +27,7 @@ export function softwareApplicationSchema(path: string) {
       price: "0",
       priceCurrency: "ZAR",
       url: `${SITE_URL}/download`,
-      description: "14-day trial begins at registration; pilot access is guided."
+      description: "14-day trial begins at registration; the Android installer is listed on the download page when published."
     }
   };
 }

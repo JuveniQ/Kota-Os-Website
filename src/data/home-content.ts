@@ -3,7 +3,6 @@ import type {
   FaqItem,
   FeatureItem,
   HeroMetric,
-  ReleaseNote,
   ScreenshotSlide,
   StepItem,
 } from "@/types/site";
@@ -82,7 +81,7 @@ export const HOW_IT_WORKS: StepItem[] = [
     description:
       "Process orders, manage inventory, and view live reports, even while offline.",
     visualTitle: "Daily Operation",
-    visualPoints: ["Fast checkout", "Stock sync", "Report exports"]
+    visualPoints: ["Fast checkout", "Ingredient usage", "Report exports"]
   }
 ];
 
@@ -188,7 +187,7 @@ export const BENEFITS: BenefitItem[] = [
     icon: "users",
     iconColor: "success",
     title: "One Shop Device",
-    description: "Run the pilot from one operating device while we observe real service."
+    description: "Keep one operating device for your shop and export a backup after each service."
   },
   {
     id: "sync",
@@ -216,7 +215,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "users",
     question: "Can multiple users operate on one device?",
     answer:
-      "The pilot uses the owner's signed-in session on one shop device. Separate staff permissions are not available yet; keep settings and reset actions under the owner's supervision."
+      "Use the owner's signed-in session on one shop device. Separate staff permissions are not available yet; keep settings and reset actions under the owner's supervision."
   },
   {
     id: "lost-device",
@@ -233,7 +232,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     id: "devices",
     question: "How many devices can I use?",
-    answer: "One verified account can link up to three active devices, but shop data does not sync between them. Use one operating device during the pilot. If you need another account slot, request it from support in the app."
+    answer: "One verified account can link up to three active devices, but shop data does not sync between them. Use one operating device per shop and keep a business backup. If you need another account slot, request it from support in the app."
   },
   {
     id: "receipt",
@@ -251,61 +250,15 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "support-community",
     question: "What support is available?",
     answer:
-      "Contact support@juveniq.co.za or use the WhatsApp link on our pilot page for installation, backup and account help."
+      "Contact support@juveniq.co.za or use the WhatsApp link on this site for installation, backup and account help."
   }
 ];
 
 export const QUICK_START_STEPS: string[] = [
-  "Request access through the Kota-OS Gauteng pilot page.",
-  "Install the app and grant required permissions.",
+  "Visit the download page for the latest verified Android installer and its SHA-256.",
+  "Install the app, allowing your browser as an installation source only when Android asks.",
   "Create your shop profile and configure your store details.",
   "Add menu items, ingredients, and pricing.",
   "Run your first sale and verify inventory deduction.",
   "Use the 14-day trial and review the plans available in your app."
 ];
-
-export const RELEASE_NOTES: ReleaseNote[] = [
-  {
-    version: "1.0.3",
-    date: "February 09, 2026",
-    summary:
-      "Reliability and reporting upgrade focused on offline licensing, search speed, and export consistency.",
-    features: [
-      "Offline-safe access checks",
-      "Clearer order status labels",
-      "Faster order search",
-      "Inventory adjustment notes",
-      "Improved report exports"
-    ],
-    fixes: [
-      "CSV export line wrapping",
-      "Currency symbol display in exports",
-      "Corrected low-stock badge counts"
-    ]
-  },
-  {
-    version: "1.0.2",
-    date: "February 01, 2026",
-    summary:
-      "Workflow refinement release for checkout speed and order list usability.",
-    features: [
-      "Compact order list view",
-      "Customizable default payment method",
-      "Daily summary widgets"
-    ],
-    fixes: [
-      "Checkout sheet gesture edge cases"
-    ]
-  },
-  {
-    version: "1.0.1",
-    date: "January 01, 2026",
-    summary: "Initial public release of Kota-OS for township fast-food vendors.",
-    features: [
-      "Initial public release",
-      "New Sale, Inventory, Reports, Settings"
-    ],
-    fixes: []
-  }
-];
-

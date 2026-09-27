@@ -79,14 +79,6 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
     return () => window.clearTimeout(timer);
   }, [index, isTransitioning]);
 
-  useEffect(() => {
-    if (!slideCount) return;
-    [index, (index + 1) % slideCount, (index - 1 + slideCount) % slideCount].forEach((slideIndex) => {
-      const image = new Image();
-      image.src = slides[slideIndex].imageSrc;
-    });
-  }, [index, slideCount, slides]);
-
   if (!current) return null;
 
   const transitionClass =
@@ -107,8 +99,8 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
       <div className="grid items-center gap-6 md:grid-cols-[0.82fr,1.18fr] lg:gap-8">
         <figure
           className={
-            "mx-auto w-full max-w-[232px] rounded-[34px] border border-zinc-800 bg-zinc-950 p-2 " +
-            "shadow-[0_18px_40px_rgba(0,0,0,0.28)] sm:max-w-[248px] md:max-w-[260px] " +
+            "mx-auto w-full max-w-[270px] rounded-[34px] border border-zinc-800 bg-zinc-950 p-2 " +
+            "shadow-[0_18px_40px_rgba(0,0,0,0.28)] md:max-w-[290px] " +
             transitionClass
           }
           aria-live="polite"
@@ -130,12 +122,11 @@ export default function ScreenshotsCarousel({ slides }: ScreenshotsCarouselProps
               <img
                 src={current.imageSrc}
                 alt={current.imageAlt}
-                className="mx-auto h-[300px] w-full object-contain object-top sm:h-[330px] md:h-[350px]"
-                width={360}
-                height={640}
-                loading="eager"
+                className="block h-auto w-full"
+                width={717}
+                height={1563}
+                loading="lazy"
                 decoding="async"
-                fetchPriority="high"
               />
             </div>
           </div>

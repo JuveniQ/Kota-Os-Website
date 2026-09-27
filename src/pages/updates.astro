@@ -4,15 +4,19 @@ import PageHero from "@/components/PageHero.astro";
 import SectionHeader from "@/components/SectionHeader.astro";
 import ReleaseTimeline from "@/components/ReleaseTimeline";
 import FinalCta from "@/components/FinalCta.astro";
-import { RELEASE_NOTES } from "@/data/home-content";
+import { loadReleaseCatalog } from "@/data/release-catalog";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
 
 const jsonLd = [softwareApplicationSchema("/updates"), organizationSchema()];
+const releases = loadReleaseCatalog().versions.map((release) => ({
+  ...release,
+  date: new Intl.DateTimeFormat("en-ZA", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${release.date}T00:00:00Z`))
+}));
 ---
 
 <BaseLayout
   title="Kota-OS Updates | Release Notes"
-  description="Track Kota-OS release notes, features, and bug fixes across versions 1.0.1, 1.0.2, and 1.0.3."
+  description="Track Kota-OS features, bug fixes and version history for the Android app."
   path="/updates"
   jsonLd={jsonLd}
 >
@@ -24,7 +28,7 @@ const jsonLd = [softwareApplicationSchema("/updates"), organizationSchema()];
   <section class="section-pad">
     <div class="container-wide max-w-[980px]">
       <SectionHeader title="Version Timeline" />
-      <ReleaseTimeline items={RELEASE_NOTES} />
+      <ReleaseTimeline items={releases} />
     </div>
   </section>
 
