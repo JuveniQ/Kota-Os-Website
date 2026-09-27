@@ -88,9 +88,10 @@ const whatsappUrl = createWhatsAppUrl(
       {release && (
         <div class="mt-6 rounded-xl border border-brand-border bg-brand-background p-4 text-sm text-brand-muted">
           <h3 class="font-bold text-brand-foreground">Check the downloaded file</h3>
-          <p class="mt-2">On Windows: <code>Get-FileHash "Kota-OS.apk" -Algorithm SHA256</code></p>
-          <p>On macOS: <code>shasum -a 256 Kota-OS.apk</code></p>
-          <p>On Linux: <code>sha256sum Kota-OS.apk</code></p>
+          <p class="mt-2">On Windows: <code>Get-FileHash "{release.fileName}" -Algorithm SHA256</code></p>
+          <p>On macOS: <code>shasum -a 256 "{release.fileName}"</code></p>
+          <p>On Linux: <code>sha256sum "{release.fileName}"</code></p>
+          <p>Signing certificate (Android SDK): <code>apksigner verify --print-certs "{release.fileName}"</code></p>
         </div>
       )}
     </div>
