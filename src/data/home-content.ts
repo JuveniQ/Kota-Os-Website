@@ -88,66 +88,102 @@ export const HOW_IT_WORKS: StepItem[] = [
 
 export const SCREENSHOT_SLIDES: ScreenshotSlide[] = [
   {
-    id: "dashboard",
-    headline: "Dashboard at a Glance",
-    cta: "Explore Dashboard",
+    id: "onboarding-welcome",
+    headline: "Built for Busy Food Businesses",
+    cta: "Download Kota-OS",
     points: [
-      "Today's sales card with quick performance visibility",
-      "Shortcut actions for New Sale and Inventory",
-      "Today's orders list with clear status indicators"
+      "Guided onboarding gets a new shop started without complex setup",
+      "Sales, stock and profit tools are introduced before configuration",
+      "Core shop operations remain available locally when connectivity drops after setup"
     ],
-    imageSrc: "/home.jpeg",
+    imageSrc: "/20261004-201410.926-5.jpg",
     imageAlt:
-      "Kota-OS home dashboard showing today's sales, new sale and inventory shortcuts, and today's order cards"
+      "Kota-OS onboarding welcome screen introducing sales, stock control and profit insight for food businesses"
   },
   {
-    id: "new-sale",
-    headline: "Fast Order Processing",
-    cta: "Try Sale Entry",
+    id: "shop-setup",
+    headline: "Set Up Your Shop Your Way",
     points: [
-      "Search and category tabs speed up item selection",
-      "Grid-based menu cards show item images and prices",
-      "Optimized for high-speed tap-to-add checkout flow"
+      "Choose the business type that best matches the shop",
+      "Start quickly with the recommended Kota Starter Setup",
+      "Experienced operators can start blank and build their own menu and stock structure"
     ],
-    imageSrc: "/new_sale.jpeg",
+    imageSrc: "/20261004-201410.926-4.jpg",
     imageAlt:
-      "Kota-OS New Sale screen with searchable menu categories and item cards for quick order capture"
+      "Kota-OS shop setup screen with business type choices and starter or blank setup options"
   },
   {
-    id: "manage-items",
-    headline: "Menu Management at Scale",
+    id: "account-verification",
+    headline: "Secure Account Verification",
     points: [
-      "Search menu items by name or category",
-      "Edit and delete actions are available per item",
-      "Manage tab keeps menu updates organized in one place"
+      "Verify ownership before the account is used on a shop device",
+      "Email verification is available directly during onboarding",
+      "Clear verification steps keep account setup understandable"
     ],
-    imageSrc: "/manage.jpeg",
+    imageSrc: "/20261004-201410.926-7.jpg",
     imageAlt:
-      "Kota-OS Manage screen listing menu items with edit and delete controls"
+      "Kota-OS account verification screen showing email verification during onboarding"
   },
   {
-    id: "create-item",
-    headline: "Create Menu Items in Seconds",
+    id: "orders-dashboard",
+    headline: "Run Today’s Orders from One Screen",
+    cta: "Try Kota-OS",
     points: [
-      "Structured form for name, price, category, and image",
-      "Ingredient selection can be attached before saving",
-      "Clear action buttons keep data entry straightforward"
+      "See sales, active orders and low-stock status at a glance",
+      "Start a new order or jump to inventory with one tap",
+      "Complete or cancel active orders directly from the order list"
     ],
-    imageSrc: "/create-menu-item.jpeg",
+    imageSrc: "/20261004-201410.926-8.jpg",
     imageAlt:
-      "Kota-OS create menu item form with fields for pricing, category, image, and ingredients"
+      "Kota-OS home screen showing daily sales, active orders, low-stock status and order actions"
+  },
+  {
+    id: "dark-dashboard",
+    headline: "Comfortable in Light or Dark",
+    points: [
+      "Dark mode keeps the same operational dashboard and shortcuts",
+      "Sales, order and low-stock information stays visible during service",
+      "Responsive layouts remain focused on fast daily shop work"
+    ],
+    imageSrc: "/20261004-201410.926-3.jpg",
+    imageAlt:
+      "Kota-OS home dashboard in dark mode with sales, orders, low-stock status and order cards"
+  },
+  {
+    id: "inventory",
+    headline: "Inventory You Can Act On",
+    points: [
+      "See total items, low-stock and out-of-stock counts immediately",
+      "Search ingredients and filter by stock health",
+      "Review current stock, reorder levels and recent restock dates per ingredient"
+    ],
+    imageSrc: "/20261004-201410.926-6.jpg",
+    imageAlt:
+      "Kota-OS inventory screen showing stock summary cards, ingredient search, filters and reorder information"
+  },
+  {
+    id: "manage",
+    headline: "Keep Menu and Stock Setup Organised",
+    points: [
+      "Manage menu items and ingredients from one clear workspace",
+      "See item and ingredient counts before opening a management area",
+      "Keep catalogue maintenance separate from the service workflow"
+    ],
+    imageSrc: "/20261004-201410.926-1.jpg",
+    imageAlt:
+      "Kota-OS Manage screen with menu and ingredient management cards"
   },
   {
     id: "reports",
-    headline: "Professional Reports",
+    headline: "Reports Built for Daily Decisions",
     points: [
-      "Daily, weekly, and monthly views are available",
-      "Top-selling items and category sales are summarized",
-      "Export PDF action is accessible directly in reports"
+      "Switch between daily, weekly and monthly reporting periods",
+      "Review total sales, order count and average order value",
+      "Export reports to PDF directly from the reporting screen"
     ],
-    imageSrc: "/reports.jpeg",
+    imageSrc: "/20261004-201410.926-2.jpg",
     imageAlt:
-      "Kota-OS reports screen showing summary tabs, top selling items, category sales, and export PDF button"
+      "Kota-OS reports screen showing daily summary metrics and PDF export"
   }
 ];
 
