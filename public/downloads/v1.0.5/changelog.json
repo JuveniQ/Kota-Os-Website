@@ -1,0 +1,34 @@
+{
+  "version": "1.0.5",
+  "date": "2026-10-04",
+  "summary": "Major operational release with improved inventory and reporting, receipt printing, stronger backup and recovery, live Paystack billing, and Early Adopter pricing for the website edition.",
+  "features": [
+    "Refined inventory workflows for purchases, wastage, stock adjustments and low-stock visibility.",
+    "Expanded reports for sales, payment methods, stock activity, wastage and cash-up review.",
+    "Print receipts for completed sales with shop, order, payment, item, customization and total information.",
+    "Improved business backup and restore flows with stronger ownership and restore validation.",
+    "Live Paystack subscriptions for the website edition, including recurring payment reconciliation and cancellation handling.",
+    "Early Adopter pricing for the first 10 eligible customers: R25 weekly, R89 monthly or R890 yearly.",
+    "Improved trial-expiry and subscription-status messaging before access changes.",
+    "Improved responsive layouts for phones, tablets and rotated Android devices.",
+    "Core sales, menu, inventory and reporting workflows continue to operate locally when connectivity is unavailable after setup."
+  ],
+  "fixes": [
+    "Improved customized-order ingredient costing and inventory deductions.",
+    "Improved South African date handling across daily reports and operational figures.",
+    "Hardened returning-user, registered-device and archived-business handling.",
+    "Improved backup and recovery safeguards around locally stored business data.",
+    "Improved payment fulfillment idempotency, provider verification and subscription lifecycle reconciliation.",
+    "Various stability, layout and production-monitoring improvements."
+  ],
+  "artifacts": [
+    {
+      "abi": "arm64-v8a",
+      "fileName": "kota-os-website-arm64-v8a.apk"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "fileName": "kota-os-website-armeabi-v7a.apk"
+    }
+  ]
+}

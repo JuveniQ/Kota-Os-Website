@@ -27,7 +27,7 @@ const { latest, versions } = loadReleaseCatalog();
       <article class="card-base rounded-3xl p-6 sm:p-8">
         <div class="flex flex-wrap items-center gap-5">
           <span class="app-icon block h-20 w-20 shrink-0 rounded-[22px]" aria-hidden="true">
-            <picture><source srcset="/logo.webp" type="image/webp" /><img src="/logo.jpeg" alt="" width="80" height="80" /></picture>
+            <img src="/logo.jpeg" alt="" width="80" height="80" />
           </span>
           <div>
             <p class="text-sm font-bold uppercase tracking-wide text-brand-primary">Official Android download</p>
@@ -51,7 +51,7 @@ const { latest, versions } = loadReleaseCatalog();
         <h2 class="text-xl font-bold text-brand-foreground">Before you install</h2>
         <ul class="mt-5 list-disc space-y-3 pl-5 text-sm leading-relaxed text-brand-muted">
           <li>Tap the main download button. Kota-OS checks your phone and chooses the installer automatically.</li>
-          <li>If your browser cannot identify the device type, the standard Android installer is used.</li>
+          <li>If your browser cannot identify the device type, Kota-OS will ask you to choose between the 64-bit and older 32-bit installers rather than guessing.</li>
           <li>Android may ask you to allow installs from your browser or file manager. Allow only the source you used, then turn that permission off afterward.</li>
           <li>Keep Play Protect on. Stop and contact support if Android reports a security concern.</li>
           <li>Sales, menus and stock stay on this device. Account access on up to three devices does not sync shop records. Save a business backup outside the phone after each service.</li>
@@ -66,7 +66,7 @@ const { latest, versions } = loadReleaseCatalog();
       <h2 class="text-3xl font-extrabold text-brand-foreground">Install and get started</h2>
       <ol class="mt-6 grid gap-4 md:grid-cols-2">
         <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">1. Choose a version</strong><p class="mt-2 text-sm text-brand-muted">The newest release is selected automatically, but you can use the version dropdown if you need an older published release.</p></li>
-        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Download</strong><p class="mt-2 text-sm text-brand-muted">Tap the download button. Kota-OS checks your Android device first and starts the matching download automatically.</p></li>
+        <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">2. Download</strong><p class="mt-2 text-sm text-brand-muted">Tap the download button. Kota-OS checks the Android device information your browser exposes and starts the matching download when it can identify it.</p></li>
         <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">3. Install</strong><p class="mt-2 text-sm text-brand-muted">Open the APK in Downloads. Approve your browser or file manager as an installation source only when Android asks, then remove that permission when finished.</p></li>
         <li class="card-base rounded-2xl p-5"><strong class="text-brand-foreground">4. Back up</strong><p class="mt-2 text-sm text-brand-muted">Sign in, set up a menu and start selling. After service, use Settings → Business backup and keep the saved JSON somewhere outside your phone.</p></li>
       </ol>
