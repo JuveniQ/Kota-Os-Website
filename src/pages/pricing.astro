@@ -3,29 +3,85 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import PageHero from "@/components/PageHero.astro";
 import FinalCta from "@/components/FinalCta.astro";
 import { organizationSchema, softwareApplicationSchema } from "@/lib/seo";
+
+const founderPlans = [
+  { label: "Weekly", price: "R25", cadence: "/ week" },
+  { label: "Monthly", price: "R89", cadence: "/ month" },
+  { label: "Yearly", price: "R890", cadence: "/ year", featured: true }
+];
+
+const standardPlans = [
+  { label: "Weekly", price: "R45", cadence: "/ week" },
+  { label: "Monthly", price: "R165", cadence: "/ month" },
+  { label: "Yearly", price: "R1,650", cadence: "/ year" }
+];
 ---
 
 <BaseLayout
-  title="Kota-OS Pricing | 14-Day Trial"
-  description="Kota-OS starts with a 14-day trial. See your available plan and payment method in your installation channel before purchasing."
+  title="Kota-OS Pricing | 14-Day Trial & Early Adopter Plans"
+  description="Start Kota-OS with a 14-day trial. The first 10 eligible customers can secure Early Adopter pricing from R25 per week, with standard weekly, monthly and yearly plans available after the launch offer fills."
   path="/pricing"
   jsonLd={[softwareApplicationSchema("/pricing"), organizationSchema()]}
 >
   <PageHero
     title="Start with 14 days to try Kota-OS"
-    subtitle="Run real sales, map recipe ingredients and check reports during your trial. We will show your available plan and price before any purchase."
-    badge="14-day trial"
+    subtitle="Run real sales, map recipe ingredients, track stock and review reports before choosing a plan."
+    badge="Early Adopter launch"
   />
+
   <section class="section-pad bg-white">
-    <div class="container-wide max-w-4xl">
-      <article class="card-base rounded-2xl p-8">
-        <h2 class="text-2xl font-bold text-brand-foreground">A plan for how you install</h2>
-        <p class="mt-4 text-brand-muted">Download is free. The trial starts at account registration and lasts 14 days. After the trial, premium access requires a subscription unless another entitlement applies to your account.</p>
-        <p class="mt-4 text-brand-muted">The website edition uses direct checkout when available. Google Play and App Store editions use their own store purchase flows when published. Your app shows the available plan, price and payment method before purchase.</p>
-        <p class="mt-4 text-brand-muted">One account may link up to three active devices and use a verified subscription across supported editions. Sales, menu and stock remain on each device; use one operating device per shop and save backups after service. Contact support if you need another account slot.</p>
-        <a href="/download" class="btn-primary mt-6 inline-flex">View Android download</a>
+    <div class="container-wide max-w-5xl">
+      <div class="rounded-3xl border-2 border-brand-primary/30 bg-brand-primary/5 p-6 sm:p-8">
+        <p class="text-sm font-extrabold uppercase tracking-[0.18em] text-brand-primary">First 10 eligible customers</p>
+        <h2 class="mt-2 text-3xl font-extrabold text-brand-foreground">Early Adopter pricing</h2>
+        <p class="mt-3 max-w-3xl leading-relaxed text-brand-muted">
+          The first 10 eligible Kota-OS customers can secure the launch pricing below. Eligibility and remaining availability are verified by the Kota-OS server at checkout.
+        </p>
+
+        <div class="mt-6 grid gap-4 md:grid-cols-3">
+          {founderPlans.map((plan) => (
+            <article class:list={["rounded-2xl border bg-white p-6", plan.featured ? "border-brand-primary shadow-md" : "border-brand-border"]}>
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-muted">{plan.label}</p>
+              <p class="mt-2 text-4xl font-extrabold text-brand-foreground">{plan.price}</p>
+              <p class="mt-1 text-sm text-brand-muted">{plan.cadence}</p>
+              {plan.featured && <p class="mt-4 text-xs font-bold uppercase tracking-wide text-brand-primary">Best annual value</p>}
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <h2 class="text-2xl font-bold text-brand-foreground">Standard pricing</h2>
+        <p class="mt-2 text-brand-muted">These prices apply when the Early Adopter offer is no longer available for a new customer.</p>
+        <div class="mt-5 grid gap-4 md:grid-cols-3">
+          {standardPlans.map((plan) => (
+            <article class="card-base rounded-2xl p-6">
+              <p class="text-sm font-bold uppercase tracking-wide text-brand-muted">{plan.label}</p>
+              <p class="mt-2 text-3xl font-extrabold text-brand-foreground">{plan.price}</p>
+              <p class="mt-1 text-sm text-brand-muted">{plan.cadence}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <article class="card-base mt-8 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold text-brand-foreground">How billing works</h2>
+        <p class="mt-4 text-brand-muted">
+          Download is free. The 14-day trial starts at account registration. After the trial, premium access requires an active subscription unless another entitlement applies to your account.
+        </p>
+        <p class="mt-4 text-brand-muted">
+          The Android website edition uses Paystack checkout. Kota-OS shows the selected plan and price before payment, and subscription status is reconciled securely by the Kota-OS backend and JuveniQ webhook service.
+        </p>
+        <p class="mt-4 text-brand-muted">
+          One account may link up to three active devices, but sales, menu and inventory records are stored locally and do not sync between operating devices. Use one operating device per shop and save business backups regularly.
+        </p>
+        <a href="/download" class="btn-primary mt-6 inline-flex">Download Kota-OS for Android</a>
       </article>
     </div>
   </section>
-  <FinalCta title="Explore Kota-OS for your shop" subtitle="Get the Android edition when the verified installer is published." />
+
+  <FinalCta
+    title="Try Kota-OS in your shop"
+    subtitle="Download the Android website edition and use the 14-day trial before choosing a subscription."
+  />
 </BaseLayout>
