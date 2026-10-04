@@ -24,7 +24,8 @@ export const FEATURE_ITEMS: FeatureItem[] = [
     points: [
       "Multiple payment methods (Cash, Card, EFT)",
       "Custom ingredient add, remove, or extra",
-      "Order history and tracking"
+      "Order history and tracking",
+      "Print receipts for completed sales"
     ]
   },
   {
@@ -227,7 +228,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "pricing",
     question: "Is Kota-OS free to use?",
     answer:
-      "The app has a 14-day trial. After that, continued premium access requires a plan; see the options shown in your app before making a purchase."
+      "The app has a 14-day trial. The first 10 eligible customers can access Early Adopter pricing of R25 weekly, R89 monthly or R890 yearly. Standard pricing is R45 weekly, R165 monthly or R1,650 yearly."
   },
   {
     id: "devices",
@@ -238,7 +239,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "receipt",
     question: "Can Kota-OS print receipts?",
     answer:
-      "Receipt printing is in active development and will be released in an upcoming update."
+      "Yes. Kota-OS v1.0.5 can print receipts for completed sales, including shop details, purchased items, customizations, payment information and totals."
   },
   {
     id: "cloud",
