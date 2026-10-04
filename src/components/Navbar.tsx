@@ -27,10 +27,8 @@ export default function Navbar({ items, currentPath, cta }: NavbarProps) {
     <header className="fixed inset-x-0 top-0 z-[1000] border-b border-brand-border/60 bg-white/85 backdrop-blur-md">
       <div className="container-wide flex min-h-[72px] items-center justify-between py-3">
         <a href="/" className="focus-ring flex items-center gap-3 rounded-lg">
-          <span className="app-icon h-11 w-11 rounded-xl" aria-hidden="true"><picture>
-            <source srcSet="/logo.webp" type="image/webp" />
-            <img src="/logo.jpeg" alt="" width="44" height="44" />
-          </picture></span>
+          <span className="app-icon h-11 w-11 rounded-xl" aria-hidden="true"><picture>            <img src="/logo.jpeg" alt="" width="44" height="44" />
+          </span>
           <span className="font-heading text-xl font-bold text-brand-primary">Kota-OS</span>
         </a>
 
