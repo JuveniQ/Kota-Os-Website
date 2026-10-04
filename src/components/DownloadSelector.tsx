@@ -8,38 +8,26 @@ type Props = {
   latestVersion: string;
 };
 
+function installerLabel(installer: Installer): string {
+  return installer.abi === "arm64-v8a"
+    ? "Most Android phones (64-bit)"
+    : "Older Android phones (32-bit)";
+}
+
 export default function DownloadSelector({ versions, latestVersion }: Props) {
   const [selectedVersion, setSelectedVersion] = useState(latestVersion);
   const [status, setStatus] = useState<"idle" | "checking" | "downloading">("idle");
   const [selectedInstaller, setSelectedInstaller] = useState<Installer | null>(null);
+  const [needsChoice, setNeedsChoice] = useState(false);
 
   const release = useMemo(
     () => versions.find((item) => item.version === selectedVersion) ?? versions[0],
     [selectedVersion, versions]
   );
 
-  const defaultInstaller =
-    release?.artifacts.find((item) => item.abi === "arm64-v8a") ??
-    release?.artifacts[0] ??
-    null;
-
-  async function downloadForDevice() {
-    if (!release || status === "checking") return;
-
-    setStatus("checking");
-
-    const detectedAbi = await detectAndroidAbi(navigator);
-    const detectedInstaller = detectedAbi
-      ? release.artifacts.find((item) => item.abi === detectedAbi)
-      : null;
-    const installer = detectedInstaller ?? defaultInstaller;
-
-    if (!installer) {
-      setStatus("idle");
-      return;
-    }
-
+  function startDownload(installer: Installer) {
     setSelectedInstaller(installer);
+    setNeedsChoice(false);
     setStatus("downloading");
 
     const anchor = document.createElement("a");
@@ -51,6 +39,27 @@ export default function DownloadSelector({ versions, latestVersion }: Props) {
     anchor.remove();
 
     window.setTimeout(() => setStatus("idle"), 1200);
+  }
+
+  async function downloadForDevice() {
+    if (!release || status === "checking") return;
+
+    setNeedsChoice(false);
+    setStatus("checking");
+
+    const detectedAbi = await detectAndroidAbi(navigator);
+    const installer = detectedAbi
+      ? release.artifacts.find((item) => item.abi === detectedAbi)
+      : null;
+
+    if (!installer) {
+      setStatus("idle");
+      setSelectedInstaller(null);
+      setNeedsChoice(true);
+      return;
+    }
+
+    startDownload(installer);
   }
 
   if (!release) return null;
@@ -69,6 +78,7 @@ export default function DownloadSelector({ versions, latestVersion }: Props) {
             onChange={(event) => {
               setSelectedVersion(event.target.value);
               setSelectedInstaller(null);
+              setNeedsChoice(false);
             }}
             className="focus-ring min-h-14 w-full appearance-none rounded-2xl border-2 border-brand-primary bg-white px-5 py-3 text-lg font-extrabold text-brand-foreground shadow-sm"
             aria-label="Choose Kota-OS version"
@@ -96,8 +106,30 @@ export default function DownloadSelector({ versions, latestVersion }: Props) {
         </div>
 
         <p className="mt-3 text-sm leading-relaxed text-brand-muted">
-          We automatically choose the installer that matches your Android phone. If your browser does not report the device type, Kota-OS uses the standard Android installer.
+          Kota-OS uses Android browser hints to select the matching installer when they are available. If your browser does not expose enough device information, we will ask you to choose instead of silently guessing.
         </p>
+
+        {needsChoice ? (
+          <div className="mt-5 rounded-2xl border border-brand-border bg-white p-4">
+            <p className="font-bold text-brand-foreground">Choose the installer for your phone</p>
+            <p className="mt-1 text-sm leading-relaxed text-brand-muted">
+              Most current Android phones use the 64-bit installer. The 32-bit option is for older Android devices.
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              {release.artifacts.map((installer) => (
+                <button
+                  key={installer.abi}
+                  type="button"
+                  onClick={() => startDownload(installer)}
+                  className="rounded-2xl border-2 border-brand-primary/30 bg-brand-primary/5 px-4 py-4 text-left transition hover:border-brand-primary"
+                >
+                  <span className="block font-bold text-brand-foreground">{installerLabel(installer)}</span>
+                  <span className="mt-1 block text-xs text-brand-muted">{installer.abi}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       <div className="mt-5 rounded-2xl border border-brand-border bg-brand-background p-5">
