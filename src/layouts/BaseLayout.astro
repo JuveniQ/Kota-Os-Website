@@ -13,6 +13,7 @@ type Props = {
   description?: string;
   path?: string;
   image?: string;
+  imageAlt?: string;
   keywords?: string[];
   jsonLd?: unknown[];
 };
@@ -20,7 +21,8 @@ type Props = {
 const {
   title = SITE_META.title,
   description = SITE_META.description,
-  image = "/logo.jpeg",
+  image = "/20261004-201410.926-8.jpg",
+  imageAlt = "Kota-OS v1.0.5 home dashboard showing sales, active orders, low-stock status and quick order actions",
   keywords = SITE_META.keywords,
   path = Astro.url.pathname,
   jsonLd = []
@@ -52,10 +54,14 @@ const canonical = canonicalUrl(path);
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={canonicalUrl(image)} />
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={canonicalUrl(image)} />
+    <meta property="og:image:secure_url" content={canonicalUrl(image)} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={canonicalUrl(image)} />
+    <meta name="twitter:image:alt" content={imageAlt} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
