@@ -59,10 +59,10 @@ export default function Hero({ metrics }: HeroProps) {
           <div className="rounded-[38px] border-[7px] border-zinc-900 bg-zinc-900 p-2 shadow-[0_24px_64px_rgba(40,26,12,0.26)]">
             <div className="overflow-hidden rounded-[24px] bg-white">
               <img
-                src="/20261004-201410.926-8.jpg"
-                alt="Kota-OS v1.0.5 home dashboard showing sales, active orders, low-stock status and order actions"
-                width={717}
-                height={1563}
+                src="/screenshots/home.jpg"
+                alt="Kota-OS dashboard showing sales, low stock alerts, recent orders and quick actions"
+                width={1080}
+                height={2316}
                 className="block h-auto w-full"
                 fetchPriority="high"
                 loading="eager"

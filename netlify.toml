@@ -4,3 +4,9 @@
 for = "/*"
 [headers.values]
 X-Content-Type-Options = "nosniff"
+
+# The app's error screen links here (kota-os_dev-env GlobalErrorBoundary).
+[[redirects]]
+from = "/support"
+to = "/contact"
+status = 301

@@ -182,7 +182,9 @@ export default function DownloadSelector({ versions, latestVersion }: Props) {
 
       <noscript>
         <p className="mt-4 text-sm text-brand-muted">
-          JavaScript is required to select the correct Android installer automatically.
+          Automatic installer selection needs JavaScript. Use the{" "}
+          <a href="#direct-downloads" className="font-semibold text-brand-primary underline">direct download links</a>{" "}
+          below instead.
         </p>
       </noscript>
     </div>

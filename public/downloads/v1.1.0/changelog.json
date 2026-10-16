@@ -1,0 +1,34 @@
+{
+  "version": "1.1.0",
+  "date": "2026-10-17",
+  "summary": "Tablet release with dedicated layouts for larger screens, in-app update alerts, clearer stock adjustments, and error reports with reference codes for faster support.",
+  "features": [
+    "Dedicated tablet experience with a side navigation rail and a New sale shortcut.",
+    "Orders, inventory and menu management show the list and the selected item side by side on tablets.",
+    "Multi-column reports and settings make better use of larger screens and landscape mode.",
+    "Kota-OS checks for new versions and shows an update reminder on the first open of each day.",
+    "Settings shows when an update is available, with a button that opens the download page.",
+    "Smaller improvements download quietly in the background and apply the next time Kota-OS opens.",
+    "Clearer stock adjustments: choose Restock, Count stock or Record waste and see the stock level before and after saving.",
+    "Error reports are stored with a reference code so support can find your report quickly.",
+    "If Kota-OS runs into a problem, the error screen lets you download the error report and your recent orders."
+  ],
+  "fixes": [
+    "Larger touch targets across sales, reports, settings, management and alerts.",
+    "Inventory edits are kept when the device is rotated.",
+    "Corrected the tablet sales grid sizing and navigation label placement.",
+    "Stock status badges and highlighted cards now show their labels clearly.",
+    "Early Adopter pricing slots are kept after an account is deleted.",
+    "Various stability and layout improvements."
+  ],
+  "artifacts": [
+    {
+      "abi": "arm64-v8a",
+      "fileName": "kota-os-1.1.0-arm64-v8a.apk"
+    },
+    {
+      "abi": "armeabi-v7a",
+      "fileName": "kota-os-1.1.0-armeabi-v7a.apk"
+    }
+  ]
+}

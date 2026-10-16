@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { SITE_URL } from "./site-config";
 
 export type Installer = {
   abi: "arm64-v8a" | "armeabi-v7a";
@@ -26,8 +27,32 @@ const ROOT = new URL("../../public/downloads/", import.meta.url);
 const DOWNLOAD_BASE_URL = "https://kotaos.juveniq.co.za/downloads/";
 const SHA256 = /^[a-f\d]{64}$/i;
 const VERSION = /^\d+\.\d+\.\d+$/;
-const FILE_NAME = /^kota-os-website-(?:arm64-v8a|armeabi-v7a)\.apk$/;
 const ABIS = ["arm64-v8a", "armeabi-v7a"] as const;
+/** From this release on, installer names carry the version (kota-os-1.1.0-arm64-v8a.apk). */
+const VERSIONED_FILE_NAMES_SINCE = "1.1.0";
+
+function compareVersions(a: string, b: string): number {
+  const aa = a.split(".").map(Number);
+  const bb = b.split(".").map(Number);
+  for (let i = 0; i < 3; i++) if (aa[i] !== bb[i]) return aa[i] - bb[i];
+  return 0;
+}
+
+/** Earlier releases keep their published kota-os-website-<abi>.apk URLs. */
+function expectedFileName(version: string, abi: string): string {
+  return compareVersions(version, VERSIONED_FILE_NAMES_SINCE) >= 0
+    ? `kota-os-${version}-${abi}.apk`
+    : `kota-os-website-${abi}.apk`;
+}
+
+/**
+ * Site-hosted APKs get root-relative links so deploy previews serve their own
+ * copies instead of production URLs that may not exist yet. An external
+ * download host keeps its absolute URL.
+ */
+function downloadHref(url: URL): string {
+  return url.origin === new URL(SITE_URL).origin ? url.pathname : url.href;
+}
 
 function record(value: unknown, name: string): asserts value is Record<string, unknown> {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
@@ -79,9 +104,9 @@ function parseVersion(value: unknown, version: string, baseUrl: URL, root: URL):
     }
     seen.add(raw.abi as string);
 
-    if (typeof raw.fileName !== "string" || !FILE_NAME.test(raw.fileName) ||
-      raw.fileName !== `kota-os-website-${raw.abi}.apk`) {
-      throw new Error(`Invalid ${version} installer metadata`);
+    const expected = expectedFileName(version, raw.abi as string);
+    if (raw.fileName !== expected) {
+      throw new Error(`Invalid ${version} installer metadata: expected fileName ${expected}`);
     }
 
     if (raw.signingCertSha256 !== undefined &&
@@ -106,7 +131,7 @@ function parseVersion(value: unknown, version: string, baseUrl: URL, root: URL):
       signingCertSha256: typeof raw.signingCertSha256 === "string"
         ? raw.signingCertSha256.toUpperCase()
         : undefined,
-      url: new URL(`v${version}/${raw.fileName}`, baseUrl).href,
+      url: downloadHref(new URL(`v${version}/${raw.fileName}`, baseUrl)),
     };
   });
 
@@ -141,13 +166,7 @@ export function loadReleaseCatalog(root: URL = ROOT): ReleaseCatalog {
   const baseUrl = new URL(index.downloadBaseUrl);
   const versions = (index.versions as string[]).map((version) =>
     parseVersion(readJson(new URL(`v${version}/changelog.json`, root)), version, baseUrl, root));
-  const compare = (a: string, b: string) => {
-    const aa = a.split(".").map(Number);
-    const bb = b.split(".").map(Number);
-    for (let i = 0; i < 3; i++) if (aa[i] !== bb[i]) return aa[i] - bb[i];
-    return 0;
-  };
-  if (versions.some((current, i) => i > 0 && compare(current.version, versions[i - 1].version) >= 0)) {
+  if (versions.some((current, i) => i > 0 && compareVersions(current.version, versions[i - 1].version) >= 0)) {
     throw new Error("Download versions must be newest first");
   }
 
