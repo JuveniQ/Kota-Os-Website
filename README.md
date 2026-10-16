@@ -1,6 +1,6 @@
 # Kota-OS product website
 
-Astro product site for Kota-OS. The Android download page uses a versioned release catalog and presents one selected APK with file information derived from the actual release file.
+Astro product site for Kota-OS. The Android download page uses a versioned release catalog and presents one main download (arm64-v8a) plus a "Using an older phone?" link (armeabi-v7a), with file information derived from the actual release files.
 
 ## Local checks
 
