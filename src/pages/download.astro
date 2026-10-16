@@ -37,7 +37,24 @@ const { latest, versions } = loadReleaseCatalog();
         </div>
 
         {latest ? (
-          <DownloadSelector client:load versions={versions} latestVersion={latest.version} />
+          <>
+            <DownloadSelector client:load versions={versions} latestVersion={latest.version} />
+            <div id="direct-downloads" class="mt-5 rounded-2xl border border-brand-border bg-white p-5">
+              <p class="font-bold text-brand-foreground">Direct download links</p>
+              <p class="mt-1 text-sm text-brand-muted">Use these if the button above does not work. Most current phones need the 64-bit installer.</p>
+              <ul class="mt-4 grid gap-3 sm:grid-cols-2">
+                {latest.artifacts.map((installer) => (
+                  <li>
+                    <a href={installer.url} download={installer.fileName} class="block rounded-2xl border-2 border-brand-primary/30 bg-brand-primary/5 px-4 py-4 transition hover:border-brand-primary">
+                      <span class="block font-bold text-brand-foreground">{installer.abi === "arm64-v8a" ? "Most Android phones (64-bit)" : "Older Android phones (32-bit)"}</span>
+                      <span class="mt-1 block text-xs text-brand-muted">{installer.abi} · {installer.sizeLabel}</span>
+                      <span class="mt-1 block break-all font-mono text-[11px] text-brand-muted">SHA-256 {installer.sha256}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </>
         ) : (
           <div class="mt-6 rounded-2xl border border-brand-border bg-brand-background p-5">
             <p class="font-semibold text-brand-foreground">Installer coming soon</p>
@@ -96,6 +113,15 @@ const { latest, versions } = loadReleaseCatalog();
               <h3 class="mt-2 text-lg font-bold text-brand-foreground">{release.summary}</h3>
               <p class="mt-3 text-sm text-brand-muted">Features: {release.features.join(", ") || "—"}</p>
               <p class="mt-2 text-sm text-brand-muted">Fixes: {release.fixes.join(", ") || "—"}</p>
+              {release.artifacts.length > 0 && (
+                <p class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                  {release.artifacts.map((installer) => (
+                    <a class="font-semibold text-brand-primary underline" href={installer.url} download={installer.fileName}>
+                      Download {installer.abi === "arm64-v8a" ? "64-bit" : "32-bit"} ({installer.sizeLabel})
+                    </a>
+                  ))}
+                </p>
+              )}
               <a class="mt-3 inline-block text-sm font-semibold text-brand-primary underline" href={`/downloads/v${release.version}/changelog.json`}>View changelog JSON</a>
             </article>
           ))}

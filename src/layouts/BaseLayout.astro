@@ -15,6 +15,7 @@ type Props = {
   image?: string;
   keywords?: string[];
   jsonLd?: unknown[];
+  noindex?: boolean;
 };
 
 const {
@@ -23,7 +24,8 @@ const {
   image = "/logo.jpeg",
   keywords = SITE_META.keywords,
   path = Astro.url.pathname,
-  jsonLd = []
+  jsonLd = [],
+  noindex = false
 } = Astro.props;
 
 const canonical = canonicalUrl(path);
@@ -37,9 +39,9 @@ const canonical = canonicalUrl(path);
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords.join(", ")} />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow"} />
     <meta name="theme-color" content="#F59E0B" />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />

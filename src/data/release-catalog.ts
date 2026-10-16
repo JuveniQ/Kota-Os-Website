@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
 import { readFileSync } from "node:fs";
+import { SITE_URL } from "./site-config";
 
 export type Installer = {
   abi: "arm64-v8a" | "armeabi-v7a";
@@ -42,6 +43,15 @@ function expectedFileName(version: string, abi: string): string {
   return compareVersions(version, VERSIONED_FILE_NAMES_SINCE) >= 0
     ? `kota-os-${version}-${abi}.apk`
     : `kota-os-website-${abi}.apk`;
+}
+
+/**
+ * Site-hosted APKs get root-relative links so deploy previews serve their own
+ * copies instead of production URLs that may not exist yet. An external
+ * download host keeps its absolute URL.
+ */
+function downloadHref(url: URL): string {
+  return url.origin === new URL(SITE_URL).origin ? url.pathname : url.href;
 }
 
 function record(value: unknown, name: string): asserts value is Record<string, unknown> {
@@ -121,7 +131,7 @@ function parseVersion(value: unknown, version: string, baseUrl: URL, root: URL):
       signingCertSha256: typeof raw.signingCertSha256 === "string"
         ? raw.signingCertSha256.toUpperCase()
         : undefined,
-      url: new URL(`v${version}/${raw.fileName}`, baseUrl).href,
+      url: downloadHref(new URL(`v${version}/${raw.fileName}`, baseUrl)),
     };
   });
 
