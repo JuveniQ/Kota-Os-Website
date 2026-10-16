@@ -11,7 +11,7 @@ export function canonicalUrl(path: string) {
   return normalized === "/" ? SITE_URL : `${SITE_URL}${normalized}`;
 }
 
-export function softwareApplicationSchema(path: string) {
+export function softwareApplicationSchema(path: string, softwareVersion?: string) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -21,13 +21,15 @@ export function softwareApplicationSchema(path: string) {
     operatingSystem: "Android",
     description: SITE_META.description,
     url: canonicalUrl(path),
+    downloadUrl: `${SITE_URL}/download`,
+    ...(softwareVersion ? { softwareVersion } : {}),
     offers: {
       "@type": "Offer",
       name: "14-Day Trial",
       price: "0",
       priceCurrency: "ZAR",
       url: `${SITE_URL}/download`,
-      description: "14-day trial begins at registration; the Android installer is listed on the download page when published."
+      description: "14-day trial begins at registration. Download the Android installer from the download page."
     }
   };
 }

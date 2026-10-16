@@ -37,8 +37,8 @@ export const FEATURE_ITEMS: FeatureItem[] = [
       "Map recipe ingredients to sales, record wastage and spot low stock before the next rush.",
     points: [
       "Recipe-level deductions on each sale",
-      "Waste and low-stock visibility",
-      "Detailed transaction logging"
+      "Restock, count stock or record waste with a before-and-after preview",
+      "Waste and low-stock visibility"
     ]
   },
   {
@@ -88,102 +88,66 @@ export const HOW_IT_WORKS: StepItem[] = [
 
 export const SCREENSHOT_SLIDES: ScreenshotSlide[] = [
   {
-    id: "onboarding-welcome",
-    headline: "Built for Busy Food Businesses",
-    cta: "Download Kota-OS",
+    id: "dashboard",
+    headline: "Dashboard at a Glance",
+    cta: "Explore Dashboard",
     points: [
-      "Guided onboarding gets a new shop started without complex setup",
-      "Sales, stock and profit tools are introduced before configuration",
-      "Core shop operations remain available locally when connectivity drops after setup"
+      "Today's sales, orders and low-stock cards at the top",
+      "New Order and Inventory shortcuts one tap away",
+      "Complete or cancel today's orders straight from the list"
     ],
-    imageSrc: "/20261004-201410.926-5.jpg",
+    imageSrc: "/screenshots/home.jpg",
     imageAlt:
-      "Kota-OS onboarding welcome screen introducing sales, stock control and profit insight for food businesses"
+      "Kota-OS home dashboard showing today's sales, orders and low-stock cards, New Order and Inventory shortcuts, and today's orders with Complete and Cancel buttons"
   },
   {
-    id: "shop-setup",
-    headline: "Set Up Your Shop Your Way",
+    id: "orders",
+    headline: "Track Every Order, Day or Night",
+    cta: "See Order Tracking",
     points: [
-      "Choose the business type that best matches the shop",
-      "Start quickly with the recommended Kota Starter Setup",
-      "Experienced operators can start blank and build their own menu and stock structure"
+      "Grid, card and list views for today's orders",
+      "Search and filter orders by status",
+      "Dark mode for evening trading"
     ],
-    imageSrc: "/20261004-201410.926-4.jpg",
+    imageSrc: "/screenshots/home-dark.jpg",
     imageAlt:
-      "Kota-OS shop setup screen with business type choices and starter or blank setup options"
-  },
-  {
-    id: "account-verification",
-    headline: "Secure Account Verification",
-    points: [
-      "Verify ownership before the account is used on a shop device",
-      "Email verification is available directly during onboarding",
-      "Clear verification steps keep account setup understandable"
-    ],
-    imageSrc: "/20261004-201410.926-7.jpg",
-    imageAlt:
-      "Kota-OS account verification screen showing email verification during onboarding"
-  },
-  {
-    id: "orders-dashboard",
-    headline: "Run Today’s Orders from One Screen",
-    cta: "Try Kota-OS",
-    points: [
-      "See sales, active orders and low-stock status at a glance",
-      "Start a new order or jump to inventory with one tap",
-      "Complete or cancel active orders directly from the order list"
-    ],
-    imageSrc: "/20261004-201410.926-8.jpg",
-    imageAlt:
-      "Kota-OS home screen showing daily sales, active orders, low-stock status and order actions"
-  },
-  {
-    id: "dark-dashboard",
-    headline: "Comfortable in Light or Dark",
-    points: [
-      "Dark mode keeps the same operational dashboard and shortcuts",
-      "Sales, order and low-stock information stays visible during service",
-      "Responsive layouts remain focused on fast daily shop work"
-    ],
-    imageSrc: "/20261004-201410.926-3.jpg",
-    imageAlt:
-      "Kota-OS home dashboard in dark mode with sales, orders, low-stock status and order cards"
-  },
-  {
-    id: "inventory",
-    headline: "Inventory You Can Act On",
-    points: [
-      "See total items, low-stock and out-of-stock counts immediately",
-      "Search ingredients and filter by stock health",
-      "Review current stock, reorder levels and recent restock dates per ingredient"
-    ],
-    imageSrc: "/20261004-201410.926-6.jpg",
-    imageAlt:
-      "Kota-OS inventory screen showing stock summary cards, ingredient search, filters and reorder information"
+      "Kota-OS home screen in dark mode showing sales and order totals and today's orders as cards with their status"
   },
   {
     id: "manage",
-    headline: "Keep Menu and Stock Setup Organised",
+    headline: "Menu and Stock Setup in One Place",
     points: [
-      "Manage menu items and ingredients from one clear workspace",
-      "See item and ingredient counts before opening a management area",
-      "Keep catalogue maintenance separate from the service workflow"
+      "Menu items and categories at a glance",
+      "Ingredient list with a stock health summary",
+      "Manage tab keeps catalogue updates organised"
     ],
-    imageSrc: "/20261004-201410.926-1.jpg",
+    imageSrc: "/screenshots/manage.jpg",
     imageAlt:
-      "Kota-OS Manage screen with menu and ingredient management cards"
+      "Kota-OS Manage screen with Menu showing 16 items in 2 categories and Ingredients showing 14 ingredients with healthy stock"
+  },
+  {
+    id: "shop-setup",
+    headline: "Set Up Your Shop in Minutes",
+    points: [
+      "Choose your business type: kota shop, takeaway, shisanyama, food trailer or other",
+      "Start with a ready-made kota menu and common ingredients",
+      "Or start blank and build your own menu and stock"
+    ],
+    imageSrc: "/screenshots/shop-setup.jpg",
+    imageAlt:
+      "Kota-OS shop setup screen with a shop name field, business type choices and the Kota Starter Setup option"
   },
   {
     id: "reports",
-    headline: "Reports Built for Daily Decisions",
+    headline: "Professional Reports",
     points: [
-      "Switch between daily, weekly and monthly reporting periods",
-      "Review total sales, order count and average order value",
-      "Export reports to PDF directly from the reporting screen"
+      "Daily, weekly, and monthly views are available",
+      "Total sales, order count and average order value",
+      "Export PDF action is accessible directly in reports"
     ],
-    imageSrc: "/20261004-201410.926-2.jpg",
+    imageSrc: "/screenshots/reports.jpg",
     imageAlt:
-      "Kota-OS reports screen showing daily summary metrics and PDF export"
+      "Kota-OS reports screen with Summary and Orders tabs, daily, weekly and monthly views, total sales, orders and average order, and an Export PDF button"
   }
 ];
 
@@ -275,7 +239,19 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "receipt",
     question: "Can Kota-OS print receipts?",
     answer:
-      "Yes. Kota-OS v1.0.5 can print receipts for completed sales, including shop details, purchased items, customizations, payment information and totals."
+      "Yes. Kota-OS can print receipts for completed sales, including shop details, purchased items, customizations, payment information and totals."
+  },
+  {
+    id: "tablets",
+    question: "Does Kota-OS work on tablets?",
+    answer:
+      "Yes. From version 1.1.0, Android tablets get a dedicated layout with side navigation, orders and stock shown side by side with their details, and multi-column reports and settings. Phones keep the familiar layout."
+  },
+  {
+    id: "updates",
+    question: "How do I update Kota-OS?",
+    answer:
+      "Kota-OS checks for new versions and shows a reminder on the first open of each day. Tap Update, or open Settings and use the update card, to reach the download page for the new installer. Your shop data stays on the device when you install over the existing app. Smaller improvements download automatically and apply the next time you open Kota-OS."
   },
   {
     id: "cloud",
@@ -287,7 +263,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: "support-community",
     question: "What support is available?",
     answer:
-      "Contact support@juveniq.co.za or use the WhatsApp link on this site for installation, backup and account help."
+      "Contact support@juveniq.co.za or use the WhatsApp link on this site for installation, backup and account help. If the app shows an error screen, include the reference code it displays so we can find your report quickly."
   }
 ];
 

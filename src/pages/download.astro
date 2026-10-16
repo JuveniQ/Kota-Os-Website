@@ -14,7 +14,7 @@ const { latest, versions } = loadReleaseCatalog();
   title="Download Kota-OS for Android | Official Installer"
   description="Download the official Kota-OS Android app. Choose a version and Kota-OS will automatically select the right installer for your phone."
   path="/download"
-  jsonLd={[softwareApplicationSchema("/download"), organizationSchema()]}
+  jsonLd={[softwareApplicationSchema("/download", latest?.version), organizationSchema()]}
 >
   <PageHero
     title="Download Kota-OS"
